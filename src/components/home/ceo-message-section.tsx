@@ -23,7 +23,7 @@ export function CeoMessageSection() {
             </header>
             <div className="space-y-5 text-base leading-[1.8] text-muted-foreground sm:text-[1.0625rem]">
               <p>
-                We at Gulbahar Investment have always been focusing on excellent services to give a good taste to our customers. Our history is indicating pioneering in establishing such services. Our projects are designed by team of experts and run by professionals to deliver our targeted quality products and services. We always try to give competitive products and services to our customers.
+                We at Gulbahar Investment have always been focusing on excellent services to give a good taste to our customers. Our history shows pioneering leadership in establishing such services. Our projects are designed by teams of experts and run by professionals to deliver our targeted quality products and services. We always try to give competitive products and services to our customers.
               </p>
             </div>
             <footer className="border-t border-border/70 pt-8">

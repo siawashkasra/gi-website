@@ -12,7 +12,7 @@ export function OurCompaniesSection() {
           align="center"
           eyebrow="Portfolio"
           title="Our Companies"
-          description="Development, industry, and energy under one disciplined investment platform."
+          description="Gulbahar Investment is part of the Gulbahar Group of Companies, registered with the Ministry of Commerce and Industries — spanning development, industry, and energy."
           className="mx-auto max-w-xl"
         />
         <OurCompaniesGrid />

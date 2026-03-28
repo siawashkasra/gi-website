@@ -17,7 +17,7 @@ export function ContactSection({ showHeading = true, className }: ContactSection
       {showHeading ? (
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <div>
-            <SectionHeading eyebrow="Contact" title="Begin a private conversation" description="Share your objectives and a director will respond to qualified inquiries." />
+            <SectionHeading eyebrow="Contact" title="Get in touch" description="Reach us by phone, email, or the form below — we respond to serious inquiries regarding projects, partnerships, and services." />
             <dl className="mt-12 space-y-6 text-sm">
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Address</dt>
@@ -33,9 +33,12 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               </div>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Phone</dt>
-                <dd className="mt-1">
-                  <a href={contact.telHref} className="text-primary underline-offset-4 hover:underline">
-                    {contact.phoneDisplay}
+                <dd className="mt-1 space-y-1">
+                  <a href={contact.telLandlineHref} className="block text-primary underline-offset-4 hover:underline">
+                    {contact.phoneLandlineDisplay}
+                  </a>
+                  <a href={contact.telHref} className="block text-primary underline-offset-4 hover:underline">
+                    Mobile · {contact.phoneDisplay}
                   </a>
                 </dd>
               </div>

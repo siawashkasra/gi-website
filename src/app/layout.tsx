@@ -28,7 +28,7 @@ const jsonLd = {
   description: siteConfig.description,
   url: siteConfig.url,
   email: siteConfig.email,
-  telephone: siteConfig.phone,
+  telephone: `${siteConfig.phoneLandline}, ${siteConfig.phone}`,
   address: { "@type": "PostalAddress", streetAddress: siteConfig.address, addressCountry: "AF" },
 };
 

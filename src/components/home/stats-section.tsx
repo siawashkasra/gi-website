@@ -43,7 +43,7 @@ export function StatsSection() {
           align="center"
           eyebrow="Achievements"
           title="Impact at a glance"
-          description="Numbers that reflect our role in housing, commerce, and employment across Afghanistan."
+          description="We have provided thousands of Afghans with jobs and helped build skills that serve communities — alongside housing, commerce, and major infrastructure."
           className="mx-auto max-w-2xl"
         />
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
@@ -56,7 +56,7 @@ export function StatsSection() {
           <StatBlock icon={CalendarDays} label="Established since" sublabel="Nearly two decades of continuous operations">
             <AnimatedCounter start={2000} end={2006} durationMs={1400} />
           </StatBlock>
-          <StatBlock icon={UsersRound} label="Thousands of jobs created" sublabel="Direct employment, training, and contractor networks">
+          <StatBlock icon={UsersRound} label="Livelihoods supported" sublabel="Employment, training, and contractor networks across our projects">
             <AnimatedCounter end={3000} suffix="+" durationMs={2600} />
           </StatBlock>
         </div>

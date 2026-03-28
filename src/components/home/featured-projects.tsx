@@ -14,7 +14,7 @@ export function FeaturedProjects() {
           <SectionHeading
             eyebrow="Featured"
             title="Featured projects"
-            description="Handpicked developments showcasing our commitment to design, location, and lasting value across Kabul and the region."
+            description="Landmark developments including Gulbahar Center, Gulbahar Towers, Gulbahar Plaza, Gulbahar Power, and Gulbahar Cement — built for lasting value across Kabul and the region."
             className="max-w-xl"
           />
           <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="h-9 shrink-0 self-start border-primary/20 px-5 text-xs font-semibold uppercase tracking-[0.18em] hover:border-primary/40 hover:bg-primary/5 md:self-auto">

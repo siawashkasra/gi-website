@@ -28,6 +28,16 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/jobs" className="text-background/75 transition-colors hover:text-background">
+                  Jobs
+                </Link>
+              </li>
+              <li>
+                <Link href="/complaint" className="text-background/75 transition-colors hover:text-background">
+                  Complaint
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="text-background/75 transition-colors hover:text-background">
                   Contact
                 </Link>
@@ -56,6 +66,10 @@ export function SiteFooter() {
                 {contact.email}
               </a>
               <span className="text-background/40">·</span>
+              <a href={contact.telLandlineHref} className="underline-offset-4 hover:underline">
+                {contact.phoneLandlineDisplay}
+              </a>
+              <span className="text-background/40">·</span>
               <a href={contact.telHref} className="underline-offset-4 hover:underline">
                 {contact.phoneDisplay}
               </a>
@@ -65,7 +79,9 @@ export function SiteFooter() {
               </a>
             </p>
           </div>
-          <p className="text-xs text-background/50">© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <p className="text-xs text-background/50">
+            © {new Date().getFullYear()} {siteConfig.name}
+          </p>
         </div>
       </div>
     </footer>

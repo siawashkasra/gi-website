@@ -45,6 +45,12 @@ export function SiteHeader() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+          <Link href="/jobs" className={`${navLinkClass} rounded-lg px-3 py-2`}>
+            Jobs
+          </Link>
+          <Link href="/complaint" className={`${navLinkClass} rounded-lg px-3 py-2`}>
+            Complaint
+          </Link>
           <Link href="/contact" className={`${navLinkClass} rounded-lg px-3 py-2`}>
             Contact
           </Link>
@@ -74,6 +80,12 @@ export function SiteHeader() {
                   {p.name}
                 </Link>
               ))}
+              <Link href="/jobs" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
+                Jobs
+              </Link>
+              <Link href="/complaint" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
+                Complaint
+              </Link>
               <Link href="/contact" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
                 Contact
               </Link>

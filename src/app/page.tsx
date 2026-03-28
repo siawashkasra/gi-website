@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { MissionSection } from "@/components/home/mission-section";
 import { VisionSection } from "@/components/home/vision-section";
 import { OurCompaniesSection } from "@/components/home/our-companies-section";
+import { TeamSection } from "@/components/home/team-section";
 import { StatsSection } from "@/components/home/stats-section";
 import { ValuesSection } from "@/components/home/values-section";
 import { siteConfig } from "@/lib/site";
@@ -26,6 +27,7 @@ export default function HomePage() {
       <MissionSection />
       <VisionSection />
       <CeoMessageSection />
+      <TeamSection />
       <OurCompaniesSection />
       <StatsSection />
       <ValuesSection />
