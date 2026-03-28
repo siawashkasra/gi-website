@@ -1,3 +1,4 @@
+import { designClasses } from "@/lib/design-system";
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
@@ -12,10 +13,10 @@ type SectionHeadingProps = {
 export function SectionHeading({ eyebrow, title, description, align = "left", className, id }: SectionHeadingProps) {
   return (
     <div className={cn(align === "center" && "mx-auto max-w-2xl text-center", className)}>
-      {eyebrow ? (
-        <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">{eyebrow}</p>
-      ) : null}
-      <h2 id={id} className="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">{title}</h2>
+      {eyebrow ? <p className={cn(designClasses.eyebrow, "mb-3")}>{eyebrow}</p> : null}
+      <h2 id={id} className={designClasses.headingXl}>
+        {title}
+      </h2>
       {description ? <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p> : null}
     </div>
   );

@@ -6,8 +6,8 @@ const imageSrc = "https://images.unsplash.com/photo-1497366216548-37526070297c?w
 
 export function AboutSection() {
   return (
-    <section className="border-b border-border/60 bg-background py-20 sm:py-28" aria-labelledby="about-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="ds-section border-b border-border/60 bg-background" aria-labelledby="about-heading">
+      <div className="ds-container">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted shadow-[0_24px_48px_-20px_rgba(0,0,0,0.2)] ring-1 ring-border/60 sm:aspect-[3/4] lg:aspect-[4/5]">

@@ -35,9 +35,9 @@ function StatBlock({ icon: Icon, children, label, sublabel, className }: StatBlo
 
 export function StatsSection() {
   return (
-    <section className="relative border-b border-border/60 py-20 sm:py-28" aria-labelledby="stats-heading">
+    <section className="ds-section relative border-b border-border/60" aria-labelledby="stats-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)/0.08,transparent)]" aria-hidden />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative ds-container">
         <SectionHeading
           id="stats-heading"
           align="center"

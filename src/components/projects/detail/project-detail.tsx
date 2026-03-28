@@ -71,7 +71,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/55 to-foreground/25" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_100%,rgba(0,0,0,0.55),transparent)]" aria-hidden />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/35 to-transparent" aria-hidden />
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-4 pb-16 pt-8 sm:px-6 sm:pb-20 sm:pt-10 lg:px-8">
+        <div className="relative z-10 ds-container flex h-full flex-col pb-16 pt-8 sm:pb-20 sm:pt-10">
           <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="w-fit border-white/35 bg-black/20 text-white backdrop-blur-md hover:bg-white/15 hover:text-white">
             <ArrowLeft className="mr-2 size-4" aria-hidden />
             All projects
@@ -88,7 +88,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </header>
       <section className="relative bg-background py-16 sm:py-20 lg:py-24" aria-labelledby="overview-heading">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="ds-container">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Overview</p>
@@ -131,7 +131,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         </div>
       </section>
       <section className="border-t border-border/60 bg-muted/20 py-16 sm:py-20" aria-labelledby="stats-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="ds-container">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Scale</p>
           <h2 id="stats-heading" className="mt-3 max-w-2xl font-serif text-3xl font-medium tracking-tight sm:text-4xl">
             Key statistics
@@ -144,12 +144,12 @@ export function ProjectDetail({ project }: { project: Project }) {
         </div>
       </section>
       <section className="bg-background py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="ds-container">
           <ProjectGallery images={project.gallery} projectName={project.name} />
         </div>
       </section>
       <section className="border-t border-border/60 bg-gradient-to-b from-muted/30 to-background py-16 sm:py-20" aria-labelledby="features-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="ds-container">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Experience</p>
           <h2 id="features-heading" className="mt-3 max-w-2xl font-serif text-3xl font-medium tracking-tight sm:text-4xl">
             Signature features
@@ -175,7 +175,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       {project.listings && project.listings.length > 0 ? <PropertyListingsSection projectName={project.name} listings={project.listings} /> : null}
       {hasUnits ? (
         <section className="border-t border-border/60 py-16 sm:py-20 lg:py-24" aria-labelledby="units-heading">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="ds-container">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Inventory</p>
             <h2 id="units-heading" className="mt-3 max-w-2xl font-serif text-3xl font-medium tracking-tight sm:text-4xl">
               Apartments, shops & offices
@@ -191,7 +191,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       ) : null}
       <section className="relative overflow-hidden bg-foreground py-20 text-background sm:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_0%,var(--color-primary)/0.2,transparent)]" aria-hidden />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative ds-container">
           <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Next step</p>

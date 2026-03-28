@@ -30,8 +30,8 @@ export function ProjectGallery({ images, projectName }: ProjectGalleryProps) {
     <div className="space-y-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Gallery</p>
-          <h2 className="mt-2 font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">On-site & atmosphere</h2>
+          <p className="text-eyebrow">Gallery</p>
+          <h2 className="text-heading-lg mt-2">On-site & atmosphere</h2>
         </div>
         <p className="max-w-md text-sm text-muted-foreground">Use arrows or thumbnails to explore. Keyboard ← → supported.</p>
       </div>

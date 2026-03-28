@@ -7,9 +7,9 @@ import { projects } from "@/data/projects";
 export function FeaturedProjects() {
   const featured = projects.slice(0, 3);
   return (
-    <section className="relative border-b border-border/60 bg-gradient-to-b from-muted/40 via-background to-muted/25 py-20 sm:py-28">
+    <section className="ds-section relative border-b border-border/60 bg-gradient-to-b from-muted/40 via-background to-muted/25">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" aria-hidden />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="ds-container">
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             eyebrow="Featured"

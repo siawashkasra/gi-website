@@ -7,7 +7,7 @@ import { projects } from "@/data/projects";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/80 bg-foreground text-background">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="ds-container py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <LogoMark variant="light" />

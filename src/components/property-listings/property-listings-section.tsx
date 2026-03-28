@@ -25,9 +25,9 @@ function parseNum(s: string): number | null {
 const availabilityOptions: (PropertyListingAvailability | "all")[] = ["all", "available", "reserved", "sold"];
 
 function availabilityStyles(a: PropertyListingAvailability) {
-  if (a === "available") return "border-emerald-600/25 bg-emerald-50 text-emerald-950";
-  if (a === "reserved") return "border-amber-600/30 bg-amber-50 text-amber-950";
-  if (a === "sold") return "border-border bg-neutral-200/90 text-neutral-800";
+  if (a === "available") return "border-primary/35 bg-primary/[0.1] text-foreground";
+  if (a === "reserved") return "border-foreground/15 bg-muted text-foreground";
+  if (a === "sold") return "border-border bg-foreground/[0.06] text-muted-foreground";
   return "border-border bg-muted/80 text-muted-foreground";
 }
 
@@ -64,10 +64,10 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
   };
   return (
     <section className="border-t border-border/60 bg-background py-16 sm:py-20 lg:py-24" aria-labelledby="listings-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="ds-container">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Listings</p>
+            <p className="text-eyebrow">Listings</p>
             <h2 id="listings-heading" className="mt-3 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
               Available units · {projectName}
             </h2>

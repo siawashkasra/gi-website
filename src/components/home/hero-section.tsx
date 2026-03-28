@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/75 via-black/25 to-amber-950/25 hero-overlay-pulse" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_120%_80%_at_50%_100%,rgba(180,140,60,0.12),transparent_55%)]" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.55)_100%)]" aria-hidden />
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8 lg:pb-28">
+      <div className="relative z-10 ds-container flex h-full flex-col justify-end pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pb-28">
         <div className="max-w-4xl">
           <p className="hero-animate hero-animate-delay-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.42em] text-primary sm:text-xs">
             Gulbahar Investment

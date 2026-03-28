@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="border-b border-border/60">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="ds-container py-16 sm:py-20">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <div>
             <SectionHeading eyebrow="Contact" title="Begin a private conversation" description="Share your objectives and a director will respond to qualified inquiries." />

@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 
 function statusStyles(status: string) {
   const s = status.toLowerCase();
-  if (s.includes("deliver")) return "border-emerald-600/20 bg-emerald-50 text-emerald-900";
-  if (s.includes("develop")) return "border-amber-600/25 bg-amber-50 text-amber-950";
-  if (s.includes("operat")) return "border-sky-600/20 bg-sky-50 text-sky-950";
+  if (s.includes("deliver")) return "border-primary/35 bg-primary/[0.1] text-foreground";
+  if (s.includes("develop")) return "border-foreground/12 bg-muted text-foreground";
+  if (s.includes("operat")) return "border-border bg-foreground/[0.06] text-foreground";
   return "border-border bg-muted/80 text-muted-foreground";
 }
 
