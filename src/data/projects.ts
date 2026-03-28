@@ -1,3 +1,5 @@
+import type { PropertyListing } from "@/lib/property-listings";
+
 export type ProjectType = "residential" | "commercial" | "mixed-use";
 
 export type ProjectTimelinePhase = { label: string; value: string };
@@ -41,6 +43,7 @@ export type Project = {
   keyStats: ProjectKeyStats;
   features: ProjectFeatureItem[];
   unitsInfo: ProjectUnitsInfo;
+  listings?: PropertyListing[];
 };
 
 export const projects: Project[] = [
@@ -83,6 +86,14 @@ export const projects: Project[] = [
       shops: { count: "85+", title: "Retail & F&B", subtitle: "From anchor units to boutique frontage along active arcades." },
       offices: { count: "42", title: "Office floors", subtitle: "Grade-A workspace with flexible floorplates and natural light." },
     },
+    listings: [
+      { id: "gc-a-12e", priceUsd: 198000, sizeSqm: 112, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80", label: "Tower A · 12 East" },
+      { id: "gc-a-09w", priceUsd: 245000, sizeSqm: 138, type: "apartment", availability: "reserved", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80", label: "Tower A · 09 West" },
+      { id: "gc-s-g12", priceUsd: 92000, sizeSqm: 48, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1555529908-51e7457bc3aa?w=900&q=80", label: "Ground · Arcade G12" },
+      { id: "gc-s-m03", priceUsd: 134000, sizeSqm: 72, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Mezzanine · M03" },
+      { id: "gc-a-22p", priceUsd: 312000, sizeSqm: 168, type: "apartment", availability: "sold", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80", label: "Penthouse · 22" },
+      { id: "gc-s-g08", priceUsd: 78000, sizeSqm: 38, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Ground · G08" },
+    ],
   },
   {
     slug: "gulbahar-towers",
@@ -123,6 +134,14 @@ export const projects: Project[] = [
       shops: { count: "24+", title: "Neighbourhood retail", subtitle: "Daily conveniences and curated café frontage at tower base." },
       offices: { count: "8", title: "Sky offices", subtitle: "Limited crown-level workspaces with dedicated lift access." },
     },
+    listings: [
+      { id: "gt-t1-18b", priceUsd: 285000, sizeSqm: 124, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80", label: "Tower 1 · 18B" },
+      { id: "gt-t1-24a", priceUsd: 352000, sizeSqm: 156, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80", label: "Tower 1 · 24A" },
+      { id: "gt-t2-08c", priceUsd: 198000, sizeSqm: 96, type: "apartment", availability: "reserved", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80", label: "Tower 2 · 08C" },
+      { id: "gt-t2-32p", priceUsd: 520000, sizeSqm: 210, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80", label: "Tower 2 · Sky suite" },
+      { id: "gt-r-04", priceUsd: 118000, sizeSqm: 52, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=80", label: "Retail podium · R04" },
+      { id: "gt-t1-05d", priceUsd: 175000, sizeSqm: 88, type: "apartment", availability: "sold", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80", label: "Tower 1 · 05D" },
+    ],
   },
   {
     slug: "gulbahar-plaza",
@@ -161,6 +180,14 @@ export const projects: Project[] = [
       shops: { count: "120+", title: "Shops & kiosks", subtitle: "From double-height flagship to compact specialty units." },
       offices: { count: "18", title: "Upper offices", subtitle: "Light-filled workspace suites above the retail podium — ideal for HQ and professional services." },
     },
+    listings: [
+      { id: "gp-l1-101", priceUsd: 145000, sizeSqm: 86, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441984918414-12bbae855374?w=900&q=80", label: "Level 1 · 101 corner" },
+      { id: "gp-l1-118", priceUsd: 98000, sizeSqm: 58, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=80", label: "Level 1 · 118" },
+      { id: "gp-gf-k02", priceUsd: 42000, sizeSqm: 22, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1555529908-51e7457bc3aa?w=900&q=80", label: "Ground · kiosk K02" },
+      { id: "gp-l2-205", priceUsd: 112000, sizeSqm: 64, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Level 2 · 205" },
+      { id: "gp-gf-a01", priceUsd: 265000, sizeSqm: 142, type: "shop", availability: "sold", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Ground · anchor A01" },
+      { id: "gp-l1-092", priceUsd: 76000, sizeSqm: 44, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441984918414-12bbae855374?w=900&q=80", label: "Level 1 · 092" },
+    ],
   },
   {
     slug: "gulbahar-power",

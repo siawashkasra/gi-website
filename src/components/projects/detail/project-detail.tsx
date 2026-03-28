@@ -19,6 +19,7 @@ import {
 import type { Project, ProjectUnitBlock } from "@/data/projects";
 import { projectTypeLabels } from "@/data/projects";
 import { ProjectGallery } from "@/components/projects/detail/project-gallery";
+import { PropertyListingsSection } from "@/components/property-listings/property-listings-section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -171,6 +172,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </div>
       </section>
+      {project.listings && project.listings.length > 0 ? <PropertyListingsSection projectName={project.name} listings={project.listings} /> : null}
       {hasUnits ? (
         <section className="border-t border-border/60 py-16 sm:py-20 lg:py-24" aria-labelledby="units-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
