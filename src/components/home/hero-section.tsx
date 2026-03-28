@@ -2,13 +2,12 @@ import Link from "next/link";
 import { HeroMedia } from "@/components/home/hero-media";
 import { Button } from "@/components/ui/button";
 
-const posterSrc = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=88";
-const videoSrc = "https://videos.pexels.com/video-files/3045163/3045163-hd_1920_1080_30fps.mp4";
+const heroImageSrc = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=88";
 
 export function HeroSection() {
   return (
     <section className="relative h-svh min-h-[32rem] w-full overflow-hidden" aria-labelledby="hero-heading">
-      <HeroMedia posterSrc={posterSrc} videoSrc={videoSrc} />
+      <HeroMedia imageSrc={heroImageSrc} />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/55 via-black/35 to-black/[0.88]" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/75 via-black/25 to-amber-950/25 hero-overlay-pulse" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_120%_80%_at_50%_100%,rgba(180,140,60,0.12),transparent_55%)]" aria-hidden />

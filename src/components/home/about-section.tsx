@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/lib/site";
 
 const imageSrc = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=85";
@@ -31,21 +30,6 @@ export function AboutSection() {
                 </p>
               </div>
             </header>
-            <div className="space-y-8 pt-2">
-              <div className="space-y-3">
-                <h3 className="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Mission</h3>
-                <p className="max-w-prose text-base leading-[1.75] text-foreground sm:text-[1.0625rem]">
-                  To develop sustainable, innovative, and high-quality projects that strengthen communities and drive responsible economic growth across Afghanistan and the wider region.
-                </p>
-              </div>
-              <Separator className="bg-border/80" />
-              <div className="space-y-3">
-                <h3 className="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Vision</h3>
-                <p className="max-w-prose text-base leading-[1.75] text-foreground sm:text-[1.0625rem]">
-                  To be Afghanistan&apos;s leading investment company — recognized for excellence, trust, and development that improves how people live, work, and build the future.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -89,7 +89,7 @@ export const projects: Project[] = [
     listings: [
       { id: "gc-a-12e", priceUsd: 198000, sizeSqm: 112, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80", label: "Tower A · 12 East" },
       { id: "gc-a-09w", priceUsd: 245000, sizeSqm: 138, type: "apartment", availability: "reserved", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80", label: "Tower A · 09 West" },
-      { id: "gc-s-g12", priceUsd: 92000, sizeSqm: 48, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1555529908-51e7457bc3aa?w=900&q=80", label: "Ground · Arcade G12" },
+      { id: "gc-s-g12", priceUsd: 92000, sizeSqm: 48, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", label: "Ground · Arcade G12" },
       { id: "gc-s-m03", priceUsd: 134000, sizeSqm: 72, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Mezzanine · M03" },
       { id: "gc-a-22p", priceUsd: 312000, sizeSqm: 168, type: "apartment", availability: "sold", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80", label: "Penthouse · 22" },
       { id: "gc-s-g08", priceUsd: 78000, sizeSqm: 38, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Ground · G08" },
@@ -158,10 +158,10 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=85",
     gallery: [
       "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=85",
-      "https://images.unsplash.com/photo-1555529908-51e7457bc3aa?w=1600&q=85",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=85",
       "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=85",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=85",
-      "https://images.unsplash.com/photo-1441984918414-12bbae855374?w=1600&q=85",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=85",
     ],
     timeline: [
       { label: "Design", value: "2017" },
@@ -181,12 +181,12 @@ export const projects: Project[] = [
       offices: { count: "18", title: "Upper offices", subtitle: "Light-filled workspace suites above the retail podium — ideal for HQ and professional services." },
     },
     listings: [
-      { id: "gp-l1-101", priceUsd: 145000, sizeSqm: 86, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441984918414-12bbae855374?w=900&q=80", label: "Level 1 · 101 corner" },
+      { id: "gp-l1-101", priceUsd: 145000, sizeSqm: 86, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80", label: "Level 1 · 101 corner" },
       { id: "gp-l1-118", priceUsd: 98000, sizeSqm: 58, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=80", label: "Level 1 · 118" },
-      { id: "gp-gf-k02", priceUsd: 42000, sizeSqm: 22, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1555529908-51e7457bc3aa?w=900&q=80", label: "Ground · kiosk K02" },
+      { id: "gp-gf-k02", priceUsd: 42000, sizeSqm: 22, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", label: "Ground · kiosk K02" },
       { id: "gp-l2-205", priceUsd: 112000, sizeSqm: 64, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Level 2 · 205" },
       { id: "gp-gf-a01", priceUsd: 265000, sizeSqm: 142, type: "shop", availability: "sold", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Ground · anchor A01" },
-      { id: "gp-l1-092", priceUsd: 76000, sizeSqm: 44, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441984918414-12bbae855374?w=900&q=80", label: "Level 1 · 092" },
+      { id: "gp-l1-092", priceUsd: 76000, sizeSqm: 44, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80", label: "Level 1 · 092" },
     ],
   },
   {
@@ -240,7 +240,7 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85",
     gallery: [
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=85",
-      "https://images.unsplash.com/photo-1581092160562-40aa08e66837?w=1600&q=85",
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&q=85",
       "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&q=85",
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=85",
     ],
