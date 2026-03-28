@@ -1,7 +1,10 @@
+export type ProjectType = "residential" | "commercial" | "mixed-use";
+
 export type Project = {
   slug: string;
   name: string;
   category: string;
+  type: ProjectType;
   excerpt: string;
   description: string;
   location: string;
@@ -17,6 +20,7 @@ export const projects: Project[] = [
     slug: "gulbahar-center",
     name: "Gulbahar Center",
     category: "Mixed-use",
+    type: "mixed-use",
     excerpt: "Flagship business and retail destination in the heart of the capital.",
     description:
       "Gulbahar Center anchors our portfolio as a contemporary mixed-use landmark. Premium office floors, curated retail, and hospitality-grade circulation create an address where businesses and visitors meet at the highest standard.",
@@ -36,6 +40,7 @@ export const projects: Project[] = [
     slug: "gulbahar-towers",
     name: "Gulbahar Towers",
     category: "Residential",
+    type: "residential",
     excerpt: "Elevated living with panoramic views and private amenities.",
     description:
       "Twin towers designed for discerning residents: generous layouts, secure access, and landscaped podium levels. Gulbahar Towers sets a new benchmark for residential comfort and long-term value in the region.",
@@ -55,6 +60,7 @@ export const projects: Project[] = [
     slug: "gulbahar-plaza",
     name: "Gulbahar Plaza",
     category: "Retail",
+    type: "commercial",
     excerpt: "High-footfall retail plaza with modern infrastructure.",
     description:
       "A vibrant retail environment with clear wayfinding, ample parking, and flexible unit formats. Gulbahar Plaza supports national and international brands in a setting built for growth.",
@@ -74,6 +80,7 @@ export const projects: Project[] = [
     slug: "gulbahar-power",
     name: "Gulbahar Power",
     category: "Infrastructure",
+    type: "commercial",
     excerpt: "Reliable energy infrastructure supporting industrial growth.",
     description:
       "Strategic investment in power generation and distribution assets that underpin industrial and urban expansion. Gulbahar Power aligns technical excellence with national development priorities.",
@@ -93,6 +100,7 @@ export const projects: Project[] = [
     slug: "gulbahar-cement",
     name: "Gulbahar Cement",
     category: "Industrial",
+    type: "commercial",
     excerpt: "Large-scale cement production for construction nationwide.",
     description:
       "Gulbahar Cement supplies critical building materials with scale, quality control, and environmental stewardship. The facility supports major public and private construction programs.",
@@ -109,6 +117,12 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const projectTypeLabels: Record<ProjectType, string> = {
+  residential: "Residential",
+  commercial: "Commercial",
+  "mixed-use": "Mixed-use",
+};
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
