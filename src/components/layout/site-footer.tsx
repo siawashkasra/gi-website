@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/shared/logo-mark";
 import { Separator } from "@/components/ui/separator";
+import { contact } from "@/lib/contact";
 import { siteConfig } from "@/lib/site";
 import { projects } from "@/data/projects";
 
@@ -49,14 +50,18 @@ export function SiteFooter() {
         <Separator className="my-10 bg-background/15" />
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="text-sm text-background/65">
-            <p>{siteConfig.address}</p>
-            <p className="mt-1">
-              <a href={`mailto:${siteConfig.email}`} className="underline-offset-4 hover:underline">
-                {siteConfig.email}
+            <p>{contact.address}</p>
+            <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <a href={contact.mailtoHref} className="underline-offset-4 hover:underline">
+                {contact.email}
               </a>
-              <span className="mx-2 text-background/40">·</span>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="underline-offset-4 hover:underline">
-                {siteConfig.phone}
+              <span className="text-background/40">·</span>
+              <a href={contact.telHref} className="underline-offset-4 hover:underline">
+                {contact.phoneDisplay}
+              </a>
+              <span className="text-background/40">·</span>
+              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">
+                WhatsApp
               </a>
             </p>
           </div>
