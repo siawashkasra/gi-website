@@ -28,10 +28,11 @@ export function OurCompaniesGrid() {
     });
   }, []);
   useLayoutEffect(() => {
-    updateTooltipPlacement();
+    const schedulePlacement = () => { queueMicrotask(() => updateTooltipPlacement()); };
+    schedulePlacement();
     const ul = rootRef.current;
     if (!ul || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(() => updateTooltipPlacement());
+    const ro = new ResizeObserver(schedulePlacement);
     ro.observe(ul);
     return () => ro.disconnect();
   }, [updateTooltipPlacement]);
@@ -51,7 +52,11 @@ export function OurCompaniesGrid() {
     obs.observe(el);
     return () => { mq.removeEventListener("change", onMq); obs.disconnect(); };
   }, []);
-  useLayoutEffect(() => { if (visible) updateTooltipPlacement(); }, [visible, updateTooltipPlacement]);
+  useLayoutEffect(() => {
+    if (!visible) return;
+    const id = requestAnimationFrame(() => { updateTooltipPlacement(); });
+    return () => cancelAnimationFrame(id);
+  }, [visible, updateTooltipPlacement]);
   return (
     <ul ref={rootRef} className="mt-12 grid list-none grid-cols-2 gap-x-5 gap-y-8 overflow-visible sm:gap-x-6 sm:gap-y-9 md:mt-14 md:grid-cols-3 md:gap-x-6 md:gap-y-9 lg:mt-16 lg:grid-cols-5 lg:gap-x-5 lg:gap-y-8">
       {companies.map((c, i) => {
