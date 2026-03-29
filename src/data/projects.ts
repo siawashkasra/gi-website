@@ -31,6 +31,7 @@ export type Project = {
   name: string;
   category: string;
   type: ProjectType;
+  featured?: boolean;
   excerpt: string;
   description: string;
   location: string;
@@ -52,6 +53,7 @@ export const projects: Project[] = [
     name: "Gulbahar Center",
     category: "Mixed-use",
     type: "mixed-use",
+    featured: true,
     excerpt: "Flagship business and retail destination in the heart of the capital.",
     description:
       "Gulbahar Center anchors our portfolio as a contemporary mixed-use landmark. Premium office floors, curated retail, and hospitality-grade circulation create an address where businesses and visitors meet at the highest standard.",
@@ -100,6 +102,7 @@ export const projects: Project[] = [
     name: "Gulbahar Towers",
     category: "Residential",
     type: "residential",
+    featured: true,
     excerpt: "Elevated living with panoramic views and private amenities.",
     description:
       "Twin towers designed for discerning residents: generous layouts, secure access, and landscaped podium levels. Gulbahar Towers sets a new benchmark for residential comfort and long-term value in the region.",
@@ -148,6 +151,7 @@ export const projects: Project[] = [
     name: "Gulbahar Plaza",
     category: "Retail",
     type: "commercial",
+    featured: true,
     excerpt: "High-footfall retail plaza with modern infrastructure.",
     description:
       "A vibrant retail environment with clear wayfinding, ample parking, and flexible unit formats. Gulbahar Plaza supports national and international brands in a setting built for growth.",
@@ -276,4 +280,8 @@ export function getProjectBySlug(slug: string) {
 
 export function getAllProjectSlugs() {
   return projects.map((p) => p.slug);
+}
+
+export function getFeaturedProjects() {
+  return projects.filter((p) => p.featured);
 }

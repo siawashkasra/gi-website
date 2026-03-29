@@ -35,17 +35,10 @@ function StatBlock({ icon: Icon, children, label, sublabel, className }: StatBlo
 
 export function StatsSection() {
   return (
-    <section className="ds-section relative border-b border-border/60" aria-labelledby="stats-heading">
+    <section id="impact" className="ds-section relative border-b border-border/60" aria-labelledby="stats-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)/0.08,transparent)]" aria-hidden />
       <div className="relative ds-container">
-        <SectionHeading
-          id="stats-heading"
-          align="center"
-          eyebrow="Achievements"
-          title="Impact at a glance"
-          description="We have provided thousands of Afghans with jobs and helped build skills that serve communities — alongside housing, commerce, and major infrastructure."
-          className="mx-auto max-w-2xl"
-        />
+        <SectionHeading id="stats-heading" align="center" eyebrow="Achievements" title="Impact at a glance" description="We have provided thousands of Afghans with jobs and helped build skills that serve communities — alongside housing, commerce, and major infrastructure." className="mx-auto max-w-2xl" />
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <StatBlock icon={Home} label="Apartments" sublabel="Residential units delivered & under development">
             <AnimatedCounter end={700} suffix="+" durationMs={2400} />

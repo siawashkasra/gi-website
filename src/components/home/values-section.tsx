@@ -9,7 +9,7 @@ const items = [
 
 export function ValuesSection() {
   return (
-    <section className="ds-section">
+    <section id="values" className="ds-section">
       <div className="ds-container">
         <SectionHeading align="center" eyebrow="Principles" title="Built on institutional rigor" description="We combine Afghan ownership with international standards of delivery — from first sketch to handover." />
         <div className="mt-16 grid gap-10 sm:grid-cols-3">

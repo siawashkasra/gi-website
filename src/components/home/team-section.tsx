@@ -4,7 +4,7 @@ import { leadershipTeam } from "@/data/team";
 
 export function TeamSection() {
   return (
-    <section className="ds-section border-b border-border/60 bg-muted/20" aria-labelledby="team-heading">
+    <section id="team" className="ds-section border-b border-border/60 bg-muted/20" aria-labelledby="team-heading">
       <div className="ds-container">
         <SectionHeading id="team-heading" align="center" eyebrow="People" title="Meet The Team" description="Leadership and specialists guiding operations, finance, legal, and human resources." className="mx-auto max-w-2xl" />
         <ul className="mt-14 grid list-none gap-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-10">

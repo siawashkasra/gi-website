@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: ["Gulbahar", "investment", "real estate", "Afghanistan", "Kabul", "development"],
   authors: [{ name: siteConfig.name }],
-  openGraph: { type: "website", locale: "en_US", siteName: siteConfig.name, url: siteConfig.url },
-  twitter: { card: "summary_large_image" },
+  openGraph: { type: "website", locale: "en_US", siteName: siteConfig.name, url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: siteConfig.name }] },
+  twitter: { card: "summary_large_image", images: [siteConfig.openGraphImage] },
   robots: { index: true, follow: true },
 };
 
@@ -27,6 +27,8 @@ const jsonLd = {
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.url,
+  logo: `${siteConfig.url.replace(/\/$/, "")}${siteConfig.openGraphImage}`,
+  foundingDate: "2006",
   email: siteConfig.email,
   telephone: `${siteConfig.phoneLandline}, ${siteConfig.phone}`,
   address: { "@type": "PostalAddress", streetAddress: siteConfig.address, addressCountry: "AF" },

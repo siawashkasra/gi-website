@@ -5,7 +5,7 @@ const imageSrc = "https://images.unsplash.com/photo-1497366216548-37526070297c?w
 
 export function AboutSection() {
   return (
-    <section className="ds-section border-b border-border/60 bg-background" aria-labelledby="about-heading">
+    <section id="about" className="ds-section border-b border-border/60 bg-background" aria-labelledby="about-heading">
       <div className="ds-container">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative">

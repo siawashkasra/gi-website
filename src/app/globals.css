@@ -116,6 +116,7 @@
   }
   .ds-section {
     padding-block: var(--spacing-section);
+    scroll-margin-top: 5.5rem;
   }
   .ds-section-sm {
     padding-block: var(--spacing-section-sm);

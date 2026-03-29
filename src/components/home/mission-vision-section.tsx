@@ -1,0 +1,25 @@
+import { SectionHeading } from "@/components/shared/section-heading";
+
+export function MissionVisionSection() {
+  return (
+    <section className="ds-section relative border-b border-border/60 bg-muted/25" aria-labelledby="mission-vision-heading">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_50%_40%,var(--color-primary)/0.08,transparent)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/22 to-transparent" aria-hidden />
+      <div className="relative ds-container">
+        <SectionHeading id="mission-vision-heading" align="center" eyebrow="Direction" title="Mission & vision" className="mx-auto max-w-2xl" />
+        <div className="mx-auto mt-14 grid max-w-5xl gap-10 md:mt-16 md:grid-cols-2 md:gap-12">
+          <div className="rounded-2xl border border-border/70 bg-card/80 p-8 shadow-sm sm:p-10">
+            <p className="text-eyebrow mb-4">Purpose</p>
+            <h3 className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-[1.65rem]">Our Mission</h3>
+            <p className="mt-6 font-serif text-lg font-normal leading-[1.55] tracking-tight text-foreground sm:text-xl sm:leading-[1.5]">To develop sustainable, innovative, and high-quality projects to enhance communities and drive economic growth.</p>
+          </div>
+          <div className="rounded-2xl border border-border/70 bg-background p-8 shadow-sm sm:p-10">
+            <p className="text-eyebrow mb-4">Ambition</p>
+            <h3 className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-[1.65rem]">Our Vision</h3>
+            <p className="mt-6 font-serif text-lg font-normal leading-[1.55] tracking-tight text-foreground sm:text-xl sm:leading-[1.5]">To be Afghanistan&apos;s leading investment company, recognized for excellence, trust, and impactful development.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
