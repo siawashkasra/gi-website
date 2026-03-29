@@ -47,7 +47,7 @@ function StatCell({ label, value }: { label: string; value: string }) {
     <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-white to-muted/40 p-8 shadow-lg transition-all duration-300 hover:border-primary/20 hover:shadow-xl">
       <div className="pointer-events-none absolute -right-6 -top-6 size-28 rounded-full bg-primary/[0.08]" aria-hidden />
       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
-      <p className={cn("mt-4 font-serif text-5xl font-bold tracking-tight sm:text-6xl", empty ? "text-muted-foreground/50" : "text-foreground")}>{empty ? "—" : value}</p>
+      <p className={cn("mt-4 font-serif text-5xl font-bold tracking-tight sm:text-6xl", empty ? "text-muted-foreground/50" : "text-primary")}>{empty ? "—" : value}</p>
     </div>
   );
 }
@@ -68,11 +68,11 @@ export function ProjectDetail({ project }: { project: Project }) {
     <article className="border-b border-border/60">
       <header className="relative h-[min(92vh,56rem)] min-h-[24rem] w-full overflow-hidden">
         <Image src={project.image} alt={project.name} fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/65 to-[#0f172a]/30" aria-hidden />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_100%,rgba(201,169,110,0.12),transparent_58%)]" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79] via-[#1f4e79]/65 to-[#1f4e79]/30" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_100%,rgba(47,110,165,0.18),transparent_58%)]" aria-hidden />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/40 to-transparent" aria-hidden />
         <div className="relative z-10 ds-container flex h-full flex-col pb-20 pt-10 sm:pb-24 sm:pt-12">
-          <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="w-fit rounded-xl border-white/40 bg-black/25 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/15 hover:text-white">
+          <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="w-fit rounded-xl border-white/40 bg-black/25 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/20 hover:text-white">
             <ArrowLeft className="mr-2 size-4" aria-hidden />
             All projects
           </Button>
@@ -100,7 +100,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               </div>
             </div>
             <div className="lg:col-span-5">
-              <div className="sticky top-32 space-y-8 rounded-2xl border border-border/60 bg-[#f8f8f8] p-8 shadow-xl shadow-[#0f172a]/[0.06] backdrop-blur-sm">
+              <div className="sticky top-32 space-y-8 rounded-2xl border border-border bg-muted p-8 shadow-lg shadow-primary/5 backdrop-blur-sm">
                 <div>
                   <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     <MapPin className="size-4 text-primary" aria-hidden />
@@ -130,7 +130,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </div>
       </section>
-      <section className="border-t border-border/60 bg-[#f8f8f8] py-20 sm:py-28" aria-labelledby="stats-heading">
+      <section className="border-t border-border/60 bg-muted py-20 sm:py-28" aria-labelledby="stats-heading">
         <div className="ds-container">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Scale</p>
           <h2 id="stats-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
@@ -148,7 +148,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           <ProjectGallery images={project.gallery} projectName={project.name} />
         </div>
       </section>
-      <section className="border-t border-border/60 bg-gradient-to-b from-[#f8f8f8] to-white py-20 sm:py-28" aria-labelledby="features-heading">
+      <section className="border-t border-border/60 bg-gradient-to-b from-muted to-background py-20 sm:py-28" aria-labelledby="features-heading">
         <div className="ds-container">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Experience</p>
           <h2 id="features-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
@@ -189,20 +189,20 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </section>
       ) : null}
-      <section className="relative overflow-hidden bg-[#0f172a] py-24 text-white sm:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_0%,rgba(201,169,110,0.22),transparent)]" aria-hidden />
+      <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_0%,rgba(47,110,165,0.35),transparent)]" aria-hidden />
         <div className="relative ds-container">
           <div className="flex flex-col items-start justify-between gap-12 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#c9a96e]">Next step</p>
-              <h2 className="mt-5 font-serif text-4xl font-bold tracking-tight sm:text-5xl">Visit {project.name}</h2>
-              <p className="mt-5 text-base leading-relaxed text-white/72 sm:text-lg">Book a private walkthrough or request investment materials. Our team will confirm timing and access protocols.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#2f6ea5]">Next step</p>
+              <h2 className="mt-5 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl">Visit {project.name}</h2>
+              <p className="mt-5 font-sans text-base font-normal leading-relaxed text-white/80 sm:text-lg">Book a private walkthrough or request investment materials. Our team will confirm timing and access protocols.</p>
             </div>
             <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
-              <Button render={<Link href="/contact" />} nativeButton={false} size="lg" className="h-14 min-w-[12rem] rounded-xl px-8 font-semibold">
+              <Button render={<Link href="/contact" />} nativeButton={false} size="lg" className="h-14 min-w-[12rem] rounded-xl border-2 border-white/20 bg-white px-8 font-semibold text-primary shadow-md hover:scale-[1.02] hover:bg-[#f5f7fa]">
                 Book a visit
               </Button>
-              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-14 min-w-[12rem] rounded-xl border-2 border-white/40 bg-white/5 px-8 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-[#c9a96e]/55 hover:bg-[#c9a96e]/12 hover:text-white">
+              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-14 min-w-[12rem] rounded-xl border-2 border-white/45 bg-white/5 px-8 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/25 hover:text-white">
                 Contact {siteConfig.name.split(" ")[0]}
               </Button>
             </div>

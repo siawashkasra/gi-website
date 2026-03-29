@@ -13,7 +13,7 @@ export function MissionVisionSection() {
             <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">Our Mission</h3>
             <p className="mt-6 font-sans text-lg font-normal leading-relaxed text-foreground sm:text-xl">To develop sustainable, innovative, and high-quality projects to enhance communities and drive economic growth.</p>
           </div>
-          <div className="rounded-2xl border border-border/60 bg-[#f8f8f8] p-8 shadow-lg transition-all duration-300 hover:border-primary/15 hover:shadow-xl sm:p-10">
+          <div className="rounded-2xl border border-border/60 bg-muted p-8 shadow-lg transition-all duration-300 hover:border-primary/20 hover:shadow-xl sm:p-10">
             <p className="text-eyebrow mb-4">Ambition</p>
             <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">Our Vision</h3>
             <p className="mt-6 font-sans text-lg font-normal leading-relaxed text-foreground sm:text-xl">To be Afghanistan&apos;s leading investment company, recognized for excellence, trust, and impactful development.</p>

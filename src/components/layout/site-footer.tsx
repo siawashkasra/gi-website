@@ -7,7 +7,7 @@ import { projects } from "@/data/projects";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/60 bg-[#0f172a] text-white">
+    <footer className="border-t border-border bg-primary text-primary-foreground">
       <div className="ds-container py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
@@ -45,7 +45,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Portfolio</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2f6ea5]">Portfolio</p>
             <ul className="mt-4 space-y-3 text-sm">
               {projects.slice(0, 5).map((p) => (
                 <li key={p.slug}>
@@ -74,7 +74,7 @@ export function SiteFooter() {
                 {contact.phoneDisplay}
               </a>
               <span className="text-white/40">·</span>
-              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#c9a96e] underline-offset-4 hover:underline">
+              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#2f6ea5] underline-offset-4 hover:underline">
                 WhatsApp
               </a>
             </p>

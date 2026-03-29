@@ -11,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:bg-[var(--brand-gold-hover)] hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02] active:scale-[0.99]",
+          "bg-primary text-primary-foreground shadow-md shadow-primary/15 hover:bg-[#2f6ea5] hover:shadow-lg hover:shadow-[#2f6ea5]/20 hover:scale-[1.02] active:scale-[0.99]",
         outline:
           "rounded-xl border-border/90 bg-background shadow-sm hover:border-primary/40 hover:bg-muted/50 hover:text-foreground hover:scale-[1.02] active:scale-[0.99] aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:

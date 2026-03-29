@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#0f172a" }, { media: "(prefers-color-scheme: dark)", color: "#0f172a" }], width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#1f4e79" }, { media: "(prefers-color-scheme: dark)", color: "#1f4e79" }], width: "device-width", initialScale: 1 };
 
 const jsonLd = {
   "@context": "https://schema.org",

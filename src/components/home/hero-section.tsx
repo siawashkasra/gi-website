@@ -8,15 +8,15 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen h-[100dvh] w-full overflow-hidden" aria-labelledby="hero-heading">
       <HeroParallaxMedia imageSrc={heroImageSrc} />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0f172a]/88 via-[#0f172a]/78 to-[#0f172a]/90]" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(201,169,110,0.14),transparent_58%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1f4e79]/88 via-[#1f4e79]/76 to-[#1f4e79]/90" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(47,110,165,0.2),transparent_58%)]" aria-hidden />
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
         <div className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center sm:px-6 sm:py-28">
           <div className="mx-auto flex max-w-5xl flex-col items-center">
-            <p className="hero-animate hero-animate-delay-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-primary sm:text-xs sm:tracking-[0.42em]">
+            <p className="hero-animate hero-animate-delay-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/90 sm:text-xs sm:tracking-[0.42em]">
               Welcome to
             </p>
-            <div className="hero-animate hero-animate-delay-2 mt-6 h-px w-12 bg-gradient-to-r from-transparent via-primary to-transparent sm:mt-7 sm:w-16" aria-hidden />
+            <div className="hero-animate hero-animate-delay-2 mt-6 h-px w-12 bg-gradient-to-r from-transparent via-[#2f6ea5] to-transparent sm:mt-7 sm:w-16" aria-hidden />
             <h1 id="hero-heading" className="hero-animate hero-animate-delay-2 mt-8 font-serif text-5xl font-bold leading-[1.02] tracking-[-0.035em] text-white sm:mt-10 sm:text-6xl sm:leading-[0.98] md:text-7xl md:leading-[0.98] lg:text-8xl lg:leading-[0.96]">
               Gulbahar Investment
             </h1>
@@ -24,10 +24,10 @@ export function HeroSection() {
               Non-political, Afghan-owned real estate services since 2006 — part of the Gulbahar Group of Companies, registered with the Ministry of Commerce and Industries.
             </p>
             <div className="hero-animate hero-animate-delay-4 mt-12 flex flex-wrap items-center justify-center gap-4 sm:mt-14 sm:gap-5">
-              <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-14 min-w-[12.5rem] rounded-xl border-0 px-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] shadow-lg shadow-[#c9a96e]/25">
+              <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-14 min-w-[12.5rem] rounded-xl border-2 border-white bg-white px-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-primary shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#f5f7fa] hover:text-primary">
                 Explore Projects
               </Button>
-              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-14 min-w-[12.5rem] rounded-xl border-2 border-white/45 bg-white/[0.06] px-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[#c9a96e]/70 hover:bg-[#c9a96e]/12 hover:text-white hover:scale-[1.02]">
+              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-14 min-w-[12.5rem] rounded-xl border-2 border-white/50 bg-white/[0.08] px-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/25 hover:text-white hover:scale-[1.02]">
                 Book a Visit
               </Button>
             </div>
@@ -35,7 +35,7 @@ export function HeroSection() {
         </div>
         <div className="hero-animate hero-animate-delay-5 pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 sm:bottom-10" aria-hidden>
           <span className="text-[0.6rem] font-medium uppercase tracking-[0.35em] text-white/40">Scroll</span>
-          <span className="hero-scroll-hint h-10 w-px rounded-full bg-gradient-to-b from-transparent via-primary/65 to-transparent" />
+          <span className="hero-scroll-hint h-10 w-px rounded-full bg-gradient-to-b from-transparent via-[#2f6ea5]/80 to-transparent" />
         </div>
       </div>
     </section>

@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 function statusPillClass(status: string) {
   const s = status.toLowerCase();
-  if (s.includes("deliver")) return "border-[#c9a96e]/40 bg-[#c9a96e]/15 text-[#0f172a]";
-  if (s.includes("develop")) return "border-white/30 bg-white/15 text-white";
-  if (s.includes("operat")) return "border-white/25 bg-black/30 text-white";
-  return "border-white/20 bg-black/25 text-white/90";
+  if (s.includes("deliver")) return "border-[#2f6ea5]/55 bg-[#2f6ea5]/25 text-white";
+  if (s.includes("develop")) return "border-white/35 bg-white/15 text-white";
+  if (s.includes("operat")) return "border-white/30 bg-black/25 text-white";
+  return "border-white/25 bg-black/25 text-white/95";
 }
 
 type ProjectListingCardProps = { project: Project; priority?: boolean };
@@ -21,12 +21,12 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
   const statusLabel = formatProjectStatusLabel(project.status);
   return (
     <Link href={`/projects/${project.slug}`} className="group block h-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
-      <Card className="relative h-full min-h-[24rem] overflow-hidden border-0 bg-[#0f172a] py-0 shadow-xl ring-0 transition-all duration-500 ease-out hover:scale-100 hover:shadow-2xl sm:min-h-[26rem]">
+      <Card className="relative h-full min-h-[24rem] overflow-hidden border border-border bg-primary py-0 shadow-xl ring-0 transition-all duration-500 ease-out hover:scale-100 hover:shadow-2xl sm:min-h-[26rem]">
         <div className="relative min-h-[20rem] flex-1 overflow-hidden sm:min-h-[22rem]">
           <Image src={project.image} alt={project.name} fill className="object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.08]" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" priority={priority} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/45 to-[#0f172a]/15 transition-opacity duration-500 group-hover:via-[#0f172a]/55" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79] via-[#1f4e79]/45 to-[#1f4e79]/15 transition-opacity duration-500 group-hover:via-[#1f4e79]/55" aria-hidden />
           <div className="absolute left-4 top-4 flex flex-wrap gap-2 sm:left-5 sm:top-5">
-            <span className="rounded-full border border-white/20 bg-black/35 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/95 backdrop-blur-md">{projectTypeLabels[project.type]}</span>
+            <span className="rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/95 backdrop-blur-md">{projectTypeLabels[project.type]}</span>
             <span className={cn("rounded-full border px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] backdrop-blur-md", statusPillClass(project.status))}>{statusLabel}</span>
           </div>
           <span className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 sm:right-5 sm:top-5">
@@ -34,15 +34,15 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
           </span>
           <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
             <h3 className="font-serif text-xl font-semibold tracking-tight text-white sm:text-2xl sm:leading-tight md:text-[1.65rem]">{project.name}</h3>
-            <p className="mt-2 flex items-center gap-2 text-sm text-white/80">
-              <MapPin className="size-3.5 shrink-0 text-[#c9a96e]" aria-hidden />
+            <p className="mt-2 flex items-center gap-2 text-sm text-white/85">
+              <MapPin className="size-3.5 shrink-0 text-[#2f6ea5]" aria-hidden />
               <span>{project.location}</span>
             </p>
           </div>
         </div>
-        <CardContent className="space-y-4 border-t border-white/10 bg-[#0f172a]/95 p-6 backdrop-blur-md">
-          <p className="line-clamp-3 font-sans text-sm font-normal leading-relaxed text-slate-300 sm:text-[0.9375rem]">{project.excerpt}</p>
-          <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[#c9a96e] transition-colors group-hover:text-[#dcc090]">
+        <CardContent className="space-y-4 border-t border-border bg-muted p-6">
+          <p className="line-clamp-3 font-sans text-sm font-normal leading-relaxed text-foreground sm:text-[0.9375rem]">{project.excerpt}</p>
+          <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary transition-colors group-hover:text-primary/90">
             View details
             <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
           </span>

@@ -12,7 +12,7 @@ export function AboutSection() {
           <div className="relative">
             <div className="group/image relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted shadow-2xl ring-1 ring-border/50 sm:aspect-[3/4] lg:aspect-[4/5]">
               <Image src={imageSrc} alt="Gulbahar Investment developments and workspace" fill className="object-cover transition-transform duration-700 ease-out group-hover/image:scale-105" sizes="(max-width:1024px) 100vw, 50vw" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#0f172a]/20 via-transparent to-transparent" aria-hidden />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/15 via-transparent to-transparent" aria-hidden />
             </div>
             <div className="pointer-events-none absolute -bottom-4 -right-4 -z-10 hidden h-48 w-48 rounded-2xl bg-primary/15 blur-2xl sm:block" aria-hidden />
           </div>

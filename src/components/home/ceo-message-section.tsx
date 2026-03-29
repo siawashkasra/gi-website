@@ -5,12 +5,12 @@ const ceoPortrait = "/images/ghulam-rabani-rabani.png";
 
 export function CeoMessageSection() {
   return (
-    <section id="ceo-message" className="ds-section relative overflow-hidden border-b border-border/60 bg-[#f8f8f8]" aria-labelledby="ceo-message-heading">
+    <section id="ceo-message" className="ds-section relative overflow-hidden border-b border-border/60 bg-muted" aria-labelledby="ceo-message-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_0%_40%,var(--color-primary)/0.07,transparent)]" aria-hidden />
       <div className="relative ds-container">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative order-2 lg:order-1">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[20rem] overflow-hidden rounded-2xl bg-white shadow-2xl shadow-[#0f172a]/10 ring-1 ring-border/50 sm:max-w-[22rem] lg:mx-0 lg:max-w-none">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-[20rem] overflow-hidden rounded-2xl bg-card shadow-2xl shadow-primary/10 ring-1 ring-border sm:max-w-[22rem] lg:mx-0 lg:max-w-none">
               <Image src={ceoPortrait} alt="Ghulam Rabani Rabani, Chief Executive Officer" fill className="object-cover object-[center_12%]" sizes="(max-width:1024px) 100vw, 45vw" />
             </div>
             <div className="pointer-events-none absolute -bottom-6 -left-6 -z-10 hidden h-40 w-40 rounded-full bg-primary/12 blur-3xl lg:block" aria-hidden />

@@ -26,7 +26,7 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Email</dt>
                 <dd className="mt-2">
-                  <a href={contact.mailtoHref} className="text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[var(--brand-gold-hover)] hover:underline">
+                  <a href={contact.mailtoHref} className="text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     {contact.email}
                   </a>
                 </dd>
@@ -34,16 +34,16 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Phone</dt>
                 <dd className="mt-2 space-y-2">
-                  <a href={contact.telLandlineHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[var(--brand-gold-hover)] hover:underline">
+                  <a href={contact.telLandlineHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     {contact.phoneLandlineDisplay}
                   </a>
-                  <a href={contact.telHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[var(--brand-gold-hover)] hover:underline">
+                  <a href={contact.telHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     Mobile · {contact.phoneDisplay}
                   </a>
                 </dd>
               </div>
             </dl>
-            <div className="mt-10 rounded-2xl border border-border/60 bg-[#f8f8f8] p-6 shadow-inner sm:p-8">
+            <div className="mt-10 rounded-2xl border border-border bg-muted p-6 shadow-inner sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">WhatsApp</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Prefer chat? Message us on WhatsApp for a quick reply during business hours.</p>
               <Button
@@ -56,7 +56,7 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               </Button>
             </div>
           </div>
-          <div className="rounded-2xl border border-border/50 bg-white p-6 shadow-xl shadow-[#0f172a]/[0.06] sm:p-10">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-primary/5 sm:p-10">
             <ContactForm />
           </div>
         </div>

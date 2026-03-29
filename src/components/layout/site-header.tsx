@@ -12,7 +12,7 @@ const navLinkClass = "text-sm font-medium text-foreground/80 transition-colors h
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/50 bg-white/90 shadow-sm shadow-[#0f172a]/[0.04] backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 shadow-sm shadow-primary/5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/90">
       <div className="ds-container flex h-[4.25rem] items-center justify-between gap-4">
         <LogoMark />
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">

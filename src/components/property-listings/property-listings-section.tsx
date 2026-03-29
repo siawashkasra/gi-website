@@ -25,7 +25,7 @@ function parseNum(s: string): number | null {
 const availabilityOptions: (PropertyListingAvailability | "all")[] = ["all", "available", "reserved", "sold"];
 
 function availabilityStyles(a: PropertyListingAvailability) {
-  if (a === "available") return "border-primary/35 bg-primary/[0.1] text-foreground";
+  if (a === "available") return "border-primary/40 bg-primary/10 text-primary";
   if (a === "reserved") return "border-foreground/15 bg-muted text-foreground";
   if (a === "sold") return "border-border bg-foreground/[0.06] text-muted-foreground";
   return "border-border bg-muted/80 text-muted-foreground";
@@ -149,7 +149,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                   </div>
                   <div className="space-y-3 p-6">
                     {unit.label ? <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
-                    <p className="font-serif text-2xl font-medium tracking-tight text-foreground">{formatPrice(unit.priceUsd)}</p>
+                    <p className="font-serif text-2xl font-semibold tracking-tight text-primary">{formatPrice(unit.priceUsd)}</p>
                     <p className="text-sm text-muted-foreground">
                       <span className="font-semibold text-foreground">{unit.sizeSqm}</span> m² interior / lettable (indicative)
                     </p>

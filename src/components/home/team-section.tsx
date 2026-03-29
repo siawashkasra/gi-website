@@ -13,7 +13,7 @@ export function TeamSection() {
               <div className="relative mx-auto aspect-square w-full max-w-[11.5rem] overflow-hidden rounded-2xl bg-muted ring-1 ring-border/60">
                 <Image src={m.photo} alt={`${m.name}, ${m.title}`} fill className="object-cover object-top" sizes="(max-width:1024px) 45vw, 12rem" />
               </div>
-              <p className="mt-5 font-serif text-lg font-semibold tracking-tight text-foreground">{m.name}</p>
+              <p className="mt-5 font-serif text-lg font-semibold tracking-tight text-primary">{m.name}</p>
               <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{m.title}</p>
             </li>
           ))}
