@@ -24,7 +24,7 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
       <Card className="relative h-full min-h-[24rem] overflow-hidden border border-border bg-primary py-0 shadow-xl ring-0 transition-all duration-500 ease-out hover:scale-100 hover:shadow-2xl sm:min-h-[26rem]">
         <div className="relative min-h-[20rem] flex-1 overflow-hidden sm:min-h-[22rem]">
           <Image src={project.image} alt={project.name} fill className="object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.08]" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" priority={priority} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79] via-[#1f4e79]/45 to-[#1f4e79]/15 transition-opacity duration-500 group-hover:via-[#1f4e79]/55" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/72 from-38% via-[#1f4e79]/36 via-58% to-[#1f4e79]/10 to-100% transition-opacity duration-500 group-hover:from-[#1f4e79]/80 group-hover:via-[#1f4e79]/44" aria-hidden />
           <div className="absolute left-4 top-4 flex flex-wrap gap-2 sm:left-5 sm:top-5">
             <span className="rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/95 backdrop-blur-md">{projectTypeLabels[project.type]}</span>
             <span className={cn("rounded-full border px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] backdrop-blur-md", statusPillClass(project.status))}>{statusLabel}</span>

@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   return (
     <div className="border-b border-border/60">
       <div className="relative overflow-hidden border-b border-border bg-primary text-primary-foreground">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.35),transparent_52%)]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.22),transparent_52%)]" aria-hidden />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.05)_50%,transparent_65%)]" aria-hidden />
         <div className="relative ds-container py-24 sm:py-28 lg:py-36">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.36em] text-[#2f6ea5]">{siteConfig.name}</p>

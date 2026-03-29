@@ -8,8 +8,8 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen h-[100dvh] w-full overflow-hidden" aria-labelledby="hero-heading">
       <HeroParallaxMedia imageSrc={heroImageSrc} />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1f4e79]/88 via-[#1f4e79]/76 to-[#1f4e79]/90" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(47,110,165,0.2),transparent_58%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1f4e79]/76 via-[#1f4e79]/58 to-[#1f4e79]/78" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(47,110,165,0.11),transparent_58%)]" aria-hidden />
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
         <div className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center sm:px-6 sm:py-28">
           <div className="mx-auto flex max-w-5xl flex-col items-center">

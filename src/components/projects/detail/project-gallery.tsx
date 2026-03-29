@@ -38,7 +38,7 @@ export function ProjectGallery({ images, projectName }: ProjectGalleryProps) {
       <div className="relative overflow-hidden rounded-2xl border border-border bg-primary shadow-2xl shadow-primary/20 ring-1 ring-black/5">
         <div className="relative aspect-[16/10] w-full min-h-[280px] sm:aspect-[2/1] sm:min-h-[320px] lg:min-h-[380px]">
           <Image key={images[index]} src={images[index]} alt={`${projectName} — image ${index + 1} of ${len}`} fill className="object-cover transition-opacity duration-500" sizes="100vw" priority={index === 0} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/80 via-transparent to-[#1f4e79]/25" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/55 from-40% via-transparent to-[#1f4e79]/14 to-100%" aria-hidden />
           <div className="absolute bottom-4 left-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium tabular-nums text-white backdrop-blur-md">
             {index + 1} / {len}
           </div>

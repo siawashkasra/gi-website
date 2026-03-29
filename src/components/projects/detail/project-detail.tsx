@@ -68,8 +68,8 @@ export function ProjectDetail({ project }: { project: Project }) {
     <article className="border-b border-border/60">
       <header className="relative h-[min(92vh,56rem)] min-h-[24rem] w-full overflow-hidden">
         <Image src={project.image} alt={project.name} fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79] via-[#1f4e79]/65 to-[#1f4e79]/30" aria-hidden />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_100%,rgba(47,110,165,0.18),transparent_58%)]" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/80 from-30% via-[#1f4e79]/48 via-55% to-[#1f4e79]/18 to-100%" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_100%,rgba(47,110,165,0.1),transparent_58%)]" aria-hidden />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/40 to-transparent" aria-hidden />
         <div className="relative z-10 ds-container flex h-full flex-col pb-20 pt-10 sm:pb-24 sm:pt-12">
           <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="w-fit rounded-xl border-white/40 bg-black/25 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/20 hover:text-white">
@@ -190,7 +190,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         </section>
       ) : null}
       <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_0%,rgba(47,110,165,0.35),transparent)]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_0%,rgba(47,110,165,0.22),transparent)]" aria-hidden />
         <div className="relative ds-container">
           <div className="flex flex-col items-start justify-between gap-12 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
