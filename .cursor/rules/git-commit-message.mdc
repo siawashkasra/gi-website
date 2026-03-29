@@ -1,0 +1,10 @@
+---
+description: End responses with a suggested git commit message when work was done
+alwaysApply: true
+---
+
+# Git commit message
+
+When you finish a task that changed code, configuration, or docs, end your reply with a short **suggested git commit message** on its own line, prefixed with **Suggested git message:** (conventional commit style when it fits, e.g. `fix(scope): …` or `feat: …`).
+
+If the turn was only Q&A with no edits, omit it.

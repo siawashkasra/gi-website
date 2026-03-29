@@ -16,7 +16,7 @@ export function HeroSection() {
             <p className="hero-animate hero-animate-delay-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/90 sm:text-xs sm:tracking-[0.42em]">
               Welcome to
             </p>
-            <div className="hero-animate hero-animate-delay-2 mt-6 h-px w-12 bg-gradient-to-r from-transparent via-[#2f6ea5] to-transparent sm:mt-7 sm:w-16" aria-hidden />
+            <div className="hero-animate hero-animate-delay-2 mt-6 h-0.5 w-16 rounded-full bg-gradient-to-r from-transparent via-white/85 to-transparent sm:mt-7 sm:w-20" aria-hidden />
             <h1 id="hero-heading" className="hero-animate hero-animate-delay-2 mt-8 font-serif text-5xl font-bold leading-[1.02] tracking-[-0.035em] text-white sm:mt-10 sm:text-6xl sm:leading-[0.98] md:text-7xl md:leading-[0.98] lg:text-8xl lg:leading-[0.96]">
               Gulbahar Investment
             </h1>
