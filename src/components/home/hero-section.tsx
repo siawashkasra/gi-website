@@ -11,8 +11,8 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1f4e79]/76 via-[#1f4e79]/58 to-[#1f4e79]/78" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(47,110,165,0.11),transparent_58%)]" aria-hidden />
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
-        <div className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center sm:px-6 sm:py-28">
-          <div className="mx-auto flex max-w-5xl flex-col items-center">
+        <div className="flex flex-1 flex-col items-center justify-center px-4 py-20 text-center sm:px-6 sm:py-24">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
             <p className="hero-animate hero-animate-delay-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/90 sm:text-xs sm:tracking-[0.42em]">
               Welcome to
             </p>
@@ -33,9 +33,11 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-        <div className="hero-animate hero-animate-delay-5 pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 sm:bottom-10" aria-hidden>
-          <span className="text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85 sm:text-xs">Scroll</span>
-          <span className="hero-scroll-hint h-11 w-0.5 rounded-full bg-gradient-to-b from-transparent via-white/80 to-transparent sm:h-12" />
+        <div className="hero-animate hero-animate-delay-5 pointer-events-none shrink-0 pb-6 pt-2 sm:pb-8" aria-hidden>
+          <div className="mx-auto flex flex-col items-center gap-2">
+            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85 sm:text-xs">Scroll</span>
+            <span className="hero-scroll-hint h-11 w-0.5 rounded-full bg-gradient-to-b from-transparent via-white/80 to-transparent sm:h-12" />
+          </div>
         </div>
       </div>
     </section>

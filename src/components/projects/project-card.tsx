@@ -26,6 +26,10 @@ export function ProjectCard({ project, priority, className }: ProjectCardProps) 
             <MapPin className="mt-0.5 size-4 shrink-0 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]" aria-hidden />
             <span>{project.location}</span>
           </p>
+          <p className="mt-2 text-xs font-medium tabular-nums tracking-wide text-white/65">
+            {project.year}
+            {project.area !== "—" ? ` · ${project.area}` : ""}
+          </p>
           <p className="mt-4 max-h-0 overflow-hidden font-sans text-sm font-normal leading-relaxed text-white/75 opacity-0 transition-all duration-500 ease-out group-hover:max-h-24 group-hover:opacity-100">{project.excerpt}</p>
           <div className="mt-6 flex items-center justify-between border-t border-white/15 pt-5 transition-colors duration-300 group-hover:border-white/25">
             <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/90">View project</span>

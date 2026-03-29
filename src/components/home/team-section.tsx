@@ -15,6 +15,7 @@ export function TeamSection() {
               </div>
               <p className="mt-5 font-serif text-lg font-semibold tracking-tight text-primary">{m.name}</p>
               <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{m.title}</p>
+              <p className="mt-4 text-left text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
             </li>
           ))}
         </ul>

@@ -9,4 +9,8 @@ export const siteConfig = {
   phone: "+93 78 600 9797",
   phoneLandline: "+93 20 11 12 13",
   address: "Malik Azghar Square, Kabul, Afghanistan",
+  social: {
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
+    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "",
+  },
 };

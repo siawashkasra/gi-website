@@ -41,6 +41,10 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
           </div>
         </div>
         <CardContent className="space-y-4 border-t border-border bg-muted p-6">
+          <p className="text-xs font-medium tabular-nums text-muted-foreground">
+            {formatProjectStatusLabel(project.status)} · {project.year}
+            {project.area !== "—" ? ` · ${project.area}` : ""}
+          </p>
           <p className="line-clamp-3 font-sans text-sm font-normal leading-relaxed text-foreground sm:text-[0.9375rem]">{project.excerpt}</p>
           <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary transition-colors group-hover:text-primary/90">
             View details
