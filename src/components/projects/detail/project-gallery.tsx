@@ -35,10 +35,10 @@ export function ProjectGallery({ images, projectName }: ProjectGalleryProps) {
         </div>
         <p className="max-w-md text-sm text-muted-foreground">Use arrows or thumbnails to explore. Keyboard ← → supported.</p>
       </div>
-      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-foreground shadow-[0_32px_64px_-24px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
-        <div className="relative aspect-[16/9] w-full sm:aspect-[21/9]">
+      <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-[#0f172a] shadow-2xl shadow-[#0f172a]/25 ring-1 ring-black/5">
+        <div className="relative aspect-[16/10] w-full min-h-[280px] sm:aspect-[2/1] sm:min-h-[320px] lg:min-h-[380px]">
           <Image key={images[index]} src={images[index]} alt={`${projectName} — image ${index + 1} of ${len}`} fill className="object-cover transition-opacity duration-500" sizes="100vw" priority={index === 0} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-transparent to-[#0f172a]/25" aria-hidden />
           <div className="absolute bottom-4 left-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium tabular-nums text-white backdrop-blur-md">
             {index + 1} / {len}
           </div>

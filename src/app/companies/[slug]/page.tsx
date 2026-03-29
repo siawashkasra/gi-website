@@ -35,7 +35,7 @@ export default async function CompanyPage({ params }: Props) {
             <Image src={company.logo} alt={`${company.name} logo`} width={400} height={240} className="h-auto w-full object-contain" priority />
           </div>
           <p className="text-eyebrow mb-3">{company.industry}</p>
-          <h1 className="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl md:text-[2.5rem] md:leading-[1.12]">{company.name}</h1>
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-[2.5rem] md:leading-[1.1]">{company.name}</h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">{company.description}</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button variant="luxurySolid" size="lg" nativeButton={false} render={<Link href="/contact" />}>

@@ -68,7 +68,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-eyebrow">Listings</p>
-            <h2 id="listings-heading" className="mt-3 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
+            <h2 id="listings-heading" className="mt-3 font-serif text-3xl font-bold tracking-tight sm:text-4xl">
               Available units · {projectName}
             </h2>
             <p className="mt-3 max-w-xl text-muted-foreground">Filter by budget, area, and status. Indicative pricing — confirm with sales.</p>

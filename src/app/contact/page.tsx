@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="border-b border-border/60">
-      <div className="ds-container py-16 sm:py-20 lg:py-24">
+      <div className="ds-container bg-white py-20 sm:py-28 lg:py-32">
         <ContactSection />
       </div>
     </div>

@@ -12,8 +12,8 @@ const navLinkClass = "text-sm font-medium text-foreground/80 transition-colors h
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="ds-container flex h-16 items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 border-b border-border/50 bg-white/90 shadow-sm shadow-[#0f172a]/[0.04] backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
+      <div className="ds-container flex h-[4.25rem] items-center justify-between gap-4">
         <LogoMark />
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           <Link href="/" className={`${navLinkClass} rounded-lg px-3 py-2`}>
@@ -56,7 +56,7 @@ export function SiteHeader() {
           </Link>
         </nav>
         <div className="hidden md:block">
-          <Button render={<Link href="/contact" />} nativeButton={false} size="sm" className="h-9 px-4">
+          <Button render={<Link href="/contact" />} nativeButton={false} size="sm" className="h-10 rounded-xl px-5 font-semibold">
             Inquire
           </Button>
         </div>

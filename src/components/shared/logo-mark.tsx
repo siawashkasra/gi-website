@@ -17,7 +17,7 @@ export function LogoMark({ className, variant = "dark" }: LogoMarkProps) {
         GI
       </span>
       <span className={cn("flex flex-col leading-tight", variant === "dark" ? "text-foreground" : "text-white")}>
-        <span className="font-serif text-lg font-medium tracking-tight">{siteConfig.name.split(" ")[0]}</span>
+        <span className="font-serif text-lg font-semibold tracking-tight">{siteConfig.name.split(" ")[0]}</span>
         <span
           className={cn(
             "text-[0.65rem] font-sans font-medium uppercase tracking-[0.2em] group-hover:opacity-90",

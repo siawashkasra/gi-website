@@ -78,14 +78,14 @@ export function OurCompaniesGrid() {
             <Link
               href={companyHref(c)}
               aria-describedby={`company-desc-${c.slug}`}
-              className="group relative flex flex-col items-center overflow-visible rounded-xl border border-transparent px-2 py-3 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-border/70 group-hover:bg-card/40 group-hover:shadow-sm"
+              className="group relative flex flex-col items-center overflow-visible rounded-2xl border border-transparent px-2 py-3 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-[#c9a96e]/25 group-hover:bg-white group-hover:shadow-[0_20px_48px_-20px_rgba(15,23,42,0.12),0_0_40px_-12px_rgba(201,169,110,0.35)]"
             >
-              <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-300 ease-out grayscale group-hover:scale-[1.02] group-hover:grayscale-0 group-hover:shadow-[0_12px_28px_-14px_rgba(0,0,0,0.1)] group-focus-visible:scale-[1.02] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
+              <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-500 ease-out grayscale group-hover:scale-[1.06] group-hover:grayscale-0 group-hover:drop-shadow-[0_0_20px_rgba(201,169,110,0.45)] group-focus-visible:scale-[1.06] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
                 <Image src={c.logo} alt={`${c.name} logo`} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" />
               </div>
               <div
                 className={cn(
-                  "pointer-events-none absolute left-1/2 z-20 w-[min(calc(100vw-2rem),13.5rem)] -translate-x-1/2 rounded-lg border border-border/70 bg-card px-2.5 py-2 text-center opacity-0 shadow-md ring-1 ring-black/[0.03] transition-[opacity,transform] duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 md:w-[min(100%,14rem)] md:px-3 md:py-2",
+                  "pointer-events-none absolute left-1/2 z-20 w-[min(calc(100vw-2rem),13.5rem)] -translate-x-1/2 rounded-xl border border-border/60 bg-white px-2.5 py-2 text-center opacity-0 shadow-xl shadow-[#0f172a]/10 ring-1 ring-[#c9a96e]/15 transition-[opacity,transform] duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 md:w-[min(100%,14rem)] md:px-3 md:py-2",
                   below
                     ? "top-full mt-2 translate-y-1 group-hover:translate-y-0 group-focus-visible:translate-y-0"
                     : "bottom-full mb-2 -translate-y-1 group-hover:translate-y-0 group-focus-visible:translate-y-0",

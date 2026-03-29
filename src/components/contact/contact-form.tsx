@@ -10,8 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(submitContact, null as ContactState | null);
   return (
-    <form action={formAction} className="space-y-6">
-      <div className="grid gap-6 sm:grid-cols-2">
+    <form action={formAction} className="space-y-7">
+      <div className="grid gap-7 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Full name</Label>
           <Input id="name" name="name" autoComplete="name" required placeholder="Your name" />
@@ -34,7 +34,7 @@ export function ContactForm() {
           {state.message}
         </p>
       ) : null}
-      <Button type="submit" disabled={pending} size="lg" className="h-11 min-w-[10rem]">
+      <Button type="submit" disabled={pending} size="lg" className="mt-2 h-12 min-w-[11rem] rounded-xl px-8 font-semibold">
         {pending ? "Sending…" : "Send message"}
       </Button>
     </form>

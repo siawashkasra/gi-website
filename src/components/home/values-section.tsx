@@ -14,12 +14,12 @@ export function ValuesSection() {
         <SectionHeading align="center" eyebrow="Principles" title="Built on institutional rigor" description="We combine Afghan ownership with international standards of delivery — from first sketch to handover." />
         <div className="mt-16 grid gap-10 sm:grid-cols-3">
           {items.map(({ icon: Icon, title, body }) => (
-            <div key={title} className="relative rounded-2xl border border-border/80 bg-card p-8 shadow-sm transition-shadow hover:shadow-md">
+            <div key={title} className="relative rounded-2xl border border-border/60 bg-white p-8 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/20 hover:shadow-xl">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-6" aria-hidden />
               </div>
-              <h3 className="mt-6 font-serif text-xl font-medium tracking-tight">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              <h3 className="mt-6 font-serif text-xl font-semibold tracking-tight">{title}</h3>
+              <p className="mt-3 font-sans text-sm font-normal leading-relaxed text-muted-foreground">{body}</p>
             </div>
           ))}
         </div>
