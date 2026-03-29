@@ -103,7 +103,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               <div className="sticky top-32 space-y-8 rounded-2xl border border-border bg-muted p-8 shadow-lg shadow-primary/5 backdrop-blur-sm">
                 <div>
                   <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                    <MapPin className="size-4 text-primary" aria-hidden />
+                    <MapPin className="size-4 shrink-0 text-[#2f6ea5]" aria-hidden />
                     Location
                   </h3>
                   <p className="mt-2 text-lg font-medium text-foreground">{project.location}</p>

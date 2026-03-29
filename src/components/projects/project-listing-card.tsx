@@ -35,7 +35,7 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
           <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
             <h3 className="font-serif text-xl font-semibold tracking-tight text-white sm:text-2xl sm:leading-tight md:text-[1.65rem]">{project.name}</h3>
             <p className="mt-2 flex items-center gap-2 text-sm text-white/85">
-              <MapPin className="size-3.5 shrink-0 text-[#2f6ea5]" aria-hidden />
+              <MapPin className="size-4 shrink-0 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]" aria-hidden />
               <span>{project.location}</span>
             </p>
           </div>
