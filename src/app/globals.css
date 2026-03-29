@@ -157,10 +157,10 @@
 @keyframes hero-shimmer {
   0%,
   100% {
-    opacity: 0.35;
+    opacity: 0.62;
   }
   50% {
-    opacity: 0.85;
+    opacity: 1;
   }
 }
 
@@ -212,6 +212,6 @@
     animation: none;
   }
   .hero-scroll-hint {
-    opacity: 0.55;
+    opacity: 0.78;
   }
 }

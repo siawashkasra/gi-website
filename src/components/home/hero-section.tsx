@@ -34,8 +34,8 @@ export function HeroSection() {
           </div>
         </div>
         <div className="hero-animate hero-animate-delay-5 pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 sm:bottom-10" aria-hidden>
-          <span className="text-[0.6rem] font-medium uppercase tracking-[0.35em] text-white/40">Scroll</span>
-          <span className="hero-scroll-hint h-10 w-px rounded-full bg-gradient-to-b from-transparent via-[#2f6ea5]/80 to-transparent" />
+          <span className="text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85 sm:text-xs">Scroll</span>
+          <span className="hero-scroll-hint h-11 w-0.5 rounded-full bg-gradient-to-b from-transparent via-white/80 to-transparent sm:h-12" />
         </div>
       </div>
     </section>
