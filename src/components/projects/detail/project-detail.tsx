@@ -16,7 +16,7 @@ import {
   Wifi,
   Zap,
 } from "lucide-react";
-import type { Project, ProjectUnitBlock } from "@/data/projects";
+import type { Project, ProjectKeyStatLabels, ProjectUnitBlock } from "@/data/projects";
 import { projectTypeLabels } from "@/data/projects";
 import { ProjectGallery } from "@/components/projects/detail/project-gallery";
 import { PropertyListingsSection } from "@/components/property-listings/property-listings-section";
@@ -62,8 +62,16 @@ function UnitCard({ block }: { block: ProjectUnitBlock }) {
   );
 }
 
+const defaultKeyStatLabels: ProjectKeyStatLabels = { units: "Residential units", shops: "Retail & shops", facilities: "Facilities & assets" };
+
 export function ProjectDetail({ project }: { project: Project }) {
   const hasUnits = !!(project.unitsInfo.apartments || project.unitsInfo.shops || project.unitsInfo.offices);
+  const statLabels = project.keyStatLabels ?? defaultKeyStatLabels;
+  const overviewTitle = project.detailOverviewTitle ?? "A destination shaped for longevity";
+  const scaleEyebrow = project.scaleSectionEyebrow ?? "Scale";
+  const scaleTitle = project.scaleSectionTitle ?? "Key statistics";
+  const featuresEyebrow = project.featuresSectionEyebrow ?? "Experience";
+  const featuresTitle = project.featuresSectionTitle ?? "Signature features";
   return (
     <article className="border-b border-border/60">
       <header className="relative h-[min(92vh,56rem)] min-h-[24rem] w-full overflow-hidden">
@@ -93,11 +101,37 @@ export function ProjectDetail({ project }: { project: Project }) {
             <div className="lg:col-span-7">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Overview</p>
               <h2 id="overview-heading" className="mt-4 font-serif text-4xl font-bold tracking-tight sm:text-5xl">
-                A destination shaped for longevity
+                {overviewTitle}
               </h2>
               <div className="mt-8 space-y-5 font-sans text-base font-normal leading-relaxed text-muted-foreground sm:text-lg">
-                <p>{project.description}</p>
+                {project.detailOverviewParagraphs?.length ? (
+                  project.detailOverviewParagraphs.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))
+                ) : (
+                  <p>{project.description}</p>
+                )}
               </div>
+              {project.missionVision ? (
+                <div className="mt-12 space-y-8 border-t border-border/60 pt-10">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Vision</p>
+                    <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.vision}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Mission</p>
+                    <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.mission}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Our values</p>
+                    <ul className="mt-4 list-inside list-disc space-y-2 font-sans text-base text-muted-foreground sm:text-lg">
+                      {project.missionVision.values.map((v) => (
+                        <li key={v}>{v}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div className="lg:col-span-5">
               <div className="sticky top-32 space-y-8 rounded-2xl border border-border bg-muted p-8 shadow-lg shadow-primary/5 backdrop-blur-sm">
@@ -123,7 +157,12 @@ export function ProjectDetail({ project }: { project: Project }) {
                 </div>
                 <div className="flex flex-wrap gap-3 pt-2">
                   <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-foreground">{project.status}</span>
-                  {project.area !== "—" ? <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground">{project.area} GFA</span> : null}
+                  {project.area !== "—" ? (
+                    <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground">
+                      {project.area}
+                      {project.areaBadgePlain ? "" : " GFA"}
+                    </span>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -132,14 +171,14 @@ export function ProjectDetail({ project }: { project: Project }) {
       </section>
       <section className="border-t border-border/60 bg-muted py-20 sm:py-28" aria-labelledby="stats-heading">
         <div className="ds-container">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Scale</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">{scaleEyebrow}</p>
           <h2 id="stats-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
-            Key statistics
+            {scaleTitle}
           </h2>
           <div className="mt-14 grid gap-8 sm:grid-cols-3 lg:gap-10">
-            <StatCell label="Residential units" value={project.keyStats.units} />
-            <StatCell label="Retail & shops" value={project.keyStats.shops} />
-            <StatCell label="Facilities & assets" value={project.keyStats.facilities} />
+            <StatCell label={statLabels.units} value={project.keyStats.units} />
+            <StatCell label={statLabels.shops} value={project.keyStats.shops} />
+            <StatCell label={statLabels.facilities} value={project.keyStats.facilities} />
           </div>
         </div>
       </section>
@@ -150,9 +189,9 @@ export function ProjectDetail({ project }: { project: Project }) {
       </section>
       <section className="border-t border-border/60 bg-gradient-to-b from-muted to-background py-20 sm:py-28" aria-labelledby="features-heading">
         <div className="ds-container">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Experience</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">{featuresEyebrow}</p>
           <h2 id="features-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
-            Signature features
+            {featuresTitle}
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {project.features.map((f) => {

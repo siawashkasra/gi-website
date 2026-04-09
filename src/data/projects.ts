@@ -26,6 +26,10 @@ export type ProjectUnitBlock = { count: string; title: string; subtitle: string 
 
 export type ProjectUnitsInfo = { apartments?: ProjectUnitBlock; shops?: ProjectUnitBlock; offices?: ProjectUnitBlock };
 
+export type ProjectKeyStatLabels = { units: string; shops: string; facilities: string };
+
+export type ProjectMissionVision = { vision: string; mission: string; values: string[] };
+
 export type Project = {
   slug: string;
   name: string;
@@ -34,6 +38,15 @@ export type Project = {
   featured?: boolean;
   excerpt: string;
   description: string;
+  detailOverviewTitle?: string;
+  detailOverviewParagraphs?: string[];
+  missionVision?: ProjectMissionVision;
+  keyStatLabels?: ProjectKeyStatLabels;
+  scaleSectionEyebrow?: string;
+  scaleSectionTitle?: string;
+  featuresSectionEyebrow?: string;
+  featuresSectionTitle?: string;
+  areaBadgePlain?: boolean;
   location: string;
   status: string;
   year: string;
@@ -234,30 +247,77 @@ export const projects: Project[] = [
     type: "commercial",
     excerpt: "Afghanistan’s largest cement manufacturing platform — phased capacity to 12,000 tons per day; founded 2023.",
     description:
-      "Gulbahar Cement supplies high-quality grey and white cement for residential, commercial, and infrastructure projects using advanced technologies and strong raw materials. Established in 2023, it is positioned as the largest cement manufacturer in Afghanistan, with phased production capacity of four thousand tons per day in the first phase and eight thousand in the second phase — twelve thousand tons per day total — and a workforce target exceeding five thousand direct roles. The operation prioritizes sustainable development, environmental responsibility, energy efficiency, and continuous product improvement.",
+      "Gulbahar Cement was established to provide high-quality cement products and innovative solutions in the construction industry. Founded in 2023, it is the largest cement manufacturer in Afghanistan, supplying residential, commercial, and infrastructure projects with premium raw materials and advanced technologies.",
+    detailOverviewTitle: "National-scale cement production",
+    detailOverviewParagraphs: [
+      "Gulbahar Cement was established to provide high-quality cement products and innovative solutions in the construction industry. Founded in 2023, GC is the largest cement manufacturer in Afghanistan, offering high-quality cement for residential, commercial, and infrastructure projects using the best raw materials and advanced technologies.",
+      "As a responsible company, we prioritize sustainable development and the environment, striving to optimize our production processes to minimize negative environmental impact. Gulbahar Cement continuously improves the quality of its products and works to meet the needs of its customers.",
+      "Our core values include integrity, innovation, and customer satisfaction, which guide us in achieving our goals. Our aim is to deliver high-quality projects and professional services that contribute to the development of communities and businesses.",
+      "The project includes investment in the extraction of raw materials and cement production, and will provide direct employment opportunities for more than 5,000 people. Production capacity in the first phase is 4,000 tons per day; in the second phase it will be 8,000 tons per day, for a total of 12,000 tons per day.",
+    ],
+    missionVision: {
+      vision: "To be a pioneer — the first environmental and developmental choice in the cement industry.",
+      mission:
+        "Providing a variety of high-quality, eco-friendly grey and white cement products to meet customer needs through optimal utilization of resources and energy efficiency. Sustainable production and support for national job creation with continuous development.",
+      values: ["Growth", "Transparency", "Participation and integration", "Quality", "Innovation and creativity"],
+    },
+    keyStatLabels: { units: "Direct employment target", shops: "Phase 1 capacity", facilities: "Total design capacity" },
+    scaleSectionEyebrow: "Scale",
+    scaleSectionTitle: "Production & employment",
+    featuresSectionEyebrow: "Operations",
+    featuresSectionTitle: "Key plant components",
+    areaBadgePlain: true,
     location: "Afghanistan",
     status: "Operational",
     year: "2023",
     area: "12,000 t/day (phased)",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85",
-    gallery: [
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=85",
-      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&q=85",
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&q=85",
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=85",
-    ],
+    image: "/images/projects/gulbahar-cement-plant.png",
+    gallery: ["/images/projects/gulbahar-cement-plant.png", "/images/projects/gulbahar-cement-site.png"],
     timeline: [
       { label: "Establishment", value: "2023" },
       { label: "Phase 1 capacity", value: "4,000 t/day" },
       { label: "Phase 2 capacity", value: "8,000 t/day" },
       { label: "Total target", value: "12,000 t/day" },
     ],
-    keyStats: { units: "—", shops: "—", facilities: "Full cement line" },
+    keyStats: { units: "5,000+", shops: "4,000 t/day", facilities: "12,000 t/day" },
     features: [
-      { icon: "building2", title: "Integrated plant", description: "Quarry through raw mill, kiln and clinker, grinding, silos, packing, dispatch, utilities, and quality control laboratory." },
-      { icon: "trees", title: "Environmental focus", description: "Optimizing production to reduce environmental impact; dust collection and responsible resource use." },
-      { icon: "zap", title: "Energy efficiency", description: "Resource and energy efficiency across kiln, grinding, and supporting systems." },
-      { icon: "users", title: "Employment scale", description: "Direct employment target exceeding five thousand people across extraction, production, and logistics." },
+      {
+        icon: "building2",
+        title: "1. Raw material preparation",
+        description:
+          "Limestone quarry as the main feedstock; crushers to reduce rock size; raw material storage for limestone, clay, gypsum, and additives; raw mill grinding raw materials into fine powder (raw meal).",
+      },
+      {
+        icon: "zap",
+        title: "2. Clinker production system",
+        description: "Preheater tower heating raw meal before the kiln; rotary kiln as the main furnace where raw meal is burned to clinker at around 1,450°C; clinker cooler reducing temperature after the kiln exit.",
+      },
+      {
+        icon: "sparkles",
+        title: "3. Cement grinding section",
+        description: "Cement mill grinding clinker with gypsum and additives into cement; separators controlling fineness of the cement powder.",
+      },
+      {
+        icon: "layers",
+        title: "4. Storage and handling",
+        description: "Clinker silos for produced clinker; cement silos for finished cement; conveyors and elevators moving materials between process sections.",
+      },
+      {
+        icon: "store",
+        title: "5. Packing and dispatch",
+        description: "Packing plant for bagged cement (typically 25 kg or 50 kg); bulk loading into trucks or tankers; dedicated truck loading station.",
+      },
+      {
+        icon: "shield",
+        title: "6. Utilities and supporting systems",
+        description:
+          "Power supply and power plant; water supply; dust collection (bag filters and electrostatic precipitators) for environmental control; laboratory and quality control; control room with automation.",
+      },
+      {
+        icon: "landmark",
+        title: "7. Infrastructure",
+        description: "Access roads and transport; maintenance workshop; administrative offices; worker facilities.",
+      },
     ],
     unitsInfo: {},
   },
