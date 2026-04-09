@@ -9,7 +9,7 @@ export function OurCompaniesSection() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" aria-hidden />
       <div className="relative ds-container">
         <FadeIn className="space-y-0">
-          <SectionHeading id="our-companies-heading" align="center" eyebrow="Portfolio" title="Our Companies" description="Gulbahar Investment is part of the Gulbahar Group of Companies, registered with the Ministry of Commerce and Industries — spanning development, industry, and energy." className="mx-auto max-w-xl" />
+          <SectionHeading id="our-companies-heading" align="center" eyebrow="Portfolio" title="Our Companies" description="The Gulbahar Group spans real estate development, commercial infrastructure, energy, cement production, foundation initiatives, and related services — with headquarters in Kabul and international affiliation in the United Arab Emirates." className="mx-auto max-w-xl" />
           <OurCompaniesGrid />
         </FadeIn>
       </div>

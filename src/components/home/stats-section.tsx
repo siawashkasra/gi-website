@@ -1,6 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, CalendarDays, Home, UsersRound } from "lucide-react";
+import { CalendarDays, Home, Store, UsersRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { AnimatedCounter } from "@/components/home/animated-counter";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -38,19 +38,19 @@ export function StatsSection() {
     <section id="impact" className="ds-section relative border-b border-border/60 bg-white" aria-labelledby="stats-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)/0.08,transparent)]" aria-hidden />
       <div className="relative ds-container">
-        <SectionHeading id="stats-heading" align="center" eyebrow="Achievements" title="Impact at a glance" description="We have provided thousands of Afghans with jobs and helped build skills that serve communities — alongside housing, commerce, and major infrastructure." className="mx-auto max-w-2xl" />
+        <SectionHeading id="stats-heading" align="center" eyebrow="Achievements" title="Impact at a glance" description="Structured residential and commercial capacity across flagship Kabul assets, with industrial scale in cement and energy aligned to national demand." className="mx-auto max-w-2xl" />
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <StatBlock icon={Home} label="Apartments" sublabel="Residential units delivered & under development">
-            <AnimatedCounter end={700} suffix="+" durationMs={2400} />
+          <StatBlock icon={Home} label="Residential units" sublabel="Across Center, Towers, Plaza and related developments">
+            <AnimatedCounter end={1250} suffix="+" durationMs={2400} />
           </StatBlock>
-          <StatBlock icon={BriefcaseBusiness} label="Businesses" sublabel="Tenants and commercial partners served">
-            <AnimatedCounter end={200} suffix="+" durationMs={2000} />
+          <StatBlock icon={Store} label="Commercial retail units" sublabel="Including Gulbahar Center marketplace scale">
+            <AnimatedCounter end={1500} suffix="+" durationMs={2200} />
           </StatBlock>
-          <StatBlock icon={CalendarDays} label="Established since" sublabel="Nearly two decades of continuous operations">
+          <StatBlock icon={CalendarDays} label="Established" sublabel="Privately held platform since 2006">
             <AnimatedCounter start={2000} end={2006} durationMs={1400} />
           </StatBlock>
-          <StatBlock icon={UsersRound} label="Livelihoods supported" sublabel="Employment, training, and contractor networks across our projects">
-            <AnimatedCounter end={3000} suffix="+" durationMs={2600} />
+          <StatBlock icon={UsersRound} label="Industrial employment" sublabel="Cement operations direct jobs target; construction and facilities network">
+            <AnimatedCounter end={5000} suffix="+" durationMs={2800} />
           </StatBlock>
         </div>
       </div>

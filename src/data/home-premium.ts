@@ -21,25 +21,25 @@ export const testimonials: TestimonialItem[] = [
 export type MilestoneItem = { year: string; title: string; detail: string };
 
 export const milestones: MilestoneItem[] = [
-  { year: "2006", title: "Foundation", detail: "Gulbahar Investment established to deliver real estate services nationwide." },
-  { year: "2014–18", title: "Gulbahar Center", detail: "Masterplan through handover of the flagship mixed-use landmark." },
-  { year: "Ongoing", title: "Portfolio expansion", detail: "Towers, plaza, power, and cement — scaling resilient infrastructure." },
-  { year: "Today", title: "Thousands employed", detail: "Skills development and community impact alongside major assets." },
+  { year: "2006", title: "Foundation", detail: "Privately held Afghan investment and development company established; headquarters Kabul, international affiliation United Arab Emirates." },
+  { year: "Urban flagship", title: "Gulbahar Center", detail: "Large-scale mixed-use development in central Kabul — integrated residential, commercial retail, and structured parking valued at approximately USD 120 million." },
+  { year: "Diversification", title: "Infrastructure & industry", detail: "Extension into energy (gas-fired power, grid alignment with DABS) and cement production — largest cement manufacturing capacity in Afghanistan with phased tonnage expansion." },
+  { year: "Today", title: "Integrated platform", detail: "Residential, commercial, energy, and cement under a centralized governance framework with measured expansion across urban and industrial sectors." },
 ];
 
 export type StandardPillar = { title: string; description: string };
 
 export const standardPillars: StandardPillar[] = [
   {
-    title: "Quality & discipline",
-    description: "Designed and delivered by specialist teams with clear milestones, safety awareness, and rigorous oversight from concept to operations.",
+    title: "Technology & infrastructure",
+    description: "Structured electricity and backup power, managed water supply, CCTV and controlled access, centralized climate systems including VRF where applicable, and coordinated core building services.",
   },
   {
-    title: "Community & economy",
-    description: "Projects are structured to support jobs, local supply chains, and long-term urban utility — not short-term speculation.",
+    title: "Sustainability & community",
+    description: "Energy-efficient systems, solar and wastewater treatment where applicable, consolidated housing and retail in central districts, employment across construction and operations, and Gulbahar Foundation initiatives in education and healthcare.",
   },
   {
     title: "Governance",
-    description: "Transparent escalation aligned with group standards and Ministry registration.",
+    description: "Centralized governance with Board strategic oversight and executive delivery; transparent escalation aligned with group standards.",
   },
 ];

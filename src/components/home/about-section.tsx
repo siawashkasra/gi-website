@@ -20,20 +20,20 @@ export function AboutSection() {
             <header className="space-y-6">
               <p className="font-sans text-xs font-semibold uppercase tracking-[0.32em] text-primary">About Gulbahar Investment</p>
               <h2 id="about-heading" className="font-serif text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-[2.85rem] md:leading-[1.08]">
-                Afghan-owned. Serving communities since 2006.
+                Privately held. Multi-sector platform since 2006.
               </h2>
               <div className="space-y-5 text-base leading-[1.8] text-muted-foreground sm:text-lg">
                 <p>
-                  {siteConfig.name} is a non-political, Afghan-owned and operated company that was established in <strong className="font-medium text-foreground">2006</strong> in order to provide real estate services.
+                  {siteConfig.name} is a privately held Afghan investment and development company established in <strong className="font-medium text-foreground">2006</strong>. Since then it has evolved into a multi-sector enterprise operating across real estate, infrastructure, and industrial activities within Afghanistan.
                 </p>
                 <p>
-                  {siteConfig.name} is part of the Gulbahar Group of Companies. It is registered with the Ministry of Commerce and Industries. The company was established to take part in the rebuilding process and to provide the community with excellent services.
+                  The company has developed a recognized presence in Kabul through large-scale residential and commercial projects that contribute to the city&apos;s expanding built environment, with organized project execution and sustained capital investment in key metropolitan areas.
                 </p>
                 <p>
-                  We strive to accomplish our mission with discipline and integrity — to show that we are a leading provider in the country and the wider region. {siteConfig.name} has developed major projects including Gulbahar Center, Gulbahar Towers, Gulbahar Plaza, Gulbahar Power, and Gulbahar Cement. We are committed to sustainable, dynamic project development and to nurturing Afghanistan&apos;s emerging economy.
+                  Beyond real estate, the group has extended into industrial and energy-related sectors, reinforcing its role in the broader construction and infrastructure landscape. This diversified presence supports participation across multiple stages of development in the domestic market.
                 </p>
                 <p>
-                  We have provided thousands of Afghans with jobs and helped strengthen their skills to serve society.
+                  Through measured expansion and disciplined project delivery, {siteConfig.name} continues to strengthen its institutional footprint within Afghanistan&apos;s growing urban and infrastructure sectors. The group maintains regional affiliations including a presence in the United Arab Emirates.
                 </p>
               </div>
             </header>

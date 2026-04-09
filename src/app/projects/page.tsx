@@ -5,7 +5,7 @@ import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: `Explore the development portfolio of ${siteConfig.name}: residential, commercial, and mixed-use landmarks across Afghanistan.`,
+  description: `Explore the portfolio of ${siteConfig.name}: mixed-use and residential landmarks in Kabul, plus cement, energy, and industrial infrastructure across Afghanistan.`,
   openGraph: { title: `Projects | ${siteConfig.name}` },
 };
 

@@ -21,7 +21,7 @@ export function HeroSection() {
               Gulbahar Investment
             </h1>
             <p className="hero-animate hero-animate-delay-3 mx-auto mt-8 max-w-2xl font-sans text-base font-normal leading-relaxed text-white/82 sm:mt-10 sm:text-lg md:text-xl">
-              Non-political, Afghan-owned real estate services since 2006 — part of the Gulbahar Group of Companies, registered with the Ministry of Commerce and Industries.
+              Privately held investment and development group since 2006 — mixed-use urban landmarks in Kabul, plus cement, energy, and industrial capacity aligned with national infrastructure growth.
             </p>
             <div className="hero-animate hero-animate-delay-4 mt-12 flex flex-wrap items-center justify-center gap-4 sm:mt-14 sm:gap-5">
               <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-14 min-w-[12.5rem] rounded-xl border-2 border-white bg-white px-10 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-primary shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#f5f7fa] hover:text-primary">

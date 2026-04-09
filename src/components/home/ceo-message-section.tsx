@@ -19,7 +19,7 @@ export function CeoMessageSection() {
             <SectionHeading id="ceo-message-heading" eyebrow="Leadership" title="Message From The CEO" />
             <div className="space-y-5 font-sans text-base font-normal leading-relaxed text-muted-foreground sm:text-lg">
               <p>
-                We at Gulbahar Investment have always been focusing on excellent services to give a good taste to our customers. Our history shows pioneering leadership in establishing such services. Our projects are designed by teams of experts and run by professionals to deliver our targeted quality products and services. We always try to give competitive products and services to our customers.
+                We at Gulbahar Investment have always focused on excellent services to give a good experience to our customers. Our history reflects pioneering work in establishing such services. Our projects are designed by teams of experts and run by professionals to deliver our targeted quality products and services. We always strive to offer competitive products and services to our customers.
               </p>
             </div>
             <footer className="border-t border-border/70 pt-8">

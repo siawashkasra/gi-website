@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
-  keywords: ["Gulbahar", "investment", "real estate", "Afghanistan", "Kabul", "development"],
+  keywords: ["Gulbahar", "investment", "real estate", "Afghanistan", "Kabul", "development", "cement", "energy", "infrastructure"],
   authors: [{ name: siteConfig.name }],
   openGraph: { type: "website", locale: "en_US", siteName: siteConfig.name, url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: siteConfig.name }] },
   twitter: { card: "summary_large_image", images: [siteConfig.openGraphImage] },

@@ -1,18 +1,22 @@
-import { Building2, Gem, Shield } from "lucide-react";
+import { Eye, Gem, HeartHandshake, Leaf, Lightbulb, Shield, Target } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 
 const items = [
-  { icon: Building2, title: "Scale with discipline", body: "Mega-projects executed with clear governance, expert teams, and measurable milestones." },
-  { icon: Gem, title: "Material excellence", body: "Materials, detailing, and spatial planning chosen for longevity and distinguished presence." },
-  { icon: Shield, title: "Trust & transparency", body: "Registered with the Ministry of Commerce and Industries; accountable to partners and communities." },
+  { icon: Eye, title: "Transparency", body: "Conducting business with clarity, accountability, and responsible financial and operational practices." },
+  { icon: Gem, title: "Quality", body: "Maintaining defined standards in planning, construction, and project delivery to ensure durability and long-term performance." },
+  { icon: Leaf, title: "Sustainability", body: "Integrating energy efficiency, environmental responsibility, and resource-conscious development into core operations." },
+  { icon: HeartHandshake, title: "Social responsibility", body: "Contributing to employment generation, community development, and social support initiatives." },
+  { icon: Lightbulb, title: "Innovation", body: "Adopting modern technologies and smart infrastructure systems to enhance efficiency, security, and development standards." },
+  { icon: Shield, title: "Integrity", body: "Upholding ethical conduct, contractual reliability, and professional responsibility in all partnerships and stakeholder relationships." },
+  { icon: Target, title: "Long-term commitment", body: "Focusing on durable projects and sustained economic contribution rather than short-term gains." },
 ];
 
 export function ValuesSection() {
   return (
     <section id="values" className="ds-section">
       <div className="ds-container">
-        <SectionHeading align="center" eyebrow="Principles" title="Built on institutional rigor" description="We combine Afghan ownership with international standards of delivery — from first sketch to handover." />
-        <div className="mt-16 grid gap-10 sm:grid-cols-3">
+        <SectionHeading align="center" eyebrow="Principles" title="Core values" description="The standards that guide governance, delivery, and relationships across the group." />
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(({ icon: Icon, title, body }) => (
             <div key={title} className="relative rounded-2xl border border-border/60 bg-white p-8 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/20 hover:shadow-xl">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
