@@ -14,8 +14,8 @@ export function TeamSection() {
                 <Image src={m.photo} alt={`${m.name}, ${m.title}`} fill className="object-cover object-top" sizes="(max-width:1024px) 45vw, 12rem" />
               </div>
               <p className="mt-5 font-serif text-lg font-semibold tracking-tight text-primary">{m.name}</p>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{m.title}</p>
-              <p className="mt-4 text-left text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
+              <p className="mt-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{m.title}</p>
+              <p className="mt-4 text-left font-sans text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
             </li>
           ))}
         </ul>

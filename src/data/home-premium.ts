@@ -27,19 +27,12 @@ export const milestones: MilestoneItem[] = [
   { year: "Today", title: "Integrated platform", detail: "Residential, commercial, energy, and cement under a centralized governance framework with measured expansion across urban and industrial sectors." },
 ];
 
+import { governanceStandardsPillar, sustainabilityStandardsCard, technologyStandardsCard } from "@/data/company-profile";
+
 export type StandardPillar = { title: string; description: string };
 
 export const standardPillars: StandardPillar[] = [
-  {
-    title: "Technology & infrastructure",
-    description: "Structured electricity and backup power, managed water supply, CCTV and controlled access, centralized climate systems including VRF where applicable, and coordinated core building services.",
-  },
-  {
-    title: "Sustainability & community",
-    description: "Energy-efficient systems, solar and wastewater treatment where applicable, consolidated housing and retail in central districts, employment across construction and operations, and Gulbahar Foundation initiatives in education and healthcare.",
-  },
-  {
-    title: "Governance",
-    description: "Centralized governance with Board strategic oversight and executive delivery; transparent escalation aligned with group standards.",
-  },
+  { title: "Technology & infrastructure", description: technologyStandardsCard },
+  { title: "Sustainability & community", description: sustainabilityStandardsCard },
+  { title: "Governance", description: governanceStandardsPillar },
 ];

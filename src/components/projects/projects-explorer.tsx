@@ -26,7 +26,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
   return (
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted-foreground">
+        <p className="font-sans text-sm text-muted-foreground">
           Showing <span className="font-semibold text-foreground">{filtered.length}</span>
           {active !== "all" ? <span className="text-muted-foreground"> {filtered.length === 1 ? "project" : "projects"}</span> : <span className="text-muted-foreground"> developments</span>}
         </p>

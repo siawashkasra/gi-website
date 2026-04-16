@@ -22,7 +22,7 @@ export function ProjectCard({ project, priority, className }: ProjectCardProps) 
         </div>
         <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8">
           <h3 className="font-serif text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-[1.75rem]">{project.name}</h3>
-          <p className="mt-3 flex items-start gap-2 text-sm font-medium text-white/85 sm:text-base">
+          <p className="mt-3 flex items-start gap-2 font-sans text-sm font-medium text-white/85 sm:text-base">
             <MapPin className="mt-0.5 size-4 shrink-0 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]" aria-hidden />
             <span>{project.location}</span>
           </p>

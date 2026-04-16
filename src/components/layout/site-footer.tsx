@@ -13,11 +13,11 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <LogoMark variant="light" />
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/70">{siteConfig.description}</p>
+            <p className="mt-6 max-w-md font-sans text-sm leading-relaxed text-white/70">{siteConfig.description}</p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Explore</p>
-            <ul className="mt-4 space-y-3 text-sm">
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary">Explore</p>
+            <ul className="mt-4 space-y-3 font-sans text-sm">
               <li>
                 <Link href="/" className="text-white/75 transition-colors hover:text-white">
                   Home
@@ -26,6 +26,11 @@ export function SiteFooter() {
               <li>
                 <Link href="/projects" className="text-white/75 transition-colors hover:text-white">
                   Projects
+                </Link>
+              </li>
+              <li>
+                <Link href="/company" className="text-white/75 transition-colors hover:text-white">
+                  Company
                 </Link>
               </li>
               <li>
@@ -46,8 +51,8 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2f6ea5]">Portfolio</p>
-            <ul className="mt-4 space-y-3 text-sm">
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-[#2f6ea5]">Portfolio</p>
+            <ul className="mt-4 space-y-3 font-sans text-sm">
               {projects.slice(0, 5).map((p) => (
                 <li key={p.slug}>
                   <Link href={`/projects/${p.slug}`} className="text-white/75 transition-colors hover:text-white">
@@ -60,7 +65,7 @@ export function SiteFooter() {
         </div>
         <Separator className="my-10 bg-white/15" />
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="text-sm text-white/65">
+          <div className="font-sans text-sm text-white/65">
             <p>{contact.address}</p>
             <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
               <a href={contact.mailtoHref} className="underline-offset-4 hover:underline">
@@ -96,7 +101,7 @@ export function SiteFooter() {
               </p>
             ) : null}
           </div>
-          <p className="text-xs text-white/50 lg:text-right">
+          <p className="font-sans text-xs text-white/50 lg:text-right">
             © {new Date().getFullYear()} {siteConfig.name}
           </p>
         </div>

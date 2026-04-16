@@ -45,6 +45,9 @@ export function SiteHeader() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+          <Link href="/company" className={`${navLinkClass} rounded-lg px-3 py-2`}>
+            Company
+          </Link>
           <Link href="/jobs" className={`${navLinkClass} rounded-lg px-3 py-2`}>
             Jobs
           </Link>
@@ -66,7 +69,7 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent side="right" className="w-[min(100%,20rem)]">
             <SheetHeader>
-              <SheetTitle className="font-serif text-left">Menu</SheetTitle>
+              <SheetTitle className="text-left font-sans">Menu</SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4 pb-6" aria-label="Mobile">
               <Link href="/" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
@@ -74,6 +77,9 @@ export function SiteHeader() {
               </Link>
               <Link href="/projects" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
                 Projects
+              </Link>
+              <Link href="/company" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-muted">
+                Company
               </Link>
               {projects.map((p) => (
                 <Link key={p.slug} href={`/projects/${p.slug}`} className="rounded-lg px-3 py-2.5 pl-6 text-sm text-muted-foreground hover:bg-muted hover:text-foreground">

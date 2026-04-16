@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const last = new Date();
   return [
     { url: base, lastModified: last, changeFrequency: "monthly", priority: 1 },
+    { url: `${base}/company`, lastModified: last, changeFrequency: "monthly", priority: 0.95 },
     { url: `${base}/projects`, lastModified: last, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/contact`, lastModified: last, changeFrequency: "yearly", priority: 0.7 },
     { url: `${base}/jobs`, lastModified: last, changeFrequency: "monthly", priority: 0.6 },

@@ -58,6 +58,9 @@ export type Project = {
   features: ProjectFeatureItem[];
   unitsInfo: ProjectUnitsInfo;
   listings?: PropertyListing[];
+  strategicPositioning?: string;
+  keyComponentBullets?: string[];
+  facilityBullets?: string[];
 };
 
 export const projects: Project[] = [
@@ -74,13 +77,13 @@ export const projects: Project[] = [
     status: "Delivered",
     year: "2018",
     area: "17 floors · ~USD 120M",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=85",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png",
     gallery: [
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=85",
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=85",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85",
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=85",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=85",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-06.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-07.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-08.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-10.png",
     ],
     timeline: [
       { label: "Masterplan", value: "2014" },
@@ -89,6 +92,25 @@ export const projects: Project[] = [
       { label: "Operations", value: "Ongoing" },
     ],
     keyStats: { units: "317", shops: "1,172", facilities: "10+" },
+    strategicPositioning:
+      "The project provides an integrated residential and commercial environment in a prime urban location, supporting organized retail activity and structured residential living within Kabul’s city center.",
+    keyComponentBullets: [
+      "17 floors",
+      "1,172 commercial retail units across four floors",
+      "225 standard residential apartments",
+      "92 VIP residential apartments",
+      "Multi-level commercial and residential parking",
+    ],
+    facilityBullets: [
+      "24/7 security and CCTV monitoring",
+      "3.3 MW emergency power system",
+      "Central heating and cooling systems",
+      "24-hour water supply",
+      "Supermarket and retail services",
+      "Mosque",
+      "Gym and family facilities",
+      "High-speed internet",
+    ],
     features: [
       { icon: "layers", title: "Vertical mixed-use", description: "Seventeen floors combining residential apartments and four floors of commercial retail marketplace." },
       { icon: "car", title: "Multi-level parking", description: "Dedicated commercial and residential parking across structured levels." },
@@ -101,12 +123,12 @@ export const projects: Project[] = [
       shops: { count: "1,172", title: "Commercial retail units", subtitle: "Across four dedicated marketplace floors." },
     },
     listings: [
-      { id: "gc-a-12e", priceUsd: 198000, sizeSqm: 112, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80", label: "Tower A · 12 East" },
-      { id: "gc-a-09w", priceUsd: 245000, sizeSqm: 138, type: "apartment", availability: "reserved", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80", label: "Tower A · 09 West" },
-      { id: "gc-s-g12", priceUsd: 92000, sizeSqm: 48, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", label: "Ground · Arcade G12" },
-      { id: "gc-s-m03", priceUsd: 134000, sizeSqm: 72, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Mezzanine · M03" },
-      { id: "gc-a-22p", priceUsd: 312000, sizeSqm: 168, type: "apartment", availability: "sold", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80", label: "Penthouse · 22" },
-      { id: "gc-s-g08", priceUsd: 78000, sizeSqm: 38, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Ground · G08" },
+      { id: "gc-a-12e", priceUsd: 198000, sizeSqm: 112, type: "apartment", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-01.png", label: "Tower A · 12 East" },
+      { id: "gc-a-09w", priceUsd: 245000, sizeSqm: 138, type: "apartment", availability: "reserved", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-03.png", label: "Tower A · 09 West" },
+      { id: "gc-s-g12", priceUsd: 92000, sizeSqm: 48, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-04.png", label: "Ground · Arcade G12" },
+      { id: "gc-s-m03", priceUsd: 134000, sizeSqm: 72, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-05.png", label: "Mezzanine · M03" },
+      { id: "gc-a-22p", priceUsd: 312000, sizeSqm: 168, type: "apartment", availability: "sold", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-09.png", label: "Penthouse · 22" },
+      { id: "gc-s-g08", priceUsd: 78000, sizeSqm: 38, type: "shop", availability: "reserved", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-11.png", label: "Ground · G08" },
     ],
   },
   {
@@ -122,13 +144,13 @@ export const projects: Project[] = [
     status: "Operational",
     year: "—",
     area: "19 blocks · USD 80M+",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=85",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-03.png",
     gallery: [
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=85",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=85",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=85",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=85",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-03.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-04.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-05.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-06.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-11.png",
     ],
     timeline: [
       { label: "Master planning", value: "Multi-phase" },
@@ -137,6 +159,24 @@ export const projects: Project[] = [
       { label: "Operations", value: "Ongoing" },
     ],
     keyStats: { units: "697", shops: "211", facilities: "8+" },
+    strategicPositioning:
+      "Gulbahar Towers combines residential, retail, and community services within a consolidated urban complex, offering integrated living and commercial access in a central Kabul district.",
+    keyComponentBullets: [
+      "19 residential blocks",
+      "697 residential apartments",
+      "211 commercial retail units",
+      "Multi-level parking facilities",
+    ],
+    facilityBullets: [
+      "24/7 security system",
+      "Mosque",
+      "School and kindergarten",
+      "Clinic and pharmacy",
+      "Restaurants",
+      "Fitness center",
+      "24-hour electricity and water supply",
+      "Commercial and residential parking",
+    ],
     features: [
       { icon: "building2", title: "Nineteen blocks", description: "Independent residential blocks with consolidated services and parking." },
       { icon: "shield", title: "24/7 security", description: "Coordinated security systems across the complex." },
@@ -149,12 +189,12 @@ export const projects: Project[] = [
       shops: { count: "211", title: "Commercial retail units", subtitle: "Retail integrated with the residential environment." },
     },
     listings: [
-      { id: "gt-t1-18b", priceUsd: 285000, sizeSqm: 124, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80", label: "Tower 1 · 18B" },
-      { id: "gt-t1-24a", priceUsd: 352000, sizeSqm: 156, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80", label: "Tower 1 · 24A" },
-      { id: "gt-t2-08c", priceUsd: 198000, sizeSqm: 96, type: "apartment", availability: "reserved", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80", label: "Tower 2 · 08C" },
-      { id: "gt-t2-32p", priceUsd: 520000, sizeSqm: 210, type: "apartment", availability: "available", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80", label: "Tower 2 · Sky suite" },
-      { id: "gt-r-04", priceUsd: 118000, sizeSqm: 52, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=80", label: "Retail podium · R04" },
-      { id: "gt-t1-05d", priceUsd: 175000, sizeSqm: 88, type: "apartment", availability: "sold", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80", label: "Tower 1 · 05D" },
+      { id: "gt-t1-18b", priceUsd: 285000, sizeSqm: 124, type: "apartment", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png", label: "Tower 1 · 18B" },
+      { id: "gt-t1-24a", priceUsd: 352000, sizeSqm: 156, type: "apartment", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-04.png", label: "Tower 1 · 24A" },
+      { id: "gt-t2-08c", priceUsd: 198000, sizeSqm: 96, type: "apartment", availability: "reserved", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-05.png", label: "Tower 2 · 08C" },
+      { id: "gt-t2-32p", priceUsd: 520000, sizeSqm: 210, type: "apartment", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-07.png", label: "Tower 2 · Sky suite" },
+      { id: "gt-r-04", priceUsd: 118000, sizeSqm: 52, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-08.png", label: "Retail podium · R04" },
+      { id: "gt-t1-05d", priceUsd: 175000, sizeSqm: 88, type: "apartment", availability: "sold", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-10.png", label: "Tower 1 · 05D" },
     ],
   },
   {
@@ -170,13 +210,19 @@ export const projects: Project[] = [
     status: "Operational",
     year: "—",
     area: "25 floors · ~USD 60M",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=85",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-01.png",
     gallery: [
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=85",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=85",
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=85",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=85",
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=85",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-01.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-03.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-04.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-05.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-06.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-07.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-08.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-09.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-10.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-11.png",
     ],
     timeline: [
       { label: "Tower & retail", value: "Delivered core" },
@@ -185,6 +231,25 @@ export const projects: Project[] = [
       { label: "Corridor position", value: "Airport Road" },
     ],
     keyStats: { units: "342+", shops: "179+", facilities: "10+" },
+    strategicPositioning:
+      "Due to its location near Kabul International Airport and major commercial districts, Gulbahar Plaza is positioned to serve residential, retail, hospitality, and business demand within a high-growth urban corridor.",
+    keyComponentBullets: [
+      "25-floor residential tower",
+      "342+ residential units",
+      "179+ retail and office units",
+      "4 underground parking levels",
+      "Planned hospitality component",
+    ],
+    facilityBullets: [
+      "24-hour security and surveillance",
+      "Central heating system",
+      "Smart building access systems",
+      "Gym and recreational areas",
+      "Kindergarten and family facilities",
+      "Supermarket and retail services",
+      "Clinic and pharmacy",
+      "Hotel with dedicated security systems",
+    ],
     features: [
       { icon: "layers", title: "Smart access", description: "Smart building access systems and twenty-four-hour security and surveillance." },
       { icon: "car", title: "Underground parking", description: "Four levels of structured underground parking." },
@@ -196,12 +261,12 @@ export const projects: Project[] = [
       shops: { count: "179+", title: "Retail & office units", subtitle: "Four-floor commercial shopping center plus office capacity." },
     },
     listings: [
-      { id: "gp-l1-101", priceUsd: 145000, sizeSqm: 86, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80", label: "Level 1 · 101 corner" },
-      { id: "gp-l1-118", priceUsd: 98000, sizeSqm: 58, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=80", label: "Level 1 · 118" },
-      { id: "gp-gf-k02", priceUsd: 42000, sizeSqm: 22, type: "shop", availability: "reserved", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", label: "Ground · kiosk K02" },
-      { id: "gp-l2-205", priceUsd: 112000, sizeSqm: 64, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Level 2 · 205" },
-      { id: "gp-gf-a01", priceUsd: 265000, sizeSqm: 142, type: "shop", availability: "sold", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80", label: "Ground · anchor A01" },
-      { id: "gp-l1-092", priceUsd: 76000, sizeSqm: 44, type: "shop", availability: "available", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80", label: "Level 1 · 092" },
+      { id: "gp-l1-101", priceUsd: 145000, sizeSqm: 86, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png", label: "Level 1 · 101 corner" },
+      { id: "gp-l1-118", priceUsd: 98000, sizeSqm: 58, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-03.png", label: "Level 1 · 118" },
+      { id: "gp-gf-k02", priceUsd: 42000, sizeSqm: 22, type: "shop", availability: "reserved", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-04.png", label: "Ground · kiosk K02" },
+      { id: "gp-l2-205", priceUsd: 112000, sizeSqm: 64, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-06.png", label: "Level 2 · 205" },
+      { id: "gp-gf-a01", priceUsd: 265000, sizeSqm: 142, type: "shop", availability: "sold", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-07.png", label: "Ground · anchor A01" },
+      { id: "gp-l1-092", priceUsd: 76000, sizeSqm: 44, type: "shop", availability: "available", image: "/images/projects/gulbahar-plaza/gulbahar-plaza-08.png", label: "Level 1 · 092" },
     ],
   },
   {
@@ -242,12 +307,12 @@ export const projects: Project[] = [
     status: "Operational / development",
     year: "—",
     area: "—",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=85",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-09.png",
     gallery: [
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=85",
-      "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=1600&q=85",
-      "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1600&q=85",
-      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1600&q=85",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-09.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-11.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-05.png",
+      "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png",
     ],
     timeline: [
       { label: "Strategic development", value: "End-to-end" },
@@ -256,6 +321,8 @@ export const projects: Project[] = [
       { label: "Coordination", value: "MoWE / MoMP" },
     ],
     keyStats: { units: "50 MW", shops: "700 MW", facilities: "Gas-fired" },
+    strategicPositioning:
+      "Gulbahar Energy is a private company engaged in the development of power generation projects in Afghanistan, focusing on utilizing local energy resources to produce electricity and support the national grid, including a gas-fired power project in northern Afghanistan coordinated with relevant government authorities.",
     features: [
       {
         icon: "layers",
@@ -327,6 +394,8 @@ export const projects: Project[] = [
       { label: "Total target", value: "12,000 t/day" },
     ],
     keyStats: { units: "5,000+", shops: "4,000 t/day", facilities: "12,000 t/day" },
+    strategicPositioning:
+      "Gulbahar Cement is positioned to meet national construction demand through phased production capacity, sustainable production practices, and direct employment at scale across extraction, production, and dispatch.",
     features: [
       {
         icon: "building2",

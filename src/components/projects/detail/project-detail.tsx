@@ -46,8 +46,8 @@ function StatCell({ label, value }: { label: string; value: string }) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-white to-muted/40 p-8 shadow-lg transition-all duration-300 hover:border-primary/20 hover:shadow-xl">
       <div className="pointer-events-none absolute -right-6 -top-6 size-28 rounded-full bg-primary/[0.08]" aria-hidden />
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
-      <p className={cn("mt-4 font-serif text-5xl font-bold tracking-tight sm:text-6xl", empty ? "text-muted-foreground/50" : "text-primary")}>{empty ? "—" : value}</p>
+      <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
+      <p className={cn("mt-4 font-sans text-5xl font-bold tabular-nums tracking-tight sm:text-6xl", empty ? "text-muted-foreground/50" : "text-primary")}>{empty ? "—" : value}</p>
     </div>
   );
 }
@@ -55,9 +55,9 @@ function StatCell({ label, value }: { label: string; value: string }) {
 function UnitCard({ block }: { block: ProjectUnitBlock }) {
   return (
     <div className="group flex flex-col rounded-2xl border border-border/60 bg-card p-8 shadow-lg transition-all duration-300 hover:border-primary/25 hover:shadow-xl hover:scale-[1.02]">
-      <span className="font-serif text-3xl font-bold text-primary transition-colors group-hover:text-primary/90 sm:text-4xl">{block.count}</span>
+      <span className="font-sans text-3xl font-bold tabular-nums text-primary transition-colors group-hover:text-primary/90 sm:text-4xl">{block.count}</span>
       <h3 className="mt-3 font-serif text-xl font-semibold tracking-tight">{block.title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{block.subtitle}</p>
+      <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{block.subtitle}</p>
     </div>
   );
 }
@@ -99,7 +99,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div className="ds-container">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Overview</p>
+              <p className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">Overview</p>
               <h2 id="overview-heading" className="mt-4 font-serif text-4xl font-bold tracking-tight sm:text-5xl">
                 {overviewTitle}
               </h2>
@@ -112,18 +112,44 @@ export function ProjectDetail({ project }: { project: Project }) {
                   <p>{project.description}</p>
                 )}
               </div>
+              {project.strategicPositioning ? (
+                <div className="mt-10 border-t border-border/60 pt-10">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Strategic positioning</p>
+                  <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.strategicPositioning}</p>
+                </div>
+              ) : null}
+              {project.keyComponentBullets?.length ? (
+                <div className="mt-10">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Key components</p>
+                  <ul className="mt-4 list-inside list-disc space-y-2 font-sans text-base text-muted-foreground sm:text-lg">
+                    {project.keyComponentBullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {project.facilityBullets?.length ? (
+                <div className="mt-10">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Facilities</p>
+                  <ul className="mt-4 list-inside list-disc space-y-2 font-sans text-base text-muted-foreground sm:text-lg">
+                    {project.facilityBullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
               {project.missionVision ? (
                 <div className="mt-12 space-y-8 border-t border-border/60 pt-10">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Vision</p>
+                    <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Vision</p>
                     <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.vision}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Mission</p>
+                    <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Mission</p>
                     <p className="mt-3 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.mission}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Our values</p>
+                    <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-primary">Our values</p>
                     <ul className="mt-4 list-inside list-disc space-y-2 font-sans text-base text-muted-foreground sm:text-lg">
                       {project.missionVision.values.map((v) => (
                         <li key={v}>{v}</li>
@@ -136,29 +162,29 @@ export function ProjectDetail({ project }: { project: Project }) {
             <div className="lg:col-span-5">
               <div className="sticky top-32 space-y-8 rounded-2xl border border-border bg-muted p-8 shadow-lg shadow-primary/5 backdrop-blur-sm">
                 <div>
-                  <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  <h3 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     <MapPin className="size-4 shrink-0 text-[#2f6ea5]" aria-hidden />
                     Location
                   </h3>
-                  <p className="mt-2 text-lg font-medium text-foreground">{project.location}</p>
+                  <p className="mt-2 font-sans text-lg font-medium text-foreground">{project.location}</p>
                 </div>
                 <Separator className="bg-border/80" />
                 <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Timeline</h3>
+                  <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Timeline</h3>
                   <ul className="relative mt-5 space-y-6 border-l border-border pl-6">
                     {project.timeline.map((phase) => (
                       <li key={phase.label} className="relative">
                         <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-background bg-primary ring-2 ring-primary/25" aria-hidden />
-                        <p className="text-sm font-medium text-foreground">{phase.label}</p>
-                        <p className="mt-0.5 text-sm text-muted-foreground">{phase.value}</p>
+                        <p className="font-sans text-sm font-medium text-foreground">{phase.label}</p>
+                        <p className="mt-0.5 font-sans text-sm text-muted-foreground">{phase.value}</p>
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="flex flex-wrap gap-3 pt-2">
-                  <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-foreground">{project.status}</span>
+                  <span className="rounded-full border border-border bg-background px-4 py-2 font-sans text-xs font-semibold text-foreground">{project.status}</span>
                   {project.area !== "—" ? (
-                    <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground">
+                    <span className="rounded-full border border-border bg-background px-4 py-2 font-sans text-xs font-semibold text-muted-foreground">
                       {project.area}
                       {project.areaBadgePlain ? "" : " GFA"}
                     </span>
@@ -171,7 +197,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </section>
       <section className="border-t border-border/60 bg-muted py-20 sm:py-28" aria-labelledby="stats-heading">
         <div className="ds-container">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">{scaleEyebrow}</p>
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">{scaleEyebrow}</p>
           <h2 id="stats-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
             {scaleTitle}
           </h2>
@@ -189,7 +215,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </section>
       <section className="border-t border-border/60 bg-gradient-to-b from-muted to-background py-20 sm:py-28" aria-labelledby="features-heading">
         <div className="ds-container">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">{featuresEyebrow}</p>
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">{featuresEyebrow}</p>
           <h2 id="features-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
             {featuresTitle}
           </h2>
@@ -203,7 +229,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                   </span>
                   <div>
                     <h3 className="font-serif text-lg font-semibold tracking-tight">{f.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.description}</p>
+                    <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{f.description}</p>
                   </div>
                 </div>
               );
@@ -215,11 +241,11 @@ export function ProjectDetail({ project }: { project: Project }) {
       {hasUnits ? (
         <section className="border-t border-border/60 bg-white py-20 sm:py-28 lg:py-32" aria-labelledby="units-heading">
           <div className="ds-container">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">Inventory</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">Inventory</p>
             <h2 id="units-heading" className="mt-4 max-w-2xl font-serif text-4xl font-bold tracking-tight sm:text-5xl">
               Apartments, shops & offices
             </h2>
-            <p className="mt-4 max-w-2xl text-muted-foreground">Typologies and volumes for this development — speak with our team for live availability and fit-out options.</p>
+            <p className="mt-4 max-w-2xl font-sans text-muted-foreground">Typologies and volumes for this development — speak with our team for live availability and fit-out options.</p>
             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {project.unitsInfo.apartments ? <UnitCard block={project.unitsInfo.apartments} /> : null}
               {project.unitsInfo.shops ? <UnitCard block={project.unitsInfo.shops} /> : null}
@@ -233,7 +259,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div className="relative ds-container">
           <div className="flex flex-col items-start justify-between gap-12 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#2f6ea5]">Next step</p>
+              <p className="font-sans text-xs font-semibold uppercase tracking-[0.32em] text-[#2f6ea5]">Next step</p>
               <h2 className="mt-5 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl">Visit {project.name}</h2>
               <p className="mt-5 font-sans text-base font-normal leading-relaxed text-white/80 sm:text-lg">Book a private walkthrough or request investment materials. Our team will confirm timing and access protocols.</p>
             </div>

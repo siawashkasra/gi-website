@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ceoProfile } from "@/data/company-profile";
 
 const ceoPortrait = "/images/ghulam-rabani-rabani.png";
 
@@ -18,13 +19,11 @@ export function CeoMessageSection() {
           <div className="order-1 space-y-8 lg:order-2 lg:max-w-xl xl:max-w-none">
             <SectionHeading id="ceo-message-heading" eyebrow="Leadership" title="Message From The CEO" />
             <div className="space-y-5 font-sans text-base font-normal leading-relaxed text-muted-foreground sm:text-lg">
-              <p>
-                We at Gulbahar Investment have always focused on excellent services to give a good experience to our customers. Our history reflects pioneering work in establishing such services. Our projects are designed by teams of experts and run by professionals to deliver our targeted quality products and services. We always strive to offer competitive products and services to our customers.
-              </p>
+              <p>{ceoProfile.quote}</p>
             </div>
             <footer className="border-t border-border/70 pt-8">
-              <p className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">Ghulam Rabani Rabani</p>
-              <p className="mt-2 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Chief Executive Officer</p>
+              <p className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">{ceoProfile.name}</p>
+              <p className="mt-2 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">{ceoProfile.title}</p>
             </footer>
           </div>
         </div>

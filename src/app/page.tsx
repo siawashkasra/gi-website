@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { AboutSection } from "@/components/home/about-section";
 import { CeoMessageSection } from "@/components/home/ceo-message-section";
+import { CompanySnapshotSection } from "@/components/home/company-snapshot-section";
+import { CoreAreasHomeSection } from "@/components/home/core-areas-home-section";
+import { StrengthsInternationalHomeSection } from "@/components/home/strengths-international-home-section";
 import { CtaSection } from "@/components/home/cta-section";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { HeroSection } from "@/components/home/hero-section";
@@ -27,14 +30,17 @@ export default function HomePage() {
       <HeroSection />
       <FeaturedProjects />
       <StatsSection />
+      <CompanySnapshotSection />
       <AboutSection />
       <MilestonesSection />
       <TestimonialsSection />
+      <CoreAreasHomeSection />
       <MissionVisionSection />
       <CeoMessageSection />
       <TeamSection />
       <OurCompaniesSection />
       <ValuesSection />
+      <StrengthsInternationalHomeSection />
       <StandardsSection />
       <CtaSection />
     </>

@@ -26,9 +26,9 @@ function StatBlock({ icon: Icon, children, label, sublabel, className }: StatBlo
       <div className="relative flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/15 transition-colors duration-300 group-hover:bg-primary/15 group-hover:ring-primary/25">
         <Icon className="size-7" aria-hidden />
       </div>
-      <div className="relative mt-6 font-serif text-5xl font-bold tracking-tight text-primary sm:text-6xl sm:leading-none lg:text-7xl">{children}</div>
-      <p className="relative mt-2 text-sm font-semibold text-foreground">{label}</p>
-      {sublabel ? <p className="relative mt-1 text-xs text-muted-foreground">{sublabel}</p> : null}
+      <div className="relative mt-6 font-sans text-5xl font-bold tabular-nums tracking-tight text-primary sm:text-6xl sm:leading-none lg:text-7xl">{children}</div>
+      <p className="relative mt-2 font-sans text-sm font-semibold text-foreground">{label}</p>
+      {sublabel ? <p className="relative mt-1 font-sans text-xs text-muted-foreground">{sublabel}</p> : null}
     </div>
   );
 }

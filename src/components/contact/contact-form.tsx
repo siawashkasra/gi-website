@@ -34,7 +34,7 @@ export function ContactForm({ compact }: ContactFormProps) {
         <Textarea id={compact ? "home-message" : "message"} name="message" required rows={compact ? 3 : 5} placeholder="How can we help?" className={compact ? "min-h-24" : "min-h-32"} />
       </div>
       {state?.message ? (
-        <p className={`text-sm ${state.ok ? "text-primary" : "text-destructive"}`} role={state.ok ? "status" : "alert"}>
+        <p className={`font-sans text-sm ${state.ok ? "text-primary" : "text-destructive"}`} role={state.ok ? "status" : "alert"}>
           {state.message}
         </p>
       ) : null}

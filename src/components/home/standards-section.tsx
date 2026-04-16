@@ -19,7 +19,7 @@ export function StandardsSection() {
                   <Icon className="size-7" aria-hidden />
                 </div>
                 <h3 className="mt-6 font-serif text-xl font-bold tracking-tight text-foreground">{p.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
+                <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
                   {i === 2 ? (
                     <>
                       {p.description} Use our{" "}

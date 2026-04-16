@@ -71,9 +71,9 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
             <h2 id="listings-heading" className="mt-3 font-serif text-3xl font-bold tracking-tight sm:text-4xl">
               Available units · {projectName}
             </h2>
-            <p className="mt-3 max-w-xl text-muted-foreground">Filter by budget, area, and status. Indicative pricing — confirm with sales.</p>
+            <p className="mt-3 max-w-xl font-sans text-muted-foreground">Filter by budget, area, and status. Indicative pricing — confirm with sales.</p>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 font-sans text-sm text-muted-foreground">
             <SlidersHorizontal className="size-4 text-primary" aria-hidden />
             <span>
               <span className="font-semibold text-foreground">{filtered.length}</span> of {listings.length} shown
@@ -83,7 +83,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
         <Card className="mt-10 border-border/70 shadow-sm">
           <CardContent className="space-y-6 p-6 sm:p-8">
             <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Filters</p>
+              <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Filters</p>
               <Button type="button" variant="ghost" size="sm" onClick={reset} className="self-start text-xs uppercase tracking-wider sm:self-auto">
                 Reset all
               </Button>
@@ -149,7 +149,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                   </div>
                   <div className="space-y-3 p-6">
                     {unit.label ? <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
-                    <p className="font-serif text-2xl font-semibold tracking-tight text-primary">{formatPrice(unit.priceUsd)}</p>
+                    <p className="font-sans text-2xl font-semibold tabular-nums tracking-tight text-primary">{formatPrice(unit.priceUsd)}</p>
                     <p className="text-sm text-muted-foreground">
                       <span className="font-semibold text-foreground">{unit.sizeSqm}</span> m² interior / lettable (indicative)
                     </p>
