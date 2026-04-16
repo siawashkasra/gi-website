@@ -39,7 +39,7 @@ export function ProjectGallery({ images, projectName }: ProjectGalleryProps) {
         <div className="relative aspect-[16/10] w-full min-h-[280px] sm:aspect-[2/1] sm:min-h-[320px] lg:min-h-[380px]">
           <Image key={images[index]} src={images[index]} alt={`${projectName} — image ${index + 1} of ${len}`} fill className="object-cover transition-opacity duration-500" sizes="100vw" priority={index === 0} />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/55 from-40% via-transparent to-[#1f4e79]/14 to-100%" aria-hidden />
-          <div className="absolute bottom-4 left-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium tabular-nums text-white backdrop-blur-md">
+          <div className="absolute bottom-4 left-4 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold tabular-nums text-white backdrop-blur-md">
             {index + 1} / {len}
           </div>
           <Button type="button" variant="outline" size="icon" onClick={() => go(-1)} className="absolute left-3 top-1/2 size-11 -translate-y-1/2 rounded-full border-white/30 bg-black/30 text-white backdrop-blur-md hover:bg-black/50 hover:text-white" aria-label="Previous image">

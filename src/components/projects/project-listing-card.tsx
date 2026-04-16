@@ -41,7 +41,7 @@ export function ProjectListingCard({ project, priority }: ProjectListingCardProp
           </div>
         </div>
         <CardContent className="space-y-4 border-t border-border bg-muted p-6">
-          <p className="text-xs font-medium tabular-nums text-muted-foreground">
+          <p className="text-xs font-normal tabular-nums text-muted-foreground">
             {formatProjectStatusLabel(project.status)} · {project.year}
             {project.area !== "—" ? ` · ${project.area}` : ""}
           </p>

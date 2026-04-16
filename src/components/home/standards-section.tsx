@@ -18,7 +18,7 @@ export function StandardsSection() {
                 <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/10 lg:mx-0">
                   <Icon className="size-7" aria-hidden />
                 </div>
-                <h3 className="mt-6 font-serif text-xl font-bold tracking-tight text-foreground">{p.title}</h3>
+                <h3 className="mt-6 font-serif text-xl font-semibold tracking-tight text-foreground">{p.title}</h3>
                 <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
                   {i === 2 ? (
                     <>

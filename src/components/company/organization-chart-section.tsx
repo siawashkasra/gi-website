@@ -11,7 +11,7 @@ function LeaderCard({ name, position }: { name: string; position: string }) {
   return (
     <div className={cn(impactCard, "text-center")}>
       <div className={impactBlob} aria-hidden />
-      <p className="relative font-serif text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{name}</p>
+      <p className="relative font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{name}</p>
       <p className="relative mt-2 font-sans text-sm font-semibold text-foreground">{position}</p>
     </div>
   );
@@ -41,12 +41,12 @@ function UnitCard({ unit, className }: { unit: OrgStructureUnit; className?: str
         <div className="relative mt-4 flex flex-1 flex-col divide-y divide-border/40 border-t border-border/40 pt-4">
           {unit.pairs.map(([left, right], i) => (
             <div key={i} className="grid grid-cols-2 gap-2 py-2.5 first:pt-0 last:pb-0">
-              <p className="text-xs font-medium leading-snug text-muted-foreground">{left}</p>
-              <p className="border-l border-border/40 pl-2 text-xs font-medium leading-snug text-muted-foreground">{right}</p>
+              <p className="text-xs font-normal leading-snug text-muted-foreground">{left}</p>
+              <p className="border-l border-border/40 pl-2 text-xs font-normal leading-snug text-muted-foreground">{right}</p>
             </div>
           ))}
           {unit.extraSingles?.map((role) => (
-            <div key={role} className="py-2.5 text-center text-xs font-medium text-muted-foreground first:pt-0 last:pb-0">
+            <div key={role} className="py-2.5 text-center text-xs font-normal text-muted-foreground first:pt-0 last:pb-0">
               {role}
             </div>
           ))}
@@ -59,7 +59,7 @@ function UnitCard({ unit, className }: { unit: OrgStructureUnit; className?: str
       {titleBlock}
       <ul className="relative mt-4 flex flex-1 flex-col gap-2 border-t border-border/40 pt-4">
         {unit.roles.map((role) => (
-          <li key={role} className="text-xs font-medium leading-snug text-muted-foreground">
+          <li key={role} className="text-xs font-normal leading-snug text-muted-foreground">
             {role}
           </li>
         ))}

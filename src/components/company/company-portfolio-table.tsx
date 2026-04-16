@@ -18,7 +18,7 @@ export function CompanyPortfolioTable() {
             <tbody>
               {portfolioTableRows.map((row) => (
                 <tr key={row.project} className="border-t border-border/60 bg-white">
-                  <td className="px-5 py-4 font-medium text-foreground">{row.project}</td>
+                  <td className="px-5 py-4 font-semibold text-foreground">{row.project}</td>
                   <td className="px-5 py-4 text-muted-foreground">{row.location}</td>
                   <td className="px-5 py-4 text-muted-foreground">{row.sector}</td>
                 </tr>

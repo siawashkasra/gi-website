@@ -44,7 +44,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
                 id={`tab-${f.id}`}
                 onClick={() => setActive(f.id)}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-300",
+                  "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all duration-300",
                   pressed
                     ? "border-primary bg-primary text-primary-foreground shadow-[0_8px_24px_-8px_var(--color-primary)]"
                     : "border-border/80 bg-background text-foreground hover:border-primary/35 hover:bg-muted/50"
@@ -53,7 +53,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
                 {f.label}
                 <span
                   className={cn(
-                    "flex min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-[0.7rem] font-bold tabular-nums",
+                    "flex min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-[0.7rem] font-semibold tabular-nums",
                     pressed ? "bg-primary-foreground/20 text-primary-foreground" : "bg-muted text-muted-foreground"
                   )}
                 >

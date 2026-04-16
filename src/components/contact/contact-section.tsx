@@ -26,7 +26,7 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Email</dt>
                 <dd className="mt-2">
-                  <a href={contact.mailtoHref} className="text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
+                  <a href={contact.mailtoHref} className="text-base font-semibold text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     {contact.email}
                   </a>
                 </dd>
@@ -34,10 +34,10 @@ export function ContactSection({ showHeading = true, className }: ContactSection
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Phone</dt>
                 <dd className="mt-2 space-y-2">
-                  <a href={contact.telLandlineHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
+                  <a href={contact.telLandlineHref} className="block text-base font-semibold text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     {contact.phoneLandlineDisplay}
                   </a>
-                  <a href={contact.telHref} className="block text-base font-medium text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
+                  <a href={contact.telHref} className="block text-base font-semibold text-primary underline-offset-4 transition-colors hover:text-[#2f6ea5] hover:underline">
                     Mobile · {contact.phoneDisplay}
                   </a>
                 </dd>

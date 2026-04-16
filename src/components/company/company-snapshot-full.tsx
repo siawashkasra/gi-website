@@ -18,7 +18,7 @@ export function CompanySnapshotFull() {
                   <Icon className="size-5" aria-hidden />
                 </div>
                 <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{row.label}</p>
-                <p className="mt-2 text-sm font-medium leading-relaxed text-foreground sm:text-base">{row.value}</p>
+                <p className="mt-2 text-sm font-normal leading-relaxed text-foreground sm:text-base">{row.value}</p>
               </div>
             );
           })}

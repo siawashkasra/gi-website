@@ -148,7 +148,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                     </span>
                   </div>
                   <div className="space-y-3 p-6">
-                    {unit.label ? <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
+                    {unit.label ? <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
                     <p className="font-sans text-2xl font-semibold tabular-nums tracking-tight text-primary">{formatPrice(unit.priceUsd)}</p>
                     <p className="text-sm text-muted-foreground">
                       <span className="font-semibold text-foreground">{unit.sizeSqm}</span> m² interior / lettable (indicative)

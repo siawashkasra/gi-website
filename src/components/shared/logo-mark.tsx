@@ -20,7 +20,7 @@ export function LogoMark({ className, variant = "dark" }: LogoMarkProps) {
         <span className="font-serif text-lg font-semibold tracking-tight">{siteConfig.name.split(" ")[0]}</span>
         <span
           className={cn(
-            "text-[0.65rem] font-sans font-medium uppercase tracking-[0.2em] group-hover:opacity-90",
+            "text-[0.65rem] font-sans font-semibold uppercase tracking-[0.2em] group-hover:opacity-90",
             variant === "dark" ? "text-muted-foreground group-hover:text-primary/80" : "text-white/65"
           )}
         >

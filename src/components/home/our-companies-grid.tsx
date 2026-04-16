@@ -92,7 +92,7 @@ export function OurCompaniesGrid() {
                 )}
                 aria-hidden="true"
               >
-                <p className="font-serif text-sm font-medium leading-snug text-card-foreground">{c.name}</p>
+                <p className="font-serif text-sm font-semibold leading-snug text-card-foreground">{c.name}</p>
                 <p className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-primary">{c.industry}</p>
                 <p className="mt-1 text-[0.6875rem] leading-snug text-muted-foreground md:text-xs">{c.description}</p>
               </div>

@@ -24,7 +24,7 @@ export function CompanySnapshotSection() {
                     <Icon className="size-5" aria-hidden />
                   </div>
                   <p className="relative mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{row.label}</p>
-                  <p className="relative mt-2 font-sans text-sm font-medium leading-relaxed text-foreground sm:text-base">{row.value}</p>
+                  <p className="relative mt-2 font-sans text-sm font-normal leading-relaxed text-foreground sm:text-base">{row.value}</p>
                 </div>
               );
             })}

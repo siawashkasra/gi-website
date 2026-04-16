@@ -15,7 +15,7 @@ export function MilestonesSection() {
               <li key={m.title} className="relative pb-10 pl-2 last:pb-0">
                 <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-background bg-primary ring-2 ring-primary/25" aria-hidden />
                 <p className="font-sans text-xs font-semibold uppercase tracking-[0.28em] text-primary">{m.year}</p>
-                <h3 className="mt-2 font-serif text-xl font-bold tracking-tight text-foreground sm:text-2xl">{m.title}</h3>
+                <h3 className="mt-2 font-serif text-xl font-semibold tracking-tight text-foreground sm:text-2xl">{m.title}</h3>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{m.detail}</p>
               </li>
             ))}

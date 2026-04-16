@@ -23,7 +23,7 @@ export function StrengthsInternationalHomeSection() {
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {teaserStrengths.map((s) => (
               <div key={s.order} className="rounded-2xl border border-border/60 bg-white p-7 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-xl">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 font-sans text-lg font-bold tabular-nums text-primary">{s.order}</div>
+                <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 font-sans text-lg font-semibold tabular-nums text-primary">{s.order}</div>
                 <h3 className="mt-4 font-serif text-lg font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{leadFromBody(s.body, 200)}</p>
               </div>

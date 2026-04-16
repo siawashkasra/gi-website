@@ -26,7 +26,7 @@ export default function ProjectsPage() {
           <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg md:text-xl">
             Browse residential towers, commercial destinations, and mixed-use landmarks — filter by typology to find the right scale and stage for your inquiry.
           </p>
-          <p className="mt-10 font-sans text-sm font-medium uppercase tracking-[0.2em] text-white/45">{projects.length} active and delivered assets</p>
+          <p className="mt-10 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-white/45">{projects.length} active and delivered assets</p>
         </div>
       </div>
       <div className="relative bg-muted">

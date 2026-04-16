@@ -166,7 +166,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                     <MapPin className="size-4 shrink-0 text-[#2f6ea5]" aria-hidden />
                     Location
                   </h3>
-                  <p className="mt-2 font-sans text-lg font-medium text-foreground">{project.location}</p>
+                  <p className="mt-2 font-sans text-lg font-normal text-foreground">{project.location}</p>
                 </div>
                 <Separator className="bg-border/80" />
                 <div>
@@ -175,7 +175,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                     {project.timeline.map((phase) => (
                       <li key={phase.label} className="relative">
                         <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-background bg-primary ring-2 ring-primary/25" aria-hidden />
-                        <p className="font-sans text-sm font-medium text-foreground">{phase.label}</p>
+                        <p className="font-sans text-sm font-normal text-foreground">{phase.label}</p>
                         <p className="mt-0.5 font-sans text-sm text-muted-foreground">{phase.value}</p>
                       </li>
                     ))}
