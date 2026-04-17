@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/lib/site";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap" });
+const inter = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+const playfair = Playfair_Display({ variable: "--font-heading", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#1f4e79" }, { media: "(prefers-color-scheme: dark)", color: "#1f4e79" }], width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#1a3a6b" }, { media: "(prefers-color-scheme: dark)", color: "#0d1b3e" }], width: "device-width", initialScale: 1 };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="flex min-h-full flex-col">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-[4.25rem]">{children}</main>
         <SiteFooter />
       </body>
     </html>
