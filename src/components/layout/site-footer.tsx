@@ -41,8 +41,8 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/complaint" className="text-white/75 transition-colors hover:text-white">
-                  Complaint
+                <Link href="/events" className="text-white/75 transition-colors hover:text-white">
+                  Events
                 </Link>
               </li>
               <li>

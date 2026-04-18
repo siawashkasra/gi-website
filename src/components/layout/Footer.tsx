@@ -22,7 +22,7 @@ const exploreLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/company", label: "Company" },
   { href: "/jobs", label: "Jobs" },
-  { href: "/complaint", label: "Complaint" },
+  { href: "/events", label: "Events" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

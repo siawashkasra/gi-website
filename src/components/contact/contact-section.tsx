@@ -82,7 +82,7 @@ export function ContactSection({ showHeading = true, className }: ContactSection
           <div className="border-t border-border/50 bg-white">
             <ContactMap className="rounded-none border-0 border-t-0 shadow-none ring-0" />
           </div>
-          <p className="border-t border-border/50 bg-gradient-to-b from-gi-navy/[0.02] to-white px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:text-xs lg:px-11">Response times depend on inquiry type; formal complaints can also be routed through the dedicated complaint channel.</p>
+          <p className="border-t border-border/50 bg-gradient-to-b from-gi-navy/[0.02] to-white px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:text-xs lg:px-11">Response times depend on inquiry type; formal service matters can be routed with a clear subject through the same contact path.</p>
         </motion.div>
       ) : (
         <motion.div className="mx-auto max-w-2xl overflow-hidden rounded-3xl border border-border/60 bg-white p-7 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.16)] sm:p-9" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={reduce ? { duration: 0 } : { duration: 0.65, ease: easeLuxury }}>
