@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
 import type { RibbonItem } from "@/lib/project-ribbon";
-import { ProjectDataRibbon, ProjectHero } from "@/components/sections/ProjectHero";
+import { ProjectHero } from "@/components/sections/ProjectHero";
 import { ProjectStickySidebar } from "@/components/sections/ProjectStickySidebar";
 
 export function ProjectDetailShell({ project, ribbon, children }: { project: Project; ribbon: RibbonItem[]; children: React.ReactNode }) {
@@ -25,8 +25,7 @@ export function ProjectDetailShell({ project, ribbon, children }: { project: Pro
   }, []);
   return (
     <>
-      <ProjectHero ref={heroSectionRef} project={project} />
-      <ProjectDataRibbon items={ribbon} />
+      <ProjectHero ref={heroSectionRef} project={project} ribbon={ribbon} />
       {children}
       <ProjectStickySidebar project={project} visible={ctaVisible} />
     </>

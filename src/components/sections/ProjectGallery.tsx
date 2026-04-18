@@ -53,7 +53,9 @@ export function ProjectGallery({ images, projectName }: { images: string[]; proj
           <p className="max-w-md font-sans text-sm leading-relaxed text-white/55">Swipe or scroll horizontally. Keyboard arrows step between frames. Imagery is shown without aggressive cropping.</p>
         </div>
         <div className="relative">
-          <div ref={scrollerRef} className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 pt-2 scrollbar-gi sm:gap-6 md:px-8" style={{ WebkitOverflowScrolling: "touch" }}>
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-14 bg-gradient-to-r from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-14 bg-gradient-to-l from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
+          <div ref={scrollerRef} className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-5 pt-2 scrollbar-gi sm:gap-6 md:px-8 md:pb-6" style={{ WebkitOverflowScrolling: "touch" }}>
             {images.map((src, i) => (
               <div
                 key={src}
@@ -75,7 +77,9 @@ export function ProjectGallery({ images, projectName }: { images: string[]; proj
               </div>
             ))}
           </div>
-          <div className="pointer-events-none absolute right-4 top-3 flex items-center gap-3 sm:right-8 md:right-10">
+          <div className="pointer-events-none mx-6 mt-1 h-px max-w-none bg-gradient-to-r from-transparent via-white/18 to-transparent md:mx-10" aria-hidden />
+          <div className="pointer-events-none mx-auto mt-2 hidden h-[3px] max-w-md rounded-full bg-gradient-to-r from-transparent via-gi-gold/35 to-transparent opacity-90 md:block" aria-hidden />
+          <div className="pointer-events-none absolute right-4 top-3 z-[15] flex items-center gap-3 sm:right-8 md:right-10">
             <span className="rounded-full border border-white/20 bg-gi-navy/70 px-4 py-1.5 font-sans text-sm font-semibold tabular-nums text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-md">
               {index + 1} / {len}
             </span>
