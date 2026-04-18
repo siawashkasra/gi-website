@@ -1,8 +1,11 @@
 import { contact } from "@/lib/contact";
+import { cn } from "@/lib/utils";
 
-export function ContactMap() {
+type ContactMapProps = { className?: string };
+
+export function ContactMap({ className }: ContactMapProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm ring-1 ring-black/[0.04]">
+    <div className={cn("overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm ring-1 ring-gi-navy/[0.08]", className)}>
       <div className="aspect-[16/10] w-full min-h-[200px] sm:min-h-[240px]">
         <iframe title={`Office location — ${contact.address}`} src={contact.mapsEmbedUrl} className="h-full w-full border-0 grayscale-[0.15] contrast-[1.02]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
       </div>

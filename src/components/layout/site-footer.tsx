@@ -8,15 +8,17 @@ import { projects } from "@/data/projects";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-primary text-primary-foreground">
-      <div className="ds-container py-16">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-gi-navy text-white" role="contentinfo">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
+      <div className="relative z-[1] ds-container py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <LogoMark variant="light" />
             <p className="mt-6 max-w-md font-sans text-sm leading-relaxed text-white/70">{siteConfig.description}</p>
           </div>
           <div>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary">Explore</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white/55">Explore</p>
             <ul className="mt-4 space-y-3 font-sans text-sm">
               <li>
                 <Link href="/" className="text-white/75 transition-colors hover:text-white">
@@ -51,7 +53,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-[#2f6ea5]">Portfolio</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white/55">Portfolio</p>
             <ul className="mt-4 space-y-3 font-sans text-sm">
               {projects.slice(0, 5).map((p) => (
                 <li key={p.slug}>

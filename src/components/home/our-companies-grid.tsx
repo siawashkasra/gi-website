@@ -58,7 +58,7 @@ export function OurCompaniesGrid() {
     return () => cancelAnimationFrame(id);
   }, [visible, updateTooltipPlacement]);
   return (
-    <ul ref={rootRef} className="mt-12 grid list-none grid-cols-2 gap-x-5 gap-y-8 overflow-visible sm:gap-x-6 sm:gap-y-9 md:mt-14 md:grid-cols-3 md:gap-x-6 md:gap-y-9 lg:mt-16 lg:grid-cols-5 lg:gap-x-5 lg:gap-y-8">
+    <ul ref={rootRef} className="grid list-none grid-cols-2 gap-x-4 gap-y-7 overflow-visible sm:gap-x-5 sm:gap-y-8 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-5 lg:gap-x-4 lg:gap-y-7">
       {companies.map((c, i) => {
         const below = tooltipBelow.has(i);
         return (
@@ -78,9 +78,9 @@ export function OurCompaniesGrid() {
             <Link
               href={companyHref(c)}
               aria-describedby={`company-desc-${c.slug}`}
-              className="group relative flex flex-col items-center overflow-visible rounded-2xl border border-transparent px-2 py-3 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-primary/25 group-hover:bg-card group-hover:shadow-[0_20px_48px_-20px_rgba(31,78,121,0.12),0_0_40px_-12px_rgba(47,110,165,0.25)]"
+              className="group relative flex flex-col items-center overflow-visible rounded-2xl border border-gi-navy/[0.08] bg-white/95 px-2 py-3.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-gi-navy/18 group-hover:bg-card group-hover:shadow-[0_20px_48px_-20px_rgba(13,27,62,0.12),0_0_40px_-12px_rgba(13,27,62,0.2)]"
             >
-              <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-500 ease-out grayscale group-hover:scale-[1.06] group-hover:grayscale-0 group-hover:drop-shadow-[0_0_20px_rgba(47,110,165,0.35)] group-focus-visible:scale-[1.06] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
+              <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-500 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0 group-hover:drop-shadow-[0_0_20px_rgba(13,27,62,0.32)] group-focus-visible:scale-[1.04] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
                 <Image src={c.logo} alt={`${c.name} logo`} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" />
               </div>
               <div
@@ -92,7 +92,7 @@ export function OurCompaniesGrid() {
                 )}
                 aria-hidden="true"
               >
-                <p className="font-serif text-sm font-semibold leading-snug text-card-foreground">{c.name}</p>
+                <p className="font-heading text-sm font-semibold leading-snug text-card-foreground">{c.name}</p>
                 <p className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-primary">{c.industry}</p>
                 <p className="mt-1 text-[0.6875rem] leading-snug text-muted-foreground md:text-xs">{c.description}</p>
               </div>

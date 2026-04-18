@@ -1,6 +1,6 @@
-import { projects, getProjectBySlug, type Project } from "@/data/projects";
+import { projects, getProjectBySlug, getAllProjectSlugs, type Project } from "@/data/projects";
 
-export { projects, getProjectBySlug, type Project };
+export { projects, getProjectBySlug, getAllProjectSlugs, type Project };
 
 export const megaMenuProjects = projects;
 

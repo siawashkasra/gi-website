@@ -63,24 +63,28 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
     setAvailability("all");
   };
   return (
-    <section className="border-t border-border/60 bg-background py-16 sm:py-20 lg:py-24" aria-labelledby="listings-heading">
+    <section className="relative overflow-hidden border-t border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02] py-16 sm:py-20 lg:py-24" aria-labelledby="listings-heading">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gi-gold/22 to-transparent" aria-hidden />
       <div className="ds-container">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-eyebrow">Listings</p>
-            <h2 id="listings-heading" className="mt-3 font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            <div className="flex items-center gap-2.5">
+              <span className="size-1 shrink-0 rounded-full bg-gi-gold/70 shadow-[0_0_12px_rgba(201,168,76,0.35)]" aria-hidden />
+              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-gi-navy/55">Listings</p>
+            </div>
+            <h2 id="listings-heading" className="mt-4 font-heading text-[clamp(1.65rem,3.2vw,2.35rem)] font-semibold leading-tight tracking-tight text-gi-navy">
               Available units · {projectName}
             </h2>
-            <p className="mt-3 max-w-xl font-sans text-muted-foreground">Filter by budget, area, and status. Indicative pricing — confirm with sales.</p>
+            <p className="mt-3 max-w-xl font-sans text-muted-foreground sm:text-[0.9375rem]">Filter by budget, area, and status. Indicative pricing — confirm with sales.</p>
           </div>
           <div className="flex items-center gap-2 font-sans text-sm text-muted-foreground">
-            <SlidersHorizontal className="size-4 text-primary" aria-hidden />
+            <SlidersHorizontal className="size-4 text-gi-navy" aria-hidden />
             <span>
               <span className="font-semibold text-foreground">{filtered.length}</span> of {listings.length} shown
             </span>
           </div>
         </div>
-        <Card className="mt-10 border-border/70 shadow-sm">
+        <Card className="mt-10 rounded-2xl border border-gi-navy/[0.1] bg-white/95 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.96),0_24px_56px_-36px_rgba(13,27,62,0.12)]">
           <CardContent className="space-y-6 p-6 sm:p-8">
             <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Filters</p>
@@ -138,7 +142,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
           <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((unit) => (
               <li key={unit.id}>
-                <article className="group h-full overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg">
+                <article className="group h-full overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),0_16px_48px_-28px_rgba(13,27,62,0.1)] transition-all duration-500 hover:-translate-y-1 hover:border-gi-gold/35 hover:shadow-[0_24px_56px_-32px_rgba(13,27,62,0.14)]">
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image src={unit.image} alt={`${unit.label ?? unit.id} · ${propertyListingTypeLabels[unit.type]}`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" sizes="(max-width:1024px) 50vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-80" aria-hidden />
@@ -149,11 +153,11 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                   </div>
                   <div className="space-y-3 p-6">
                     {unit.label ? <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
-                    <p className="font-sans text-2xl font-semibold tabular-nums tracking-tight text-primary">{formatPrice(unit.priceUsd)}</p>
+                    <p className="font-sans text-2xl font-semibold tabular-nums tracking-tight text-gi-navy">{formatPrice(unit.priceUsd)}</p>
                     <p className="text-sm text-muted-foreground">
                       <span className="font-semibold text-foreground">{unit.sizeSqm}</span> m² interior / lettable (indicative)
                     </p>
-                    <Button render={<Link href={`/contact?interest=${encodeURIComponent(projectName)}&unit=${encodeURIComponent(unit.id)}`} />} nativeButton={false} variant="outline" size="sm" className="mt-2 w-full border-primary/25 hover:bg-primary/5">
+                    <Button render={<Link href={`/contact?interest=${encodeURIComponent(projectName)}&unit=${encodeURIComponent(unit.id)}`} />} nativeButton={false} variant="outline" size="sm" className="mt-2 w-full rounded-xl border-gi-navy/20 font-semibold text-gi-navy hover:border-gi-navy/35 hover:bg-gi-navy/[0.04]">
                       Inquire about this unit
                     </Button>
                   </div>

@@ -10,21 +10,11 @@ import { MegaMenu } from "@/components/layout/mega-menu";
 import { NavLink } from "@/components/layout/nav-link";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
 import { megaMenuProjects } from "@/lib/projects-data";
-import { cn } from "@/lib/utils";
-
-const SCROLL_SOLID_PX = 40;
 
 export function Header() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [solid, setSolid] = useState(false);
   const scrollYProgress = useScrollProgress();
-  useEffect(() => {
-    const sync = () => setSolid(typeof window !== "undefined" && window.scrollY > SCROLL_SOLID_PX);
-    sync();
-    window.addEventListener("scroll", sync, { passive: true });
-    return () => window.removeEventListener("scroll", sync);
-  }, []);
   useEffect(() => {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
@@ -47,14 +37,16 @@ export function Header() {
     <>
       <motion.div className="pointer-events-none fixed top-0 left-0 right-0 z-[300] h-0.5 origin-left bg-gi-gold" style={{ scaleX: scrollYProgress }} aria-hidden />
       {megaOpen ? <button type="button" className="fixed inset-0 z-[120] cursor-default bg-gi-navy-900/20" aria-label="Close menu" onClick={() => setMegaOpen(false)} /> : null}
-      <header className={cn("fixed top-0 left-0 right-0 z-[200] w-full border-b transition-colors duration-300", solid ? "border-gi-navy-900/10 bg-white/95 text-gi-navy-900 shadow-sm backdrop-blur-md" : "border-white/10 bg-gi-navy/45 text-white shadow-[0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md")}>
-        <div className="relative">
+      <header className="fixed top-0 left-0 right-0 z-[200] w-full border-b border-white/10 bg-gi-navy text-white shadow-[0_1px_0_rgba(255,255,255,0.06)]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
+        <div className="relative z-[1]">
           <div className="ds-container flex h-[4.25rem] items-center justify-between gap-4">
-            <LogoMark variant={solid ? "dark" : "light"} />
+            <LogoMark variant="light" />
             <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
               <NavLink href="/">Home</NavLink>
               <span className="group relative inline-flex">
-                <button type="button" aria-expanded={megaOpen} className={cn("relative z-10 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:opacity-90", solid ? "text-gi-navy-900" : "text-white")} onClick={() => setMegaOpen((v) => !v)}>
+                <button type="button" aria-expanded={megaOpen} className="relative z-10 rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors hover:opacity-90" onClick={() => setMegaOpen((v) => !v)}>
                   Projects
                 </button>
                 <span className="pointer-events-none absolute bottom-1 left-3 right-3 h-px origin-left scale-x-0 bg-gi-gold transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden />
@@ -65,11 +57,11 @@ export function Header() {
               <NavLink href="/contact">Contact</NavLink>
             </nav>
             <div className="hidden md:block">
-              <Button render={<Link href="/contact" />} nativeButton={false} variant={solid ? "default" : "outline"} size="sm" className={cn("h-10 rounded-xl px-5 font-semibold shadow-none", !solid && "border-white/45 bg-white/10 text-white hover:border-white/65 hover:bg-white/18 hover:text-white")}>
+              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="sm" className="h-10 rounded-xl border-white/45 bg-white/10 px-5 font-semibold text-white shadow-none hover:border-white/65 hover:bg-white/18 hover:text-white">
                 Inquire
               </Button>
             </div>
-            <button type="button" className={cn("inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors md:hidden", solid ? "border-border bg-background text-foreground hover:bg-muted" : "border-white/35 bg-white/10 text-white hover:bg-white/16")} aria-expanded={mobileOpen} aria-controls="mobile-nav" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
+            <button type="button" className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/35 bg-white/10 text-white transition-colors hover:bg-white/16 md:hidden" aria-expanded={mobileOpen} aria-controls="mobile-nav" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
               <Menu className="size-4" />
             </button>
           </div>
