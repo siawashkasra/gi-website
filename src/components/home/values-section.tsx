@@ -34,7 +34,9 @@ function ValueCard({ title, body, featured = false }: Pick<CompanyValueItem, "ti
   );
 }
 
-export function ValuesSection() {
+type ValuesSectionProps = { sectionId?: string; headingId?: string };
+
+export function ValuesSection({ sectionId = "values", headingId = "values-heading" }: ValuesSectionProps) {
   const reduce = useReducedMotion();
   const featuredIndex = companyValues.findIndex((v) => v.title === FEATURED_VALUE_TITLE);
   const featured = companyValues[featuredIndex >= 0 ? featuredIndex : 0]!;
@@ -42,12 +44,12 @@ export function ValuesSection() {
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: reduce ? 0 : 0.06 } } };
   const item = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.46, ease: easeLuxury } } };
   return (
-    <section id="values" className="ds-section border-b border-border/60 bg-white" aria-labelledby="values-heading">
+    <section id={sectionId} className="ds-section border-b border-border/60 bg-white" aria-labelledby={headingId}>
       <div className="ds-container">
         <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.75, ease: easeLuxury }}>
           <div className="relative border-b border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02] px-7 py-9 text-center sm:px-9 sm:py-10 lg:px-11 lg:py-11 xl:px-12">
             <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">Principles</p>
-            <h2 id="values-heading" className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Core values</h2>
+            <h2 id={headingId} className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Core values</h2>
             <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">The standards that guide governance, delivery, and relationships across the group.</p>
           </div>
           <div className="relative bg-white px-7 py-9 sm:px-9 sm:py-10 lg:px-10 lg:py-11 xl:px-12 xl:py-12">

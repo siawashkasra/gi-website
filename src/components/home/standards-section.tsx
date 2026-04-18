@@ -39,11 +39,11 @@ export function StandardsSection() {
                       <p className="relative mt-3 font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
                         {i === 2 ? (
                           <>
-                            {p.description} Use our{" "}
-                            <Link href="/complaint" className="font-semibold text-primary underline-offset-4 hover:underline">
-                              complaint channel
-                            </Link>{" "}
-                            for formal feedback.
+                            {p.description} For formal service feedback, use our{" "}
+                            <Link href="/contact" className="font-semibold text-primary underline-offset-4 hover:underline">
+                              contact form
+                            </Link>
+                            .
                           </>
                         ) : (
                           p.description

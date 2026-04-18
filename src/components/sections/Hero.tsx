@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { companyHero } from "@/data/company-profile";
 
-const heroImageSrc = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2880&q=92";
+const heroImageSrc = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2880&q=92";
 
 const heroStats = [
   { value: "1250+", label: "Residential units" },
@@ -107,7 +107,7 @@ export function Hero() {
               SINCE 2006
             </motion.p>
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={reduce ? { duration: 0 } : { delay: lineDelaySec, duration: 0.45, ease: [0.16, 1, 0.3, 1] }} className="mt-6 h-0.5 w-16 origin-center rounded-full bg-gradient-to-r from-transparent via-white/85 to-transparent sm:mt-7 sm:w-20" aria-hidden />
-            <motion.h1 id="hero-heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={reduce ? { duration: 0 } : { delay: headlineDelaySec, duration: headlineDurSec, ease: [0.16, 1, 0.3, 1] }} className="mt-8 max-w-[min(100%,44rem)] px-3 text-balance text-center font-serif text-5xl font-bold leading-[1.15] tracking-[-0.035em] sm:mt-10 sm:text-6xl sm:leading-[1.12] md:max-w-[min(100%,52rem)] md:text-7xl md:leading-[1.08] lg:text-8xl lg:leading-[1.06]">
+            <motion.h1 id="hero-heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={reduce ? { duration: 0 } : { delay: headlineDelaySec, duration: headlineDurSec, ease: [0.16, 1, 0.3, 1] }} className="mt-8 max-w-[min(100%,44rem)] px-3 text-balance text-center font-sans text-5xl font-bold leading-[1.15] tracking-[-0.035em] sm:mt-10 sm:text-6xl sm:leading-[1.12] md:max-w-[min(100%,52rem)] md:text-7xl md:leading-[1.08] lg:text-8xl lg:leading-[1.06]">
               Gulbahar Investment
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={reduce ? { duration: 0 } : { delay: subheadDelaySec, duration: subheadDur, ease: [0.16, 1, 0.3, 1] }} className="mx-auto mt-8 max-w-2xl font-sans text-base font-normal leading-relaxed text-white/82 sm:mt-10 sm:text-lg md:text-xl">

@@ -11,7 +11,7 @@ function LeaderCard({ name, position }: { name: string; position: string }) {
   return (
     <div className={cn(impactCard, "text-center")}>
       <div className={impactBlob} aria-hidden />
-      <p className="relative font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{name}</p>
+      <p className="relative font-heading text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{name}</p>
       <p className="relative mt-2 font-sans text-sm font-semibold text-foreground">{position}</p>
     </div>
   );

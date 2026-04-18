@@ -21,8 +21,8 @@ export default {
         },
       },
       fontFamily: {
-        heading: ['var(--font-heading), ui-serif, Georgia, "Times New Roman", serif'],
-        body: ['var(--font-body), ui-sans-serif, system-ui, sans-serif'],
+        heading: ['var(--font-manrope), ui-sans-serif, system-ui, sans-serif'],
+        body: ['var(--font-manrope), ui-sans-serif, system-ui, sans-serif'],
       },
       keyframes: {
         fadeUp: { from: { opacity: "0", transform: "translateY(24px)" }, to: { opacity: "1", transform: "translateY(0)" } },

@@ -53,7 +53,7 @@ export function Header() {
               </span>
               <NavLink href="/company">Company</NavLink>
               <NavLink href="/jobs">Jobs</NavLink>
-              <NavLink href="/complaint">Complaint</NavLink>
+              <NavLink href="/events">Events</NavLink>
               <NavLink href="/contact">Contact</NavLink>
             </nav>
             <div className="hidden md:block">
@@ -98,8 +98,8 @@ export function Header() {
                 <Link href="/jobs" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-white/10" onClick={() => setMobileOpen(false)}>
                   Jobs
                 </Link>
-                <Link href="/complaint" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-white/10" onClick={() => setMobileOpen(false)}>
-                  Complaint
+                <Link href="/events" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-white/10" onClick={() => setMobileOpen(false)}>
+                  Events
                 </Link>
                 <Link href="/contact" className="rounded-lg px-3 py-3 text-base font-medium hover:bg-white/10" onClick={() => setMobileOpen(false)}>
                   Contact

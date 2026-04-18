@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/projects`, lastModified: last, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/contact`, lastModified: last, changeFrequency: "yearly", priority: 0.7 },
     { url: `${base}/jobs`, lastModified: last, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/complaint`, lastModified: last, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${base}/events`, lastModified: last, changeFrequency: "monthly", priority: 0.55 },
     ...projects.map((p) => ({ url: `${base}/projects/${p.slug}`, lastModified: last, changeFrequency: "monthly" as const, priority: 0.85 })),
     ...getCompanyPageSlugs().map((slug) => ({ url: `${base}/companies/${slug}`, lastModified: last, changeFrequency: "monthly" as const, priority: 0.75 })),
   ];

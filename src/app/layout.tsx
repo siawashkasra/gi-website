@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "@/styles/globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/lib/site";
 
-const inter = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
-const playfair = Playfair_Display({ variable: "--font-heading", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap" });
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -36,8 +35,8 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} h-full scroll-smooth`}>
-      <body className="flex min-h-full flex-col">
+    <html lang="en" className={`${manrope.variable} h-full scroll-smooth`}>
+      <body id="gi-root" className="flex min-h-full flex-col">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <SiteHeader />
         <main className="flex-1 pt-[4.25rem]">{children}</main>

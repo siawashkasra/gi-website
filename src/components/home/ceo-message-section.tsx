@@ -8,12 +8,14 @@ const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
 const ceoPortrait = "/images/ghulam-rabani-rabani.png";
 
-export function CeoMessageSection() {
+type CeoMessageSectionProps = { sectionId?: string; headingId?: string };
+
+export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-message-heading" }: CeoMessageSectionProps) {
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.12, delayChildren: reduce ? 0 : 0.14 } } };
   const item = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
   return (
-    <section id="ceo-message" className="ds-section border-b border-border/60 bg-white" aria-labelledby="ceo-message-heading">
+    <section id={sectionId} className="ds-section border-b border-border/60 bg-white" aria-labelledby={headingId}>
       <div className="ds-container">
         <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)] lg:grid lg:min-h-[min(26rem,70vh)] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
           <div className="relative order-2 min-h-[15rem] border-b border-border/50 sm:min-h-[18rem] lg:order-1 lg:min-h-0 lg:border-b-0 lg:border-r lg:border-border/50">
@@ -30,7 +32,7 @@ export function CeoMessageSection() {
             <motion.div variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-28px" }}>
               <motion.div variants={item}>
                 <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">Leadership</p>
-                <h2 id="ceo-message-heading" className="mt-3 font-heading text-[clamp(1.65rem,3vw,2.35rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Message From The CEO</h2>
+                <h2 id={headingId} className="mt-3 font-heading text-[clamp(1.65rem,3vw,2.35rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Message From The CEO</h2>
                 <p className="mt-3 max-w-xl font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">A note on service quality, delivery discipline, and how the group approaches its customers and markets.</p>
                 <div className="mt-5 h-px w-16 bg-gradient-to-r from-primary/35 to-transparent" aria-hidden />
               </motion.div>
