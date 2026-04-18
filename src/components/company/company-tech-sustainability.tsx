@@ -3,7 +3,7 @@ import { sustainabilityStandards, technologyStandards } from "@/data/company-pro
 
 export function CompanyTechSustainability() {
   return (
-    <section id="standards-full" className="ds-section border-b border-border/60 bg-white" aria-labelledby="tech-sus-heading">
+    <section id="standards-full" className="ds-section border-b border-border/60 bg-section" aria-labelledby="tech-sus-heading">
       <div className="ds-container grid gap-12 lg:grid-cols-2">
         <div>
           <SectionHeading id="tech-sus-heading" eyebrow="Built to perform" title="Technology & infrastructure standards" />

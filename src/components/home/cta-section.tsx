@@ -17,11 +17,11 @@ export function CtaSection() {
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.12, delayChildren: reduce ? 0 : 0.05 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.5, ease: easeLuxury } } };
   return (
-    <section id="contact-cta" className="ds-section border-b border-border/60 bg-white">
+    <section id="contact-cta" className="ds-section border-b border-border/60 bg-background">
       <div className="ds-container">
-        <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.2)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
+        <motion.div className="overflow-hidden rounded-3xl border border-border/60 gi-depth-panel" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
           <motion.div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-24px" }}>
-            <motion.div variants={item} className="relative bg-gi-navy px-7 py-10 text-white sm:px-9 sm:py-11 lg:px-10 lg:py-12 xl:px-11">
+            <motion.div variants={item} className="relative bg-primary px-7 py-10 text-white sm:px-9 sm:py-11 lg:px-10 lg:py-12 xl:px-11">
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
                 <div className="relative">
@@ -59,14 +59,14 @@ export function CtaSection() {
                   </Button>
                 </div>
               </motion.div>
-              <motion.div variants={item} className="relative border-t border-border/50 bg-white p-7 sm:p-9 lg:border-t-0 lg:border-l lg:border-border/50 lg:p-10 xl:p-11">
+              <motion.div variants={item} className="relative border-t border-border/50 bg-card p-7 sm:p-9 lg:border-t-0 lg:border-l lg:border-border/50 lg:p-10 xl:p-11">
                 <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-primary/85">Send a message</p>
-                <div className="mt-4 rounded-2xl border border-gi-navy/[0.08] bg-white p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] sm:p-6">
+                <div className="gi-card-elevated mt-4 rounded-2xl border border-primary/10 bg-card p-5 sm:p-6">
                   <ContactForm compact />
                 </div>
               </motion.div>
           </motion.div>
-          <p className="border-t border-border/50 bg-gradient-to-b from-gi-navy/[0.02] to-white px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:text-xs lg:px-11">Inquiries are triaged by mandate; detailed address, channels, and map appear on the full contact page.</p>
+          <p className="border-t border-border/50 bg-gradient-to-b from-primary/5 to-section px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:text-xs lg:px-11">Inquiries are triaged by mandate; detailed address, channels, and map appear on the full contact page.</p>
         </motion.div>
       </div>
     </section>

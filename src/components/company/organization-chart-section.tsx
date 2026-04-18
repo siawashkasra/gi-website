@@ -71,7 +71,7 @@ function UnitCard({ unit, className }: { unit: OrgStructureUnit; className?: str
 export function OrganizationChartSection() {
   const o = organizationalStructure;
   return (
-    <section id="org" className="ds-section relative border-b border-border/60 bg-white" aria-labelledby="org-chart-heading">
+    <section id="org" className="ds-section relative border-b border-border/60 bg-section" aria-labelledby="org-chart-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)/0.08,transparent)]" aria-hidden />
       <div className="relative ds-container">
         <SectionHeading id="org-chart-heading" align="center" eyebrow="Structure" title={o.sectionTitle} description="Leadership and key roles across Gulbahar Group businesses." className="mx-auto max-w-2xl" />

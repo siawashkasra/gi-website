@@ -5,6 +5,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* -------------------------------------------------------------------------
+     Gulbahar Investment — unified color system (WCAG AA–oriented)
+     Canonical navy: --gi-blue (#111e41). Light mode: --primary === var(--gi-blue).
+     Section mapping & usage: see "SECTION SURFACE MAP" below.
+     ------------------------------------------------------------------------- */
+  --gi-blue: #111e41;
+  /* Interactive hover / focus lift (lighter blue — white text stays AA) */
+  --brand-primary-hover: #2a5099;
+  --gi-blue-light: var(--brand-primary-hover);
+  /* Footers, deep strips, pressed affordances */
+  --brand-primary-deep: #0f2347;
+  --gi-blue-dark: var(--brand-primary-deep);
+  --brand-accent-complement: #c9a84c;
+  /* Alias — prefer --gi-blue for brand navy in new code */
+  --brand-primary: var(--gi-blue);
+
+  /* Unified palette (explicit) */
+  --palette-primary: var(--gi-blue);
+  /* Alternating bands: subtle navy tint on near-white */
+  --palette-primary-light: color-mix(in srgb, var(--gi-blue) 5%, #f8f9fa 95%);
+  --palette-primary-lighter: color-mix(in srgb, var(--gi-blue) 4%, #ffffff 96%);
+  --palette-primary-dark: var(--brand-primary-deep);
+  --palette-accent: var(--brand-accent-complement);
+  --palette-neutral-dark: #050d1f;
+  --palette-neutral-light: #3d4f6a;
+  --palette-white: #ffffff;
+
   --gi-navy: #0d1b3e;
   --gi-navy-50: #e8ecf4;
   --gi-navy-100: #c5cedd;
@@ -19,63 +46,77 @@
   --gi-gold: #c9a84c;
   --gi-gold-light: #e8cf8a;
   --gi-gold-dark: #9a7a28;
-  --gi-blue: #1a3a6b;
-  --gi-blue-light: #2a5099;
-  --gi-blue-dark: #0f2347;
   --grain-opacity: 0.04;
   --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='gi-grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23gi-grain)'/%3E%3C/svg%3E");
 
   --brand-blue: var(--gi-blue);
-  --brand-blue-accent: var(--gi-blue-light);
-  --brand-section: #f5f7fa;
+  --brand-blue-accent: var(--brand-primary-hover);
+  --brand-section: color-mix(in srgb, var(--gi-blue) 8%, #ffffff 92%);
   --lux-black: var(--gi-navy);
   --lux-black-soft: #374151;
   --lux-gold: var(--gi-gold);
   --lux-gold-muted: var(--gi-gold-dark);
-  --lux-gold-subtle: #f5efe0;
+  --lux-gold-subtle: color-mix(in srgb, var(--brand-accent-complement) 14%, #ffffff 86%);
   --lux-white: #ffffff;
-  --lux-cream: #faf8f3;
+  --lux-cream: color-mix(in srgb, var(--gi-blue) 4%, #fffef8 96%);
+
+  /*
+   * SECTION SURFACE MAP (homepage rhythm — alternates clarity vs. tint):
+   * Body canvas: primary-lighter (~4% navy on white) — subtle brand wash.
+   * "White" sections: surface-section (#fff) — maximum contrast for long copy.
+   * "Tint" sections: primary-light (~5% navy on #f8f9fa) — light bands, not grey slabs.
+   * Hero: photographic + overlays (not a flat token); header/footer: primary / primary-dark.
+   * Cards inside modules: typically white (card) for hierarchy on tinted bands.
+   */
+  --surface-section: var(--palette-white);
+  --surface-section-alt: var(--palette-primary-light);
+  --surface-elevated: var(--palette-primary-lighter);
 
   --radius: 0;
-  --background: #ffffff;
-  --foreground: var(--gi-navy-900);
-  --card: #ffffff;
-  --card-foreground: var(--gi-navy-900);
-  --popover: #ffffff;
-  --popover-foreground: var(--gi-navy-900);
+  --background: var(--surface-elevated);
+  --foreground: var(--palette-neutral-dark);
+  --card: var(--surface-section);
+  --card-foreground: var(--palette-neutral-dark);
+  --popover: var(--surface-section);
+  --popover-foreground: var(--palette-neutral-dark);
+  /* shadcn semantic primary — light mode: same hex as --gi-blue */
   --primary: var(--gi-blue);
-  --primary-foreground: #ffffff;
+  --primary-foreground: var(--palette-white);
   --secondary: var(--gi-navy-50);
   --secondary-foreground: var(--gi-navy-900);
-  --muted: #f5f7fa;
-  --muted-foreground: #6b7280;
-  --accent: var(--gi-navy-50);
-  --accent-foreground: var(--gi-blue);
+  --muted: var(--palette-primary-light);
+  /* ≥4.5:1 on --background, --muted, and --card for body + secondary text */
+  --muted-foreground: var(--palette-neutral-light);
+  --accent: color-mix(in srgb, var(--brand-accent-complement) 10%, #ffffff 90%);
+  --accent-foreground: color-mix(in srgb, var(--brand-accent-complement) 55%, #1a1408 45%);
   --destructive: oklch(0.52 0.2 25);
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: var(--gi-blue-light);
+  --border: color-mix(in srgb, var(--gi-blue) 14%, #e8edf4 86%);
+  --input: color-mix(in srgb, var(--gi-blue) 14%, #e8edf4 86%);
+  --ring: var(--brand-primary-hover);
 }
 
 .dark {
-  --background: #111827;
-  --foreground: #f9fafb;
-  --card: #1f2937;
-  --card-foreground: #f9fafb;
-  --popover: #1f2937;
-  --popover-foreground: #f9fafb;
-  --primary: var(--gi-blue-light);
+  --surface-section: color-mix(in srgb, var(--brand-primary) 22%, #0c1220 78%);
+  --surface-section-alt: color-mix(in srgb, var(--brand-primary) 28%, #080c18 72%);
+  --surface-elevated: color-mix(in srgb, var(--brand-primary) 18%, #0a0f1a 82%);
+  --background: var(--surface-elevated);
+  --foreground: #f3f5f9;
+  --card: var(--surface-section);
+  --card-foreground: #f3f5f9;
+  --popover: var(--surface-section);
+  --popover-foreground: #f3f5f9;
+  --primary: var(--brand-primary-hover);
   --primary-foreground: #ffffff;
-  --secondary: #374151;
-  --secondary-foreground: #f9fafb;
-  --muted: #374151;
-  --muted-foreground: #9ca3af;
-  --accent: #374151;
-  --accent-foreground: #e5e7eb;
+  --secondary: color-mix(in srgb, var(--brand-primary) 35%, #1a2332 65%);
+  --secondary-foreground: #f3f5f9;
+  --muted: var(--surface-section-alt);
+  --muted-foreground: #c5cedd;
+  --accent: color-mix(in srgb, var(--brand-accent-complement) 22%, #1a1810 78%);
+  --accent-foreground: #f5efe0;
   --destructive: oklch(0.58 0.18 25);
-  --border: #4b5563;
-  --input: #4b5563;
-  --ring: var(--gi-gold);
+  --border: color-mix(in srgb, var(--brand-primary) 38%, #2a3444 62%);
+  --input: color-mix(in srgb, var(--brand-primary) 38%, #2a3444 62%);
+  --ring: var(--brand-accent-complement);
 }
 
 @theme inline {
@@ -93,7 +134,15 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-gi-blue: var(--gi-blue);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--brand-primary-hover);
+  --color-primary-deep: var(--brand-primary-deep);
+  --color-primary-light: var(--palette-primary-light);
+  --color-primary-lighter: var(--palette-primary-lighter);
+  --color-primary-dark: var(--palette-primary-dark);
+  --color-neutral-text: var(--palette-neutral-dark);
+  --color-neutral-text-muted: var(--palette-neutral-light);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -110,6 +159,9 @@
   --color-lux-cream: var(--lux-cream);
   --color-brand-blue: var(--brand-blue);
   --color-brand-accent: var(--brand-blue-accent);
+  --color-section: var(--surface-section);
+  --color-section-alt: var(--surface-section-alt);
+  --color-brand-complement: var(--brand-accent-complement);
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --spacing-section: clamp(5.5rem, 11vw, 8.5rem);
@@ -130,6 +182,12 @@
   body {
     @apply bg-background text-foreground font-sans text-base font-normal leading-relaxed antialiased;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+  /* Long-form body text: neutral-dark, slightly larger from sm breakpoint (excludes #hero) */
+  @media (min-width: 640px) {
+    main section:not(#hero) p.text-muted-foreground {
+      font-size: 1.0625rem;
+    }
   }
   body::after {
     content: "";
@@ -173,14 +231,46 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
   .ds-section {
+    position: relative;
     padding-block: var(--spacing-section);
     scroll-margin-top: 5.5rem;
+    transition: background-color 0.35s ease;
+  }
+  /* Smooth transition band between stacked sections (no box-shadow — uses hairline gradient) */
+  .ds-section:not(:first-of-type)::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--brand-primary) 22%, transparent),
+      transparent
+    );
   }
   .ds-section-sm {
     padding-block: var(--spacing-section-sm);
   }
   .text-eyebrow {
     @apply font-sans text-xs font-semibold uppercase tracking-[0.3em] text-primary;
+  }
+  /*
+   * Depth without box-shadow (global rule strips box-shadow): filter drop-shadow.
+   * Primary #111e41 at ~9–15% perceptual weight.
+   */
+  .gi-depth-panel {
+    filter: drop-shadow(0 24px 48px rgb(17 30 65 / 0.07));
+  }
+  .gi-card-elevated {
+    filter: drop-shadow(0 12px 28px rgb(17 30 65 / 0.04));
+    transition: filter 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  }
+  .gi-card-elevated:hover {
+    filter: drop-shadow(0 20px 44px rgb(17 30 65 / 0.07));
   }
   .text-heading-xl {
     @apply font-sans text-4xl font-bold tracking-tight sm:text-5xl md:text-[2.875rem] md:leading-[1.06] lg:text-[3.35rem] lg:leading-[1.05];
@@ -220,6 +310,26 @@
 
   .scrollbar-gi::-webkit-scrollbar-corner {
     background: transparent;
+  }
+}
+
+/* Corporate mega menu: preview panel cross-fade (no slide) */
+@keyframes giMegaPreviewCross {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gi-mega-preview-swap {
+  animation: giMegaPreviewCross 0.2s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gi-mega-preview-swap {
+    animation: none;
   }
 }
 

@@ -39,13 +39,13 @@ const FEATURE_ICONS: Record<ProjectFeatureIcon, LucideIcon> = {
 const luxEase = "duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
 const luxCard =
-  "rounded-2xl border border-gi-navy/[0.08] bg-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),0_20px_56px_-36px_rgba(13,27,62,0.12)] transition-[border-color,box-shadow,transform] duration-500 hover:border-gi-navy/18 hover:shadow-[0_24px_56px_-32px_rgba(13,27,62,0.14)]";
+  "gi-card-elevated rounded-2xl border border-primary/10 bg-card transition-[border-color,filter,transform] duration-500 hover:border-primary/18";
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="size-1 shrink-0 rounded-full bg-gi-gold/70 shadow-[0_0_12px_rgba(201,168,76,0.38)]" aria-hidden />
-      <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-gi-navy/58">{children}</p>
+      <span className="size-1 shrink-0 rounded-full bg-gi-gold/70 drop-shadow-[0_0_6px_rgba(201,168,76,0.55)]" aria-hidden />
+      <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/55">{children}</p>
     </div>
   );
 }
@@ -54,8 +54,8 @@ function StatHighlight({ label, value }: { label: string; value: string }) {
   const empty = value === "—" || value === "";
   return (
     <div className={cn(luxCard, "p-8 sm:p-9")}>
-      <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-gi-navy/50">{label}</p>
-      <p className={cn("mt-4 font-heading text-4xl font-semibold tabular-nums tracking-tight text-gi-navy sm:text-5xl", empty && "text-muted-foreground/45")}>{empty ? "—" : value}</p>
+      <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground">{label}</p>
+      <p className={cn("mt-4 font-heading text-4xl font-semibold tabular-nums tracking-tight text-foreground sm:text-5xl", empty && "text-muted-foreground/45")}>{empty ? "—" : value}</p>
     </div>
   );
 }
@@ -63,8 +63,8 @@ function StatHighlight({ label, value }: { label: string; value: string }) {
 function UnitBlockCard({ block }: { block: ProjectUnitBlock }) {
   return (
     <div className={cn(luxCard, "group flex flex-col p-8 sm:p-9", luxEase, "hover:-translate-y-0.5")}>
-      <span className="font-heading text-3xl font-bold tabular-nums text-gi-navy transition-colors group-hover:text-gi-blue sm:text-4xl">{block.count}</span>
-      <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-gi-navy">{block.title}</h3>
+      <span className="font-heading text-3xl font-bold tabular-nums text-foreground transition-colors group-hover:text-primary-hover sm:text-4xl">{block.count}</span>
+      <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-foreground">{block.title}</h3>
       <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{block.subtitle}</p>
     </div>
   );
@@ -81,12 +81,12 @@ export function ProjectSpecs({ project }: { project: Project }) {
   const statLabels = project.keyStatLabels ?? defaultKeyStatLabels;
   return (
     <>
-      <section className="relative border-b border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02]" aria-labelledby="project-overview-heading">
+      <section className="relative border-b border-border/60 bg-gradient-to-b from-section to-primary/5" aria-labelledby="project-overview-heading">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gi-gold/30 to-transparent" aria-hidden />
         <div className="ds-section">
           <div className="ds-container">
             <SectionEyebrow>Overview</SectionEyebrow>
-            <h2 id="project-overview-heading" className="mt-4 max-w-3xl font-heading text-[clamp(1.85rem,4vw,2.85rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">
+            <h2 id="project-overview-heading" className="mt-4 max-w-3xl font-heading text-[clamp(1.85rem,4vw,2.85rem)] font-semibold leading-[1.08] tracking-tight text-foreground">
               {overviewTitle}
             </h2>
             <div className="mt-14 grid gap-6 sm:grid-cols-3 lg:gap-8">
@@ -160,31 +160,31 @@ export function ProjectSpecs({ project }: { project: Project }) {
                 ) : null}
               </div>
               <aside className="flex min-h-0 flex-col lg:col-span-5">
-                <div className="sticky top-28 space-y-8 self-start rounded-2xl border border-gi-navy/[0.1] bg-white/95 p-8 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.96),0_28px_70px_-40px_rgba(13,27,62,0.16)] backdrop-blur-sm sm:p-9 lg:w-full">
+                <div className="gi-depth-panel sticky top-28 space-y-8 self-start rounded-2xl border border-primary/12 bg-card/95 p-8 backdrop-blur-sm sm:p-9 lg:w-full">
                   <div>
                     <h3 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                      <MapPin className="size-4 shrink-0 text-gi-navy" strokeWidth={1.5} aria-hidden />
+                      <MapPin className="size-4 shrink-0 text-primary" strokeWidth={1.5} aria-hidden />
                       Location
                     </h3>
-                    <p className="mt-3 font-sans text-lg font-medium text-gi-navy">{project.location}</p>
+                    <p className="mt-3 font-sans text-lg font-medium text-foreground">{project.location}</p>
                   </div>
                   <Separator className="bg-border/70" />
                   <div>
                     <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Timeline</h3>
-                    <ul className="relative mt-5 space-y-6 border-l border-gi-navy/12 pl-6">
+                    <ul className="relative mt-5 space-y-6 border-l border-primary/12 pl-6">
                       {project.timeline.map((phase) => (
                         <li key={phase.label} className="relative">
-                          <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-white bg-gi-navy shadow-[0_0_0_3px_rgba(201,168,76,0.2)]" aria-hidden />
-                          <p className="font-sans text-sm font-semibold text-gi-navy">{phase.label}</p>
+                          <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-white bg-primary outline outline-[3px] outline-gi-gold/25" aria-hidden />
+                          <p className="font-sans text-sm font-semibold text-foreground">{phase.label}</p>
                           <p className="mt-0.5 font-sans text-sm text-muted-foreground">{phase.value}</p>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <span className="rounded-full border border-gi-navy/12 bg-gi-navy/[0.04] px-4 py-2 font-sans text-xs font-semibold text-gi-navy">{project.status}</span>
-                    <span className="rounded-full border border-gi-navy/12 bg-white px-4 py-2 font-sans text-xs font-semibold text-gi-navy/80">{projectTypeLabels[project.type]}</span>
-                    {project.area !== "—" ? <span className="rounded-full border border-gi-navy/12 bg-white px-4 py-2 font-sans text-xs font-semibold text-muted-foreground">{project.area}</span> : null}
+                    <span className="rounded-full border border-primary/12 bg-primary/[0.04] px-4 py-2 font-sans text-xs font-semibold text-foreground">{project.status}</span>
+                    <span className="rounded-full border border-primary/12 bg-card px-4 py-2 font-sans text-xs font-semibold text-foreground/80">{projectTypeLabels[project.type]}</span>
+                    {project.area !== "—" ? <span className="rounded-full border border-primary/12 bg-card px-4 py-2 font-sans text-xs font-semibold text-muted-foreground">{project.area}</span> : null}
                   </div>
                 </div>
               </aside>
@@ -192,12 +192,12 @@ export function ProjectSpecs({ project }: { project: Project }) {
           </div>
         </div>
       </section>
-      <section className="relative overflow-hidden border-b border-border/60 bg-white" aria-labelledby="project-features-heading">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gi-navy/12 to-transparent" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border/60 bg-section" aria-labelledby="project-features-heading">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/12 to-transparent" aria-hidden />
         <div className="ds-section">
           <div className="ds-container">
             <SectionEyebrow>{featuresEyebrow}</SectionEyebrow>
-            <h2 id="project-features-heading" className="mt-4 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">
+            <h2 id="project-features-heading" className="mt-4 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-foreground">
               {featuresTitle}
             </h2>
             <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
@@ -205,11 +205,11 @@ export function ProjectSpecs({ project }: { project: Project }) {
                 const Icon = FEATURE_ICONS[f.icon];
                 return (
                   <div key={f.title} className={cn(luxCard, "flex gap-4 p-7 sm:p-8", luxEase, "hover:-translate-y-0.5")}>
-                    <span className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-gi-navy/10 bg-gi-navy/[0.04] text-gi-navy shadow-[inset_0_1px_0_0_rgba(255,255,255,0.7)]">
+                    <span className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-primary/12 bg-primary/[0.04] text-primary">
                       <Icon className="size-5" strokeWidth={1.25} aria-hidden />
                     </span>
                     <div className="min-w-0">
-                      <h3 className="font-heading text-lg font-semibold tracking-tight text-gi-navy">{f.title}</h3>
+                      <h3 className="font-heading text-lg font-semibold tracking-tight text-foreground">{f.title}</h3>
                       <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{f.description}</p>
                     </div>
                   </div>
@@ -220,11 +220,11 @@ export function ProjectSpecs({ project }: { project: Project }) {
         </div>
       </section>
       {hasUnits ? (
-        <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-gi-navy/[0.03] to-white" aria-labelledby="project-units-heading">
+        <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-primary/5 to-section" aria-labelledby="project-units-heading">
           <div className="ds-section">
             <div className="ds-container">
               <SectionEyebrow>Inventory</SectionEyebrow>
-              <h2 id="project-units-heading" className="mt-4 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">
+              <h2 id="project-units-heading" className="mt-4 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-foreground">
                 Scale at a glance
               </h2>
               <p className="mt-4 max-w-2xl font-sans text-muted-foreground sm:text-[0.9375rem]">Residential, retail, and office volumes for this development — confirm live availability with our team.</p>
@@ -234,7 +234,7 @@ export function ProjectSpecs({ project }: { project: Project }) {
                 {project.unitsInfo.offices ? <UnitBlockCard block={project.unitsInfo.offices} /> : null}
               </div>
               <div className="mt-12 flex flex-wrap gap-4">
-                <Button render={<Link href={`/contact?project=${encodeURIComponent(project.slug)}`} />} nativeButton={false} size="lg" className="h-12 rounded-xl bg-gi-navy px-8 font-semibold text-white shadow-[0_16px_40px_-20px_rgba(13,27,62,0.45)] transition-colors hover:bg-gi-navy/92">
+                <Button render={<Link href={`/contact?project=${encodeURIComponent(project.slug)}`} />} nativeButton={false} size="lg" className="h-12 rounded-xl bg-primary px-8 font-semibold text-white transition-colors hover:bg-primary-hover">
                   Request inventory
                 </Button>
               </div>

@@ -38,7 +38,7 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; ribbon: R
           <motion.div className="absolute inset-0 will-change-transform" style={{ y }}>
             <Image src={project.image} alt={project.name} fill priority fetchPriority="high" placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-cover" sizes="(max-width:1024px) 100vw, 72vw" />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gi-navy/95 via-gi-navy/50 to-gi-navy/28" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-primary/24 to-primary/11" aria-hidden />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
           <div className="absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.06)_0%,transparent_42%)]" aria-hidden />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(255,255,255,0.08),transparent_55%)]" aria-hidden />
@@ -54,8 +54,8 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; ribbon: R
                 <span className="text-white/60">{project.name}</span>
               </nav>
               <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8">
-                <span className="rounded-full border border-white/45 bg-white/12 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)] backdrop-blur-md">{project.category}</span>
-                <span className="rounded-full border border-white/35 bg-gi-navy/50 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">{statusLabel}</span>
+                <span className="rounded-full border border-white/50 bg-white/14 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">{project.category}</span>
+                <span className="rounded-full border border-white/40 bg-primary/45 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">{statusLabel}</span>
                 <span className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/90 backdrop-blur-md">{projectTypeLabels[project.type]}</span>
               </div>
               <div className="mt-auto max-w-5xl pb-4 sm:pb-6 lg:pb-8">
@@ -69,7 +69,7 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; ribbon: R
           </div>
         </div>
         {hasRibbon ? (
-          <aside className="relative flex flex-col justify-between border-t border-white/10 bg-gi-navy px-6 py-9 text-white sm:px-8 sm:py-10 lg:min-h-[calc(100svh-4.25rem)] lg:border-l lg:border-t-0 lg:px-8 lg:py-11 xl:px-10 xl:py-12" aria-label="Project key figures">
+          <aside className="relative flex flex-col justify-between border-t border-white/10 bg-primary px-6 py-9 text-white sm:px-8 sm:py-10 lg:min-h-[calc(100svh-4.25rem)] lg:border-l lg:border-t-0 lg:px-8 lg:py-11 xl:px-10 xl:py-12" aria-label="Project key figures">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.035)_0%,transparent_42%)]" aria-hidden />
             <div className="relative">

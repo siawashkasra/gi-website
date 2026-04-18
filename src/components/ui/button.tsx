@@ -11,9 +11,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-md shadow-primary/15 hover:bg-[#2f6ea5] hover:shadow-lg hover:shadow-[#2f6ea5]/20 hover:scale-[1.02] active:scale-[0.99]",
+          "bg-primary text-primary-foreground hover:bg-primary-hover hover:scale-[1.02] active:scale-[0.99]",
         outline:
-          "rounded-xl border-border/90 bg-background shadow-sm hover:border-primary/40 hover:bg-muted/50 hover:text-foreground hover:scale-[1.02] active:scale-[0.99] aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "rounded-xl border-border/90 bg-background hover:border-primary/45 hover:bg-primary-light/40 hover:text-foreground hover:scale-[1.02] active:scale-[0.99] aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
@@ -24,7 +24,7 @@ const buttonVariants = cva(
         luxury:
           "border border-primary/45 bg-transparent text-foreground hover:border-primary hover:bg-primary/[0.08] hover:text-foreground",
         luxurySolid:
-          "border border-primary/20 bg-primary text-primary-foreground shadow-[0_8px_28px_-10px_var(--color-primary)] hover:bg-primary/90",
+          "border border-primary/20 bg-primary text-primary-foreground hover:bg-primary-hover",
       },
       size: {
         default:

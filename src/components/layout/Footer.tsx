@@ -49,7 +49,7 @@ const colLabel = "font-sans text-[0.65rem] font-semibold uppercase tracking-[0.2
 function FooterColHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="size-1 shrink-0 rounded-full bg-gi-gold/60 shadow-[0_0_14px_rgba(201,168,76,0.45)]" aria-hidden />
+      <span className="size-1 shrink-0 rounded-full bg-gi-gold/60 drop-shadow-[0_0_6px_rgba(201,168,76,0.55)]" aria-hidden />
       <p className={colLabel}>{children}</p>
     </div>
   );
@@ -60,18 +60,18 @@ const luxEase = "duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-gi-navy text-white" role="contentinfo">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-primary-deep text-white" role="contentinfo">
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
       <IslamicTopBand />
       <div className="relative z-[1] ds-container py-16 lg:py-24">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.13] bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-9 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),inset_0_0_0_1px_rgba(255,255,255,0.04),0_32px_100px_-52px_rgba(13,27,62,0.6)] backdrop-blur-md lg:p-12">
+        <div className="gi-depth-panel relative overflow-hidden rounded-[1.75rem] border border-white/[0.13] bg-gradient-to-b from-white/[0.09] to-white/[0.03] p-9 backdrop-blur-md lg:p-12">
           <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gi-gold/25 to-transparent lg:inset-x-12" aria-hidden />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent)]" aria-hidden />
           <div className="relative grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-4 lg:gap-16">
             <div className="md:col-span-2 lg:col-span-1">
               <div className="flex flex-wrap items-center gap-5">
-                <span className="flex size-[4.25rem] shrink-0 items-center justify-center rounded-2xl border border-white/22 bg-white/[0.09] font-heading text-[1.35rem] font-semibold tracking-tight text-white shadow-[0_14px_44px_-18px_rgba(13,27,62,0.7),inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_40px_-14px_rgba(201,168,76,0.14)] ring-1 ring-white/10">GI</span>
+                <span className="flex size-[4.25rem] shrink-0 items-center justify-center rounded-2xl border-2 border-white/25 bg-white/[0.1] font-heading text-[1.35rem] font-semibold tracking-tight text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.35)]">GI</span>
                 <div className="min-w-0">
                   <p className="font-heading text-[clamp(1.35rem,3vw,1.9rem)] font-semibold leading-[1.12] tracking-tight text-white">{siteConfig.name}</p>
                   <div className="mt-3 h-px w-14 bg-gradient-to-r from-gi-gold/70 to-transparent" aria-hidden />
@@ -79,22 +79,22 @@ export function Footer() {
               </div>
               <p className="mt-7 max-w-sm font-sans text-[0.9375rem] leading-[1.7] text-white/52">{siteConfig.tagline}</p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <a href={contact.telHref} className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/88 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/40 hover:bg-white/12 hover:text-white hover:shadow-[0_0_24px_-8px_rgba(201,168,76,0.35)]`} aria-label="Phone">
+                <a href={contact.telHref} className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/90 backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/45 hover:bg-white/14 hover:text-white`} aria-label="Phone">
                   <Phone className="size-[19px]" strokeWidth={1.5} aria-hidden />
                 </a>
-                <a href={contact.mailtoHref} className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/88 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/40 hover:bg-white/12 hover:text-white hover:shadow-[0_0_24px_-8px_rgba(201,168,76,0.35)]`} aria-label="Email">
+                <a href={contact.mailtoHref} className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/90 backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/45 hover:bg-white/14 hover:text-white`} aria-label="Email">
                   <Mail className="size-[19px]" strokeWidth={1.5} aria-hidden />
                 </a>
-                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/88 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/40 hover:bg-white/12 hover:text-white hover:shadow-[0_0_24px_-8px_rgba(201,168,76,0.35)]`} aria-label="WhatsApp">
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/90 backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/45 hover:bg-white/14 hover:text-white`} aria-label="WhatsApp">
                   <MessageCircle className="size-[19px]" strokeWidth={1.5} aria-hidden />
                 </a>
                 {siteConfig.social.instagram ? (
-                  <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/88 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/40 hover:bg-white/12 hover:text-white hover:shadow-[0_0_24px_-8px_rgba(201,168,76,0.35)]`} aria-label="Instagram">
+                  <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/90 backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/45 hover:bg-white/14 hover:text-white`} aria-label="Instagram">
                     <Instagram className="size-[19px]" strokeWidth={1.5} aria-hidden />
                   </a>
                 ) : null}
                 {siteConfig.social.facebook ? (
-                  <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/88 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/40 hover:bg-white/12 hover:text-white hover:shadow-[0_0_24px_-8px_rgba(201,168,76,0.35)]`} aria-label="Facebook">
+                  <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" className={`inline-flex size-12 items-center justify-center rounded-full border border-white/22 bg-white/[0.07] text-white/90 backdrop-blur-sm transition-all ${luxEase} hover:border-gi-gold/45 hover:bg-white/14 hover:text-white`} aria-label="Facebook">
                     <Facebook className="size-[19px]" strokeWidth={1.5} aria-hidden />
                   </a>
                 ) : null}
@@ -131,7 +131,7 @@ export function Footer() {
             <div className="md:col-span-2 lg:col-span-1">
               <FooterColHeading>{footerCopy.contact}</FooterColHeading>
               <div className="mt-6 space-y-5 border-t border-white/12 pt-5 font-sans text-sm">
-                <div className="flex gap-3.5 rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 text-white/72 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                <div className="flex gap-3.5 rounded-xl border border-white/[0.12] bg-white/[0.04] p-4 text-white/75">
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] text-white">
                     <MapPin className="size-[18px]" strokeWidth={1.5} aria-hidden />
                   </span>
@@ -161,26 +161,26 @@ export function Footer() {
                   <span className="h-px w-6 bg-gradient-to-r from-gi-gold/50 to-transparent" aria-hidden />
                   {footerCopy.openInMaps}
                 </a>
-                <p className="max-w-xs border-t border-white/10 pt-4 font-sans text-xs leading-relaxed text-white/42">{footerCopy.affiliation}</p>
+                <p className="max-w-xs border-t border-white/10 pt-4 font-sans text-xs leading-relaxed text-white/52">{footerCopy.affiliation}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="relative z-[1] h-px w-full bg-gradient-to-r from-transparent via-white/28 to-transparent" aria-hidden />
-      <div className="relative z-[1] ds-container grid grid-cols-1 gap-6 py-10 font-sans text-sm text-white/42 md:grid-cols-3 md:items-center md:gap-8">
-        <p className="text-center font-medium tracking-tight text-white/55 md:text-start">
+      <div className="relative z-[1] ds-container grid grid-cols-1 gap-6 py-10 font-sans text-sm text-white/55 md:grid-cols-3 md:items-center md:gap-8">
+        <p className="text-center font-medium tracking-tight md:text-start">
           © {year} {siteConfig.name}
         </p>
-        <p className="text-center text-[0.8125rem] text-white/48">{footerCopy.locationLine}</p>
+        <p className="text-center text-[0.8125rem] text-white/52">{footerCopy.locationLine}</p>
         <p className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:justify-end">
-          <Link href="/contact" className={`rounded-md px-1 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] transition-colors ${luxEase} hover:text-gi-gold`}>
+          <Link href="/contact" className={`rounded-md px-1 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/55 transition-colors ${luxEase} hover:text-gi-gold`}>
             {footerCopy.privacy}
           </Link>
           <span className="text-gi-gold/35" aria-hidden>
             ·
           </span>
-          <Link href="/contact" className={`rounded-md px-1 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] transition-colors ${luxEase} hover:text-gi-gold`}>
+          <Link href="/contact" className={`rounded-md px-1 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/55 transition-colors ${luxEase} hover:text-gi-gold`}>
             {footerCopy.terms}
           </Link>
         </p>

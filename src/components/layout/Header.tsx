@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -14,7 +14,14 @@ import { megaMenuProjects } from "@/lib/projects-data";
 export function Header() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const prevMegaOpen = useRef(false);
   const scrollYProgress = useScrollProgress();
+  useEffect(() => {
+    if (prevMegaOpen.current && !megaOpen) {
+      document.getElementById("mega-menu-projects-trigger")?.focus();
+    }
+    prevMegaOpen.current = megaOpen;
+  }, [megaOpen]);
   useEffect(() => {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
@@ -36,8 +43,8 @@ export function Header() {
   return (
     <>
       <motion.div className="pointer-events-none fixed top-0 left-0 right-0 z-[300] h-0.5 origin-left bg-gi-gold" style={{ scaleX: scrollYProgress }} aria-hidden />
-      {megaOpen ? <button type="button" className="fixed inset-0 z-[120] cursor-default bg-gi-navy-900/20" aria-label="Close menu" onClick={() => setMegaOpen(false)} /> : null}
-      <header className="fixed top-0 left-0 right-0 z-[200] w-full border-b border-white/10 bg-gi-navy text-white shadow-[0_1px_0_rgba(255,255,255,0.06)]">
+      {megaOpen ? <button type="button" className="fixed inset-0 z-[120] cursor-default bg-primary-deep/35" aria-label="Close menu" onClick={() => setMegaOpen(false)} /> : null}
+      <header className="fixed top-0 left-0 right-0 z-[200] w-full border-b border-white/20 bg-primary text-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
         <div className="relative z-[1]">
@@ -46,7 +53,15 @@ export function Header() {
             <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
               <NavLink href="/">Home</NavLink>
               <span className="group relative inline-flex">
-                <button type="button" aria-expanded={megaOpen} className="relative z-10 rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors hover:opacity-90" onClick={() => setMegaOpen((v) => !v)}>
+                <button
+                  type="button"
+                  id="mega-menu-projects-trigger"
+                  aria-expanded={megaOpen}
+                  aria-haspopup="true"
+                  aria-controls="mega-menu-projects-dropdown"
+                  className="relative z-10 rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors hover:opacity-90"
+                  onClick={() => setMegaOpen((v) => !v)}
+                >
                   Projects
                 </button>
                 <span className="pointer-events-none absolute bottom-1 left-3 right-3 h-px origin-left scale-x-0 bg-gi-gold transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden />
@@ -72,7 +87,7 @@ export function Header() {
       </header>
       <AnimatePresence>
         {mobileOpen ? (
-          <motion.div key="drawer" id="mobile-nav" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "tween", duration: 0.32, ease: [0.16, 1, 0.3, 1] }} className="fixed inset-0 z-[250] flex flex-col bg-gi-navy text-white">
+          <motion.div key="drawer" id="mobile-nav" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "tween", duration: 0.32, ease: [0.16, 1, 0.3, 1] }} className="fixed inset-0 z-[250] flex flex-col bg-primary text-white">
             <div className="flex h-[4.25rem] items-center justify-between border-b border-white/10 px-4">
               <LogoMark variant="light" />
               <button type="button" className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/25 text-white transition-colors hover:bg-white/10" aria-label="Close menu" onClick={() => setMobileOpen(false)}>

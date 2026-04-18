@@ -17,7 +17,9 @@ export function SectionHeading({ eyebrow, title, description, align = "left", cl
       <h2 id={id} className={designClasses.headingXl}>
         {title}
       </h2>
-      {description ? <p className="mt-5 font-sans text-base font-normal leading-relaxed text-muted-foreground sm:text-lg">{description}</p> : null}
+      {description ? (
+        <p className="mt-5 font-sans text-base font-normal leading-relaxed text-neutral-text-muted sm:text-[1.0625rem] sm:leading-relaxed md:text-lg">{description}</p>
+      ) : null}
     </div>
   );
 }

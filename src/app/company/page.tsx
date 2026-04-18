@@ -27,11 +27,11 @@ export default function CompanyPage() {
     <main>
       <section className="border-b border-border/60 bg-primary py-20 text-primary-foreground sm:py-24">
         <div className="ds-container max-w-4xl">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-[#2f6ea5]">Company</p>
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-primary">Company</p>
           <h1 className="mt-4 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl">Gulbahar Investment</h1>
           <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-white/85 sm:text-lg">Privately held Afghan investment and development group — real estate, infrastructure, energy, and cement — with disciplined governance and long-term capital orientation.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-12 rounded-xl border-0 bg-white px-8 font-semibold text-primary hover:bg-[#f5f7fa]">
+            <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-12 rounded-xl border-0 bg-card px-8 font-semibold text-primary hover:bg-muted">
               View projects
             </Button>
             <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-12 rounded-xl border-white/40 bg-white/5 px-8 font-semibold text-white hover:bg-white/10">
@@ -43,7 +43,7 @@ export default function CompanyPage() {
       <CompanySnapshotFull />
       <CompanyAboutFull />
       <CompanyMissionVisionBlock />
-      <section className="ds-section border-b border-border/60 bg-white" aria-labelledby="values-company-heading">
+      <section className="ds-section border-b border-border/60 bg-section" aria-labelledby="values-company-heading">
         <div className="ds-container max-w-4xl">
           <h2 id="values-company-heading" className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
             Core values

@@ -6,7 +6,7 @@ const ceoPortrait = "/images/ghulam-rabani-rabani.png";
 
 export function CompanyCeoBlock() {
   return (
-    <section id="ceo" className="ds-section border-b border-border/60 bg-muted/30" aria-labelledby="ceo-company-heading">
+    <section id="ceo" className="ds-section border-b border-border/60 bg-section-alt" aria-labelledby="ceo-company-heading">
       <div className="ds-container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="relative order-2 mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl bg-card shadow-2xl ring-1 ring-border lg:order-1 lg:mx-0">
           <Image src={ceoPortrait} alt={ceoProfile.name} fill className="object-cover object-[center_12%]" sizes="(max-width:1024px) 100vw, 40vw" />

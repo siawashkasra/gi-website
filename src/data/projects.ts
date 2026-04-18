@@ -30,6 +30,8 @@ export type ProjectKeyStatLabels = { units: string; shops: string; facilities: s
 
 export type ProjectMissionVision = { vision: string; mission: string; values: string[] };
 
+export type MegaMenuKeyFact = { label: string; value: string };
+
 export type Project = {
   slug: string;
   name: string;
@@ -61,6 +63,11 @@ export type Project = {
   strategicPositioning?: string;
   keyComponentBullets?: string[];
   facilityBullets?: string[];
+  /** Corporate mega menu: list line status + three-column preview facts */
+  megaMenu?: {
+    listStatus: string;
+    facts: [MegaMenuKeyFact, MegaMenuKeyFact, MegaMenuKeyFact];
+  };
 };
 
 export const projects: Project[] = [
@@ -70,6 +77,14 @@ export const projects: Project[] = [
     category: "Mixed-use",
     type: "mixed-use",
     featured: true,
+    megaMenu: {
+      listStatus: "Completed",
+      facts: [
+        { label: "Investment", value: "USD 120M" },
+        { label: "Scale", value: "17 floors" },
+        { label: "Year", value: "2018" },
+      ],
+    },
     excerpt: "Flagship mixed-use complex in central Kabul — residential, marketplace retail, and structured parking at approximately USD 120 million scale.",
     description:
       "Gulbahar Center is a flagship mixed-use urban development in central Kabul integrating residential apartments, commercial market areas, and structured parking in a single multi-level complex. It represents an early large-scale private-sector urban initiative in the capital, providing an integrated residential and commercial environment in a prime location with organized retail and structured residential living.",
@@ -137,6 +152,14 @@ export const projects: Project[] = [
     category: "Residential",
     type: "residential",
     featured: true,
+    megaMenu: {
+      listStatus: "Operational",
+      facts: [
+        { label: "Investment", value: "USD 80M+" },
+        { label: "Scale", value: "19 blocks" },
+        { label: "Year", value: "—" },
+      ],
+    },
     excerpt: "Nineteen residential blocks near key government institutions — total investment exceeding USD 80 million.",
     description:
       "Gulbahar Towers is a large-scale residential and commercial complex comprising nineteen independent blocks with total investment exceeding USD eighty million. Located in District 16, Pul-e-Mahmood Khan, near key governmental and administrative institutions, it contributes to structured residential expansion in a strategic urban zone and combines residential, retail, and community services in a consolidated complex.",
@@ -203,6 +226,14 @@ export const projects: Project[] = [
     category: "Mixed-use",
     type: "mixed-use",
     featured: true,
+    megaMenu: {
+      listStatus: "Operational",
+      facts: [
+        { label: "Investment", value: "USD 60M" },
+        { label: "Scale", value: "25 floors" },
+        { label: "Year", value: "—" },
+      ],
+    },
     excerpt: "Airport Road corridor — twenty-five-floor tower, shopping center, underground parking, and planned hospitality at ~USD 60 million.",
     description:
       "Gulbahar Plaza is a large-scale mixed-use development along one of Kabul’s primary commercial corridors at Airport Road, Macroryan 4th Square. It includes a twenty-five-floor residential tower, a four-floor commercial shopping center, four underground parking levels, and a planned hospitality component, with estimated investment of approximately USD sixty million. Proximity to Kabul International Airport and major commercial districts supports residential, retail, hospitality, and business demand in a high-growth corridor.",
@@ -274,6 +305,14 @@ export const projects: Project[] = [
     name: "Gulbahar Energy",
     category: "Energy",
     type: "commercial",
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Capacity", value: "50–700 MW" },
+        { label: "Type", value: "Gas-fired generation" },
+        { label: "Integration", value: "DABS grid" },
+      ],
+    },
     excerpt: "Gas-fired power in northern Afghanistan — from 50 MW to 700 MW scale, DABS grid integration, and coordination with MoWE and MoMP.",
     description:
       "Gulbahar Energy is a private developer of power generation in Afghanistan, focused on local resources to produce electricity and support the national grid through gas-fired projects and public-private coordination.",
@@ -381,6 +420,14 @@ export const projects: Project[] = [
     featuresSectionEyebrow: "Operations",
     featuresSectionTitle: "Key plant components",
     areaBadgePlain: true,
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Capacity", value: "12,000 t/day" },
+        { label: "Employment", value: "5,000+ jobs" },
+        { label: "Product", value: "Grey & white cement" },
+      ],
+    },
     location: "Afghanistan",
     status: "Operational",
     year: "2023",
@@ -434,6 +481,159 @@ export const projects: Project[] = [
         title: "7. Infrastructure",
         description: "Access roads and transport; maintenance workshop; administrative offices; worker facilities.",
       },
+    ],
+    unitsInfo: {},
+  },
+  {
+    slug: "gulbahar-petroleum",
+    name: "Gulbahar Petroleum",
+    category: "Oil & gas",
+    type: "commercial",
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Scope", value: "Downstream & logistics" },
+        { label: "Footprint", value: "Afghanistan" },
+        { label: "Stage", value: "Active" },
+      ],
+    },
+    excerpt:
+      "Integrated downstream and logistics programs supporting Afghanistan’s energy supply chain — storage, distribution, and institutional-grade operational standards.",
+    description:
+      "Gulbahar Petroleum represents the Group’s participation in oil and gas logistics and downstream infrastructure. Activities are structured around reliable supply, compliant operations, and long-term partnerships with Afghan institutions and international counterparties.",
+    location: "Afghanistan",
+    status: "Active",
+    year: "—",
+    area: "—",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-10.png",
+    gallery: ["/images/projects/gulbahar-plaza/gulbahar-plaza-10.png", "/images/projects/gulbahar-plaza/gulbahar-plaza-11.png"],
+    timeline: [
+      { label: "Platform", value: "Logistics-led" },
+      { label: "Geography", value: "National" },
+      { label: "Operations", value: "Ongoing" },
+      { label: "Governance", value: "Institutional" },
+    ],
+    keyStats: { units: "National", shops: "Logistics", facilities: "Integrated" },
+    strategicPositioning:
+      "Gulbahar Petroleum focuses on secure supply-chain execution and operational discipline across downstream assets, aligned with national priorities and international compliance expectations.",
+    features: [
+      { icon: "layers", title: "Supply continuity", description: "Structured logistics programs supporting predictable deliveries and inventory discipline." },
+      { icon: "shield", title: "Operational compliance", description: "Controls aligned with safety and documentation standards across handling and dispatch." },
+      { icon: "landmark", title: "Institutional alignment", description: "Coordination with relevant ministries and regulators for permit-driven execution." },
+    ],
+    unitsInfo: {},
+  },
+  {
+    slug: "gulbahar-foundation",
+    name: "Gulbahar Foundation",
+    category: "Social impact",
+    type: "commercial",
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Focus", value: "Community & education" },
+        { label: "Geography", value: "Afghanistan" },
+        { label: "Programs", value: "Ongoing" },
+      ],
+    },
+    excerpt: "Corporate social responsibility initiatives spanning education, community infrastructure, and long-term institutional partnerships across Afghanistan.",
+    description:
+      "Gulbahar Foundation channels private-sector resources into structured social programs with measurable outcomes. Priorities include education access, community facilities, and collaboration with public institutions to extend impact at scale.",
+    location: "Afghanistan",
+    status: "Active",
+    year: "—",
+    area: "—",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-06.png",
+    gallery: ["/images/projects/gulbahar-plaza/gulbahar-plaza-06.png", "/images/projects/gulbahar-plaza/gulbahar-plaza-07.png"],
+    timeline: [
+      { label: "Mission", value: "Social ROI" },
+      { label: "Focus", value: "Education" },
+      { label: "Delivery", value: "Partnerships" },
+      { label: "Coverage", value: "National" },
+    ],
+    keyStats: { units: "National", shops: "Education", facilities: "Community" },
+    strategicPositioning:
+      "The Foundation aligns philanthropic and programmatic investment with Gulbahar Group priorities — transparent governance, accountable delivery, and sustainable community outcomes.",
+    features: [
+      { icon: "users", title: "Community programs", description: "Structured grants and projects designed for long-term institutional benefit." },
+      { icon: "landmark", title: "Education access", description: "Support for schools, scholarships, and learning infrastructure where need is greatest." },
+      { icon: "shield", title: "Governance", description: "Reporting and oversight consistent with international CSR practice." },
+    ],
+    unitsInfo: {},
+  },
+  {
+    slug: "gulbahar-pharma",
+    name: "Gulbahar Pharma",
+    category: "Pharmaceuticals",
+    type: "commercial",
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Focus", value: "Manufacturing & supply" },
+        { label: "Compliance", value: "cGMP roadmap" },
+        { label: "Registration", value: "In progress" },
+      ],
+    },
+    excerpt: "Pharmaceutical manufacturing and distribution capability aligned with international quality systems — supporting national healthcare resilience.",
+    description:
+      "Gulbahar Pharma develops manufacturing and distribution capacity for essential medicines. The platform is designed around quality systems, regulatory registration, and reliable supply to Afghan healthcare providers.",
+    location: "Afghanistan",
+    status: "Active",
+    year: "—",
+    area: "—",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-08.png",
+    gallery: ["/images/projects/gulbahar-plaza/gulbahar-plaza-08.png", "/images/projects/gulbahar-plaza/gulbahar-plaza-09.png"],
+    timeline: [
+      { label: "Quality", value: "cGMP" },
+      { label: "Scope", value: "Essential meds" },
+      { label: "Market", value: "National" },
+      { label: "Stage", value: "Development" },
+    ],
+    keyStats: { units: "cGMP", shops: "Essential", facilities: "National" },
+    strategicPositioning:
+      "Gulbahar Pharma positions the Group at the intersection of industrial capability and public health — quality-first manufacturing with transparent regulatory engagement.",
+    features: [
+      { icon: "shield", title: "Quality systems", description: "Documentation and controls aligned with international pharmaceutical manufacturing expectations." },
+      { icon: "layers", title: "Supply reliability", description: "Distribution planning for critical medicines across urban and regional channels." },
+      { icon: "sparkles", title: "Innovation", description: "Partnerships for technology transfer and capacity building." },
+    ],
+    unitsInfo: {},
+  },
+  {
+    slug: "gulbahar-group-afghanistan",
+    name: "Gulbahar Group Afghanistan",
+    category: "Holding company",
+    type: "commercial",
+    megaMenu: {
+      listStatus: "Active",
+      facts: [
+        { label: "Role", value: "Diversified holding" },
+        { label: "Sectors", value: "Industrial & services" },
+        { label: "HQ", value: "Kabul" },
+      ],
+    },
+    excerpt: "The Gulbahar Group’s Afghanistan holding platform — coordinating capital allocation, governance, and cross-portfolio strategy across industrial and urban assets.",
+    description:
+      "Gulbahar Group Afghanistan provides central governance for the Group’s Afghan operating companies. Functions include strategy, capital planning, risk management, and alignment with national development priorities.",
+    location: "Kabul, Afghanistan",
+    status: "Active",
+    year: "—",
+    area: "—",
+    image: "/images/projects/gulbahar-plaza/gulbahar-plaza-01.png",
+    gallery: ["/images/projects/gulbahar-plaza/gulbahar-plaza-01.png", "/images/projects/gulbahar-plaza/gulbahar-plaza-02.png"],
+    timeline: [
+      { label: "Governance", value: "Central" },
+      { label: "Portfolio", value: "Multi-sector" },
+      { label: "Strategy", value: "Long-term" },
+      { label: "Presence", value: "National" },
+    ],
+    keyStats: { units: "Multi-sector", shops: "National", facilities: "Integrated" },
+    strategicPositioning:
+      "The holding company ensures institutional-grade oversight across Gulbahar’s Afghan portfolio — from cement and energy to urban development and social programs.",
+    features: [
+      { icon: "layers", title: "Capital allocation", description: "Central planning for investment sequencing and balance-sheet discipline." },
+      { icon: "landmark", title: "Stakeholder alignment", description: "Coordination with government and international partners on large-scale projects." },
+      { icon: "wifi", title: "Portfolio integration", description: "Shared services and reporting across operating subsidiaries." },
     ],
     unitsInfo: {},
   },

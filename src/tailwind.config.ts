@@ -17,7 +17,7 @@ export default {
             900: "#050D1F",
           },
           gold: { DEFAULT: "#C9A84C", light: "#E8CF8A", dark: "#9A7A28" },
-          blue: { DEFAULT: "#1A3A6B", light: "#2A5099", dark: "#0F2347" },
+          blue: { DEFAULT: "#111E41", light: "#2A5099", dark: "#0F2347" },
         },
       },
       fontFamily: {

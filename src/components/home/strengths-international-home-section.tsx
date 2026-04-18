@@ -15,10 +15,10 @@ export function StrengthsInternationalHomeSection() {
   const item = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.46, ease: easeLuxury } } };
   const listB = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.04 } } };
   return (
-    <section className="ds-section border-b border-border/60 bg-white" aria-labelledby="positioning-heading">
+    <section className="ds-section border-b border-border/60 bg-section" aria-labelledby="positioning-heading">
       <div className="ds-container">
-        <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.75, ease: easeLuxury }}>
-          <div id="home-governance" className="relative bg-gi-navy px-7 py-10 text-white sm:px-9 sm:py-11 lg:px-11 lg:py-12 xl:px-12">
+        <motion.div className="overflow-hidden rounded-3xl border border-border/60 gi-depth-panel" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.75, ease: easeLuxury }}>
+          <div id="home-governance" className="relative bg-primary px-7 py-10 text-white sm:px-9 sm:py-11 lg:px-11 lg:py-12 xl:px-12">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
             <div className="relative max-w-3xl">
@@ -30,20 +30,20 @@ export function StrengthsInternationalHomeSection() {
               </Button>
             </div>
           </div>
-          <div className="relative border-t border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02]">
+          <div className="relative border-t border-border/50 bg-gradient-to-b from-section to-primary/5">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" aria-hidden />
             <div className="px-7 pb-2 pt-10 text-center sm:px-9 sm:pt-11 lg:px-11 lg:pt-12 xl:px-12">
               <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">Advantage</p>
-              <h2 id="positioning-heading" className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Strengths & reach</h2>
+              <h2 id="positioning-heading" className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-foreground">Strengths & reach</h2>
               <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">Selective highlights from the competitive platform and international connectivity.</p>
               <div className="mx-auto mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/35 to-transparent" aria-hidden />
             </div>
             <motion.div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-7 pb-10 pt-8 sm:px-9 lg:grid-cols-3 lg:gap-7 lg:px-11 lg:pb-11 xl:px-12" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-24px" }}>
               {teaserStrengths.map((s) => (
-                <motion.article key={s.order} variants={item} className="group relative flex flex-col overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] transition-[border-color,box-shadow] duration-500 hover:border-gi-navy/18 hover:shadow-[0_20px_56px_-36px_rgba(13,27,62,0.14)]">
+                <motion.article key={s.order} variants={item} className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/10 bg-card p-7 gi-card-elevated transition-[border-color,filter] duration-500 hover:border-primary/18">
                   <div className="pointer-events-none absolute -right-5 -top-5 size-20 rounded-full bg-primary/[0.05] transition-transform duration-500 group-hover:scale-110" aria-hidden />
                   <div className="relative flex size-10 items-center justify-center rounded-lg bg-primary/10 font-sans text-lg font-semibold tabular-nums text-primary ring-1 ring-primary/12">{s.order}</div>
-                  <h3 className="relative mt-4 font-heading text-lg font-semibold tracking-tight text-gi-navy">{s.title}</h3>
+                  <h3 className="relative mt-4 font-heading text-lg font-semibold tracking-tight text-foreground">{s.title}</h3>
                   <p className="relative mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{leadFromBody(s.body, 200)}</p>
                 </motion.article>
               ))}
@@ -57,11 +57,11 @@ export function StrengthsInternationalHomeSection() {
               ].map((block) => {
                 const Icon = block.icon;
                 return (
-                  <motion.article key={block.title} variants={item} className="group relative flex flex-col overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] transition-[border-color,box-shadow] duration-500 hover:border-gi-navy/18 hover:shadow-[0_20px_56px_-36px_rgba(13,27,62,0.14)] sm:p-7">
+                  <motion.article key={block.title} variants={item} className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/10 bg-card p-6 gi-card-elevated transition-[border-color,filter] duration-500 hover:border-primary/18 sm:p-7">
                     <div className="relative flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/12">
                       <Icon className="size-5 shrink-0 text-primary" aria-hidden />
                     </div>
-                    <h3 className="relative mt-4 font-heading text-lg font-semibold tracking-tight text-gi-navy">{block.title}</h3>
+                    <h3 className="relative mt-4 font-heading text-lg font-semibold tracking-tight text-foreground">{block.title}</h3>
                     <p className="relative mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{block.body}</p>
                   </motion.article>
                 );

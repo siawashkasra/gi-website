@@ -8,7 +8,7 @@ import { projects } from "@/data/projects";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-gi-navy text-white" role="contentinfo">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-primary-deep text-white" role="contentinfo">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
       <div className="relative z-[1] ds-container py-16">
@@ -82,7 +82,7 @@ export function SiteFooter() {
                 {contact.phoneDisplay}
               </a>
               <span className="text-white/40">·</span>
-              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#7eb8e8] underline-offset-4 hover:underline">
+              <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-gi-gold underline-offset-4 transition-colors hover:text-white hover:underline">
                 WhatsApp
               </a>
             </p>

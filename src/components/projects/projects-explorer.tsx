@@ -46,7 +46,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all duration-300",
                   pressed
-                    ? "border-primary bg-primary text-primary-foreground shadow-[0_8px_24px_-8px_var(--color-primary)]"
+                    ? "border-2 border-primary bg-primary text-primary-foreground"
                     : "border-border/80 bg-background text-foreground hover:border-primary/35 hover:bg-muted/50"
                 )}
               >

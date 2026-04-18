@@ -22,7 +22,7 @@ function StatTile({ icon: Icon, children, label, sublabel, className, size = "de
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85)] transition-[border-color,box-shadow] duration-500 hover:border-gi-navy/18 hover:shadow-[0_22px_56px_-32px_rgba(13,27,62,0.14)]",
+        "group relative overflow-hidden rounded-2xl border border-primary/10 bg-card p-7 gi-card-elevated transition-[border-color,filter] duration-500 hover:border-primary/18",
         hero && "p-8 sm:p-9",
         className,
       )}
@@ -43,10 +43,10 @@ export function StatsSection() {
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: reduce ? 0 : 0.04 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.5, ease: easeLuxury } } };
   return (
-    <section id="impact" className="ds-section relative border-b border-border/60 bg-white" aria-labelledby="stats-heading">
+    <section id="impact" className="ds-section relative border-b border-border/60 bg-section" aria-labelledby="stats-heading">
       <div className="relative ds-container">
-        <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.2)] lg:grid lg:min-h-[min(28rem,62vh)] lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={reduce ? { duration: 0 } : { duration: 0.8, ease: easeLuxury }}>
-          <div className="relative flex flex-col justify-between bg-gi-navy px-8 py-12 text-white sm:px-10 sm:py-14 lg:px-11 lg:py-14 xl:px-14 xl:py-16">
+        <motion.div className="overflow-hidden rounded-3xl border border-border/60 gi-depth-panel lg:grid lg:min-h-[min(28rem,62vh)] lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={reduce ? { duration: 0 } : { duration: 0.8, ease: easeLuxury }}>
+          <div className="relative flex flex-col justify-between bg-primary px-8 py-12 text-white sm:px-10 sm:py-14 lg:px-11 lg:py-14 xl:px-14 xl:py-16">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_0%_100%,rgba(255,255,255,0.1),transparent_58%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
             <div className="relative">
@@ -70,7 +70,7 @@ export function StatsSection() {
               </div>
             </div>
           </div>
-          <div className="relative border-t border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02] p-7 sm:p-8 lg:border-t-0 lg:border-l lg:border-border/50 lg:p-9 xl:p-11">
+          <div className="relative border-t border-border/50 bg-gradient-to-b from-section to-primary/5 p-7 sm:p-8 lg:border-t-0 lg:border-l lg:border-border/50 lg:p-9 xl:p-11">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" aria-hidden />
             <motion.ul className="grid list-none grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
               <motion.li variants={item}>

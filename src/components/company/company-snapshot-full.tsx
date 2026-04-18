@@ -13,7 +13,7 @@ export function CompanySnapshotFull() {
           {companySnapshot.map((row, i) => {
             const Icon = icons[i] ?? Building2;
             return (
-              <div key={row.label} className="rounded-2xl border border-border/60 bg-white p-6 shadow-md transition-all duration-300 hover:border-primary/20 hover:shadow-lg">
+              <div key={row.label} className="rounded-2xl border border-border/60 bg-card p-6 shadow-md transition-all duration-300 hover:border-primary/20 hover:shadow-lg">
                 <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Icon className="size-5" aria-hidden />
                 </div>

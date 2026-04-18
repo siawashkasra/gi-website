@@ -3,7 +3,7 @@ import { portfolioTableRows } from "@/data/company-profile";
 
 export function CompanyPortfolioTable() {
   return (
-    <section id="portfolio" className="ds-section border-b border-border/60 bg-white" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="ds-section border-b border-border/60 bg-section" aria-labelledby="portfolio-heading">
       <div className="ds-container">
         <SectionHeading id="portfolio-heading" eyebrow="Developments" title="Portfolio overview" description="Strategic positioning by project and sector." />
         <div className="mt-10 overflow-x-auto rounded-2xl border border-border/60 shadow-sm">
@@ -17,7 +17,7 @@ export function CompanyPortfolioTable() {
             </thead>
             <tbody>
               {portfolioTableRows.map((row) => (
-                <tr key={row.project} className="border-t border-border/60 bg-white">
+                <tr key={row.project} className="border-t border-border/60 bg-card">
                   <td className="px-5 py-4 font-semibold text-foreground">{row.project}</td>
                   <td className="px-5 py-4 text-muted-foreground">{row.location}</td>
                   <td className="px-5 py-4 text-muted-foreground">{row.sector}</td>
