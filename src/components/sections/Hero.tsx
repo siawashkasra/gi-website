@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { companyHero } from "@/data/company-profile";
 
-const heroImageSrc = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2880&q=92";
+const heroImageSrc = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2880&q=92";
 
 const heroStats = [
   { value: "1250+", label: "Residential units" },
