@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   Building2,
@@ -20,7 +19,6 @@ import type { Project, ProjectFeatureIcon, ProjectUnitBlock } from "@/data/proje
 import { projectTypeLabels } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
 import { cn } from "@/lib/utils";
 
 const FEATURE_ICONS: Record<ProjectFeatureIcon, LucideIcon> = {
@@ -77,14 +75,13 @@ const defaultKeyStatLabels = { units: "Residential units", shops: "Retail & shop
 export function ProjectSpecs({ project }: { project: Project }) {
   const overviewTitle = project.detailOverviewTitle ?? "A destination shaped for longevity";
   const paras = project.detailOverviewParagraphs?.length ? project.detailOverviewParagraphs : [project.description];
-  const imgs = project.gallery.length ? project.gallery : [project.image];
   const hasUnits = !!(project.unitsInfo.apartments || project.unitsInfo.shops || project.unitsInfo.offices);
   const featuresEyebrow = project.featuresSectionEyebrow ?? "Experience";
   const featuresTitle = project.featuresSectionTitle ?? "Signature features";
   const statLabels = project.keyStatLabels ?? defaultKeyStatLabels;
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02]" aria-labelledby="project-overview-heading">
+      <section className="relative border-b border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02]" aria-labelledby="project-overview-heading">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gi-gold/30 to-transparent" aria-hidden />
         <div className="ds-section">
           <div className="ds-container">
@@ -97,65 +94,60 @@ export function ProjectSpecs({ project }: { project: Project }) {
               <StatHighlight label={statLabels.shops} value={project.keyStats.shops} />
               <StatHighlight label={statLabels.facilities} value={project.keyStats.facilities} />
             </div>
-            <div className="mt-20 space-y-24 lg:mt-24 lg:space-y-28">
-              {paras.map((para, i) => (
-                <div key={i} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                  <div className={cn("border-l-2 border-gi-gold/55 pl-8", i % 2 === 1 && "lg:col-start-2")}>
-                    <p className="font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{para}</p>
-                  </div>
-                  <div className={cn("relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted ring-1 ring-gi-navy/[0.08] shadow-[0_24px_60px_-28px_rgba(13,27,62,0.18)]", i % 2 === 1 && "lg:col-start-1 lg:row-start-1")}>
-                    <Image src={imgs[i % imgs.length]} alt="" fill loading={i === 0 ? "eager" : "lazy"} placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
-                  </div>
+            <div className="mt-20 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:items-stretch lg:gap-16">
+              <div className="min-w-0 space-y-20 border-l-2 border-gi-gold/55 pl-8 lg:col-span-7 lg:space-y-24">
+                <div className="space-y-8 lg:space-y-10">
+                  {paras.map((para, i) => (
+                    <p key={i} className="max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">
+                      {para}
+                    </p>
+                  ))}
                 </div>
-              ))}
-            </div>
-            {project.strategicPositioning ? (
-              <div className="mt-20 border-l-2 border-gi-gold/55 pl-8 lg:mt-24">
-                <SectionEyebrow>Strategic positioning</SectionEyebrow>
-                <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.strategicPositioning}</p>
-              </div>
-            ) : null}
-            {project.keyComponentBullets?.length ? (
-              <div className="mt-16 border-l-2 border-gi-gold/55 pl-8 lg:mt-20">
-                <SectionEyebrow>Key components</SectionEyebrow>
-                <ul className="mt-4 space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
-                  {project.keyComponentBullets.map((b) => (
-                    <li key={b} className="flex gap-3">
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            {project.facilityBullets?.length ? (
-              <div className="mt-16 border-l-2 border-gi-gold/55 pl-8 lg:mt-20">
-                <SectionEyebrow>Facilities</SectionEyebrow>
-                <ul className="mt-4 space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
-                  {project.facilityBullets.map((b) => (
-                    <li key={b} className="flex gap-3">
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            <div className="mt-20 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:gap-16">
-              <div className="border-l-2 border-gi-gold/55 pl-8 lg:col-span-7">
+                {project.strategicPositioning ? (
+                  <div>
+                    <SectionEyebrow>Strategic positioning</SectionEyebrow>
+                    <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.strategicPositioning}</p>
+                  </div>
+                ) : null}
+                {project.keyComponentBullets?.length ? (
+                  <div>
+                    <SectionEyebrow>Key components</SectionEyebrow>
+                    <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
+                      {project.keyComponentBullets.map((b) => (
+                        <li key={b} className="flex gap-3">
+                          <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {project.facilityBullets?.length ? (
+                  <div>
+                    <SectionEyebrow>Facilities</SectionEyebrow>
+                    <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
+                      {project.facilityBullets.map((b) => (
+                        <li key={b} className="flex gap-3">
+                          <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
                 {project.missionVision ? (
                   <div className="space-y-10">
                     <div>
                       <SectionEyebrow>Vision</SectionEyebrow>
-                      <p className="mt-4 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.vision}</p>
+                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.vision}</p>
                     </div>
                     <div>
                       <SectionEyebrow>Mission</SectionEyebrow>
-                      <p className="mt-4 font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.mission}</p>
+                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.mission}</p>
                     </div>
                     <div>
                       <SectionEyebrow>Values</SectionEyebrow>
-                      <ul className="mt-4 space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
+                      <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
                         {project.missionVision.values.map((v) => (
                           <li key={v} className="flex gap-3">
                             <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
@@ -167,8 +159,8 @@ export function ProjectSpecs({ project }: { project: Project }) {
                   </div>
                 ) : null}
               </div>
-              <aside className="lg:col-span-5">
-                <div className="sticky top-28 space-y-8 rounded-2xl border border-gi-navy/[0.1] bg-white/95 p-8 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.96),0_28px_70px_-40px_rgba(13,27,62,0.16)] backdrop-blur-sm sm:p-9">
+              <aside className="flex min-h-0 flex-col lg:col-span-5">
+                <div className="sticky top-28 space-y-8 self-start rounded-2xl border border-gi-navy/[0.1] bg-white/95 p-8 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.96),0_28px_70px_-40px_rgba(13,27,62,0.16)] backdrop-blur-sm sm:p-9 lg:w-full">
                   <div>
                     <h3 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                       <MapPin className="size-4 shrink-0 text-gi-navy" strokeWidth={1.5} aria-hidden />
