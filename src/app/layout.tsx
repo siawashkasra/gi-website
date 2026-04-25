@@ -35,8 +35,8 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} h-full scroll-smooth`}>
-      <body id="gi-root" className="flex min-h-full flex-col">
+    <html lang="en" className={`${manrope.variable} h-full scroll-smooth`} suppressHydrationWarning>
+      <body id="gi-root" className="flex min-h-full flex-col" suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <SiteHeader />
         <main className="flex-1 pt-[4.25rem]">{children}</main>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
@@ -21,9 +21,12 @@ export function ProjectGallery({ images, projectName }: { images: string[]; proj
     },
     [len]
   );
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const scroller = scrollerRef.current;
     const el = itemRefs.current[index];
-    el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    if (!scroller || !el) return;
+    const nextLeft = el.offsetLeft + el.offsetWidth / 2 - scroller.clientWidth / 2;
+    scroller.scrollTo({ left: Math.max(0, nextLeft), behavior: "smooth" });
   }, [index]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
