@@ -15,6 +15,7 @@ import { StatsSection } from "@/components/home/stats-section";
 import { TeamSection } from "@/components/home/team-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { ValuesSection } from "@/components/home/values-section";
+import { getMergedCompanies, getMergedLeadershipTeam, getResolvedHomeSectionMedia } from "@/lib/media/merge";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,21 +25,24 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: [siteConfig.openGraphImage] },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const homeMedia = await getResolvedHomeSectionMedia();
+  const companies = await getMergedCompanies();
+  const team = await getMergedLeadershipTeam();
   return (
     <>
       <HeroSection />
       <FeaturedProjects />
       <StatsSection />
       <CompanySnapshotSection />
-      <AboutSection />
-      <MilestonesSection />
+      <AboutSection imageSrc={homeMedia.about?.src} imageAlt={homeMedia.about?.alt} />
+      <MilestonesSection imageSrc={homeMedia.milestones?.src} imageAlt={homeMedia.milestones?.alt} />
       <TestimonialsSection />
       <CoreAreasHomeSection />
       <MissionVisionSection />
-      <CeoMessageSection />
-      <TeamSection />
-      <OurCompaniesSection />
+      <CeoMessageSection portraitSrc={homeMedia.ceo?.src} portraitAlt={homeMedia.ceo?.alt} />
+      <TeamSection members={team} />
+      <OurCompaniesSection companies={companies} />
       <ValuesSection />
       <StrengthsInternationalHomeSection />
       <StandardsSection />

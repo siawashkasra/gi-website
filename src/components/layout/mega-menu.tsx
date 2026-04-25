@@ -4,16 +4,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { megaMenuProjects, portfolioStats } from "@/lib/projects-data";
+import type { Project } from "@/data/projects";
+import { portfolioStats } from "@/lib/projects-data";
 
-export function MegaMenu({ open, onNavigate }: { open: boolean; onNavigate: () => void }) {
+export function MegaMenu({ open, onNavigate, projects }: { open: boolean; onNavigate: () => void; projects: Project[] }) {
   return (
     <AnimatePresence>
       {open ? (
         <motion.div key="mega" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 right-0 top-full border-b border-border/80 bg-background shadow-2xl shadow-[0_24px_48px_-24px_rgba(13,27,62,0.25)]" role="dialog" aria-label="Projects portfolio">
           <div className="ds-container grid max-h-[min(85vh,44rem)] grid-cols-1 gap-10 py-10 lg:grid-cols-[3fr_2fr] lg:gap-12">
             <ul className="min-w-0 space-y-0 divide-y divide-border/60">
-              {megaMenuProjects.map((p) => (
+              {projects.map((p) => (
                 <li key={p.slug}>
                   <Link href={`/projects/${p.slug}`} onClick={onNavigate} className="group flex gap-4 py-4 first:pt-0 transition-colors hover:bg-muted/30">
                     <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-md bg-muted ring-1 ring-border/50">

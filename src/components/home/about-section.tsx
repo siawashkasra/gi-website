@@ -9,9 +9,10 @@ import { companyAbout, homeHighlights } from "@/data/company-profile";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
-const imageSrc = "/images/home/about-multi-sector-platform.png";
+const defaultImageSrc = "/images/home/about-multi-sector-platform.png";
+const defaultImageAlt = "Gulbahar Plaza mixed-use development";
 
-export function AboutSection() {
+export function AboutSection({ imageSrc = defaultImageSrc, imageAlt = defaultImageAlt }: { imageSrc?: string; imageAlt?: string }) {
   const reduce = useReducedMotion();
   const paras = companyAbout.paragraphs.slice(0, homeHighlights.aboutParagraphCount);
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.1, delayChildren: reduce ? 0 : 0.12 } } };
@@ -21,7 +22,7 @@ export function AboutSection() {
       <div className="ds-container">
         <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)] lg:grid lg:min-h-[min(28rem,72vh)] lg:grid-cols-[minmax(0,0.46fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
           <div className="group/image relative min-h-[14rem] border-b border-border/50 sm:min-h-[18rem] lg:min-h-full lg:border-b-0 lg:border-r lg:border-border/50">
-            <Image src={imageSrc} alt="Gulbahar Plaza mixed-use development" fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 46vw" priority={false} />
+            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 46vw" priority={false} />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(13,27,62,0.72)_0%,rgba(13,27,62,0.18)_38%,transparent_62%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(13,27,62,0.35)_0%,transparent_48%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_tr,rgba(255,255,255,0.06)_0%,transparent_40%)]" aria-hidden />

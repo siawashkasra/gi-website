@@ -7,8 +7,8 @@ import { ProjectGallery } from "@/components/sections/ProjectGallery";
 import { ProjectSpecs } from "@/components/sections/ProjectSpecs";
 import { PropertyListingsSection } from "@/components/property-listings/property-listings-section";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/data/projects";
-import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects-data";
+import { getAllProjectSlugs } from "@/lib/projects-data";
+import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
 import { getRibbonItems } from "@/lib/project-ribbon";
 import { siteConfig } from "@/lib/site";
 
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getMergedProject(slug);
   if (!project) return { title: "Project" };
   return {
     title: project.name,
@@ -36,10 +36,11 @@ function isRealEstateProject(slug: string) {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getMergedProject(slug);
   if (!project) notFound();
   const ribbon = getRibbonItems(project);
-  const related = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
+  const mergedList = await getMergedProjects();
+  const related = mergedList.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));
   return (
     <article className="max-w-full overflow-x-hidden border-b border-border/60">

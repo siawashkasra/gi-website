@@ -9,9 +9,11 @@ import { Button } from "@/components/ui/button";
 import { MegaMenu } from "@/components/layout/mega-menu";
 import { NavLink } from "@/components/layout/nav-link";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
-import { megaMenuProjects } from "@/lib/projects-data";
+import type { Project } from "@/data/projects";
+import { projects as fallbackMenuProjects } from "@/data/projects";
 
-export function Header() {
+export function Header({ menuProjects }: { menuProjects?: Project[] }) {
+  const megaMenuProjects = menuProjects ?? fallbackMenuProjects;
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const scrollYProgress = useScrollProgress();
@@ -66,7 +68,7 @@ export function Header() {
             </button>
           </div>
           <div className="hidden md:block">
-            <MegaMenu open={megaOpen} onNavigate={() => setMegaOpen(false)} />
+            <MegaMenu open={megaOpen} onNavigate={() => setMegaOpen(false)} projects={megaMenuProjects} />
           </div>
         </div>
       </header>
