@@ -9,6 +9,7 @@ import { ProjectStickySidebar } from "@/components/sections/ProjectStickySidebar
 export function ProjectDetailShell({ project, ribbon, children }: { project: Project; ribbon: RibbonItem[]; children: React.ReactNode }) {
   const heroSectionRef = useRef<HTMLElement>(null);
   const [ctaVisible, setCtaVisible] = useState(false);
+  useEffect(() => { window.scrollTo(0, 0); }, [project.slug]);
   useEffect(() => {
     function tick() {
       const el = heroSectionRef.current;
