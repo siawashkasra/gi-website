@@ -1,18 +1,22 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Feedback = { text: string; tone: "success" | "error" };
 
-export function MediaSlotEditor({ label, placementKey }: { label: string; placementKey: string }) {
+export type MediaSlotCurrent = { publicPath: string; alt: string };
+
+export function MediaSlotEditor({ label, placementKey, current = null, fallbackImage = null }: { label: string; placementKey: string; current?: MediaSlotCurrent | null; fallbackImage?: MediaSlotCurrent | null }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pickedName, setPickedName] = useState("");
   const [alt, setAlt] = useState("");
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState<MediaSlotCurrent | null>(current ?? null);
+  useEffect(() => { setPreview(current ?? null); }, [current, placementKey]);
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -32,7 +36,7 @@ export function MediaSlotEditor({ label, placementKey }: { label: string; placem
       const upFd = new FormData();
       upFd.append("file", file);
       const up = await fetch("/api/admin/upload", { method: "POST", body: upFd });
-      const upJson = (await up.json()) as { ok?: boolean; message?: string; id?: string };
+      const upJson = (await up.json()) as { ok?: boolean; message?: string; id?: string; publicPath?: string };
       if (!up.ok || !upJson.ok || !upJson.id) {
         setFeedback({ tone: "error", text: upJson.message ?? "The upload did not finish. Check your connection and file size (max 8 MB), then try again." });
         return;
@@ -43,6 +47,7 @@ export function MediaSlotEditor({ label, placementKey }: { label: string; placem
         setFeedback({ tone: "error", text: plJson.message ?? "The image uploaded, but we could not attach it to this slot. Try again, or refresh the page." });
         return;
       }
+      if (upJson.publicPath) setPreview({ publicPath: upJson.publicPath, alt: alt.trim() });
       setFeedback({ tone: "success", text: "Done — this image is now live for this section. If you still see the old picture, wait a few seconds or refresh the page." });
       form.reset();
       setAlt("");
@@ -57,6 +62,7 @@ export function MediaSlotEditor({ label, placementKey }: { label: string; placem
     try {
       const res = await fetch(`/api/admin/placements?placementKey=${encodeURIComponent(placementKey)}`, { method: "DELETE" });
       const j = (await res.json()) as { ok?: boolean };
+      if (res.ok && j.ok) setPreview(null);
       setFeedback(
         res.ok && j.ok
           ? { tone: "success", text: "Custom image removed. This area will show the original website image again (the one from the site files). Changes may take a moment to appear." }
@@ -70,6 +76,28 @@ export function MediaSlotEditor({ label, placementKey }: { label: string; placem
     <div className="rounded-lg border border-border bg-card p-4">
       <h3 className="font-semibold text-gi-navy">{label}</h3>
       <p className="mt-1 font-mono text-xs text-muted-foreground">{placementKey}</p>
+      <div className="mt-4">
+        <p className="text-sm font-medium text-foreground">Preview</p>
+        {preview?.publicPath ? (
+          <div className="mt-2 overflow-hidden rounded-lg border border-border bg-muted/40">
+            <p className="border-b border-border bg-muted/30 px-3 py-1.5 text-xs text-muted-foreground">Custom image (active for this slot)</p>
+            <div className="flex h-48 items-center justify-center bg-muted/60 p-2">
+              <img src={preview.publicPath} alt={preview.alt || ""} className="mx-auto block max-h-full w-auto max-w-full object-contain" />
+            </div>
+            {preview.alt ? <p className="border-t border-border px-3 py-2 text-xs text-muted-foreground">{preview.alt}</p> : null}
+          </div>
+        ) : fallbackImage?.publicPath ? (
+          <div className="mt-2 overflow-hidden rounded-lg border border-border bg-muted/40">
+            <p className="border-b border-border bg-muted/30 px-3 py-1.5 text-xs text-muted-foreground">Default from site — shown until you upload a custom image</p>
+            <div className="flex h-48 items-center justify-center bg-muted/60 p-2">
+              <img src={fallbackImage.publicPath} alt={fallbackImage.alt || ""} className="mx-auto block max-h-full w-auto max-w-full object-contain" referrerPolicy="no-referrer" />
+            </div>
+            {fallbackImage.alt ? <p className="border-t border-border px-3 py-2 text-xs text-muted-foreground">{fallbackImage.alt}</p> : null}
+          </div>
+        ) : (
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">No image to show for this slot yet.</p>
+        )}
+      </div>
       <form className="mt-4 space-y-3" onSubmit={onSubmit}>
         <div>
           <span className="text-sm font-medium text-foreground">Image</span>

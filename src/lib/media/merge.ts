@@ -5,6 +5,8 @@ import type { Company } from "@/data/companies";
 import { companies as staticCompanies, getCompanyForCompanyPage } from "@/data/companies";
 import type { Project } from "@/data/projects";
 import { getProjectBySlug, projects as staticProjects } from "@/data/projects";
+import type { PropertyListing } from "@/lib/property-listings";
+import { fetchProjectListingRows, rowToPropertyListing } from "@/lib/media/project-listings-repo";
 import type { TeamMember } from "@/data/team";
 import { leadershipTeam } from "@/data/team";
 import { fetchPlacementMap, type ResolvedPlacement } from "@/lib/media/queries";
@@ -21,7 +23,7 @@ function photoKeyFromPath(photo: string) {
   return m ? m[1] : "";
 }
 
-export function mergeProjectFromMap(base: Project, map: Map<string, ResolvedPlacement>): Project {
+export function mergeProjectFromMap(base: Project, map: Map<string, ResolvedPlacement>, listingsSource?: PropertyListing[]): Project {
   const heroP = map.get(projectHeroKey(base.slug));
   const image = heroP?.publicPath ?? base.image;
   let maxI = Math.max(base.gallery.length - 1, -1);
@@ -35,11 +37,12 @@ export function mergeProjectFromMap(base: Project, map: Map<string, ResolvedPlac
     gallery.push(o?.publicPath ?? base.gallery[i] ?? image);
   }
   if (gallery.length === 0) gallery.push(...(base.gallery.length > 0 ? base.gallery : [image]));
-  const listings = base.listings?.map((l) => {
+  const rawListings = listingsSource !== undefined ? listingsSource : base.listings;
+  const listings = rawListings?.map((l) => {
     const o = map.get(listingImageKey(l.id));
     return o ? { ...l, image: o.publicPath } : l;
   });
-  return { ...base, image, gallery, listings: listings ?? base.listings };
+  return { ...base, image, gallery, listings };
 }
 
 export function mergeCompanyFromMap(base: Company, map: Map<string, ResolvedPlacement>): Company {
@@ -58,12 +61,18 @@ export const getMergedProject = cache(async (slug: string): Promise<Project | un
   const base = getProjectBySlug(slug);
   if (!base) return undefined;
   const map = await placementMap();
-  return mergeProjectFromMap(base, map);
+  const dbRows = fetchProjectListingRows(slug);
+  const listingsSource = dbRows.length > 0 ? dbRows.map(rowToPropertyListing) : undefined;
+  return mergeProjectFromMap(base, map, listingsSource);
 });
 
 export const getMergedProjects = cache(async (): Promise<Project[]> => {
   const map = await placementMap();
-  return staticProjects.map((p) => mergeProjectFromMap(p, map));
+  return staticProjects.map((p) => {
+    const dbRows = fetchProjectListingRows(p.slug);
+    const listingsSource = dbRows.length > 0 ? dbRows.map(rowToPropertyListing) : undefined;
+    return mergeProjectFromMap(p, map, listingsSource);
+  });
 });
 
 export const getMergedCompanies = cache(async (): Promise<Company[]> => {

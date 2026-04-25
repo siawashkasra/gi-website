@@ -237,7 +237,11 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </div>
       </section>
-      {project.listings && project.listings.length > 0 ? <PropertyListingsSection projectName={project.name} listings={project.listings} /> : null}
+      {project.listings && project.listings.length > 0 ? (
+        <div id="available-units" className="scroll-mt-24">
+          <PropertyListingsSection projectName={project.name} listings={project.listings} />
+        </div>
+      ) : null}
       {hasUnits ? (
         <section className="border-t border-border/60 bg-white py-20 sm:py-28 lg:py-32" aria-labelledby="units-heading">
           <div className="ds-container">

@@ -47,7 +47,11 @@ export default async function ProjectDetailPage({ params }: Props) {
       <ProjectDetailShell project={project} ribbon={ribbon}>
         <ProjectSpecs project={project} />
         <ProjectGallery images={project.gallery} projectName={project.name} />
-        {showUnits ? <PropertyListingsSection projectName={project.name} listings={project.listings!} /> : null}
+        {showUnits ? (
+          <div id="available-units" className="scroll-mt-24">
+            <PropertyListingsSection projectName={project.name} listings={project.listings!} />
+          </div>
+        ) : null}
         <section className="relative overflow-hidden bg-gi-navy py-20 text-white sm:py-28">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />

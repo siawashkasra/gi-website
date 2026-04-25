@@ -18,7 +18,12 @@ export default function AdminOverviewPage() {
         </li>
         <li>
           <Link href="/admin/projects" className="underline-offset-2 hover:underline">
-            Project hero, gallery, listings
+            Project hero and gallery
+          </Link>
+        </li>
+        <li>
+          <Link href="/admin/units" className="underline-offset-2 hover:underline">
+            Unit listings (CRUD, featured, pagination on site)
           </Link>
         </li>
         <li>
