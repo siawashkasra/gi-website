@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   const related = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));
   return (
-    <article className="border-b border-border/60">
+    <article className="max-w-full overflow-x-hidden border-b border-border/60">
       <ProjectDetailShell project={project} ribbon={ribbon}>
         <ProjectSpecs project={project} />
         <ProjectGallery images={project.gallery} projectName={project.name} />
