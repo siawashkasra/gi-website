@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, SlidersHorizontal, Star } from "lucide-react";
 import type { PropertyListing, PropertyListingAvailability } from "@/lib/property-listings";
 import {
   filterPropertyListings,
@@ -37,6 +37,8 @@ function formatPrice(n: number) {
 
 type PropertyListingsSectionProps = { projectName: string; listings: PropertyListing[] };
 
+const PAGE_SIZE = 9;
+
 export function PropertyListingsSection({ projectName, listings }: PropertyListingsSectionProps) {
   const bounds = useMemo(() => getListingBounds(listings), [listings]);
   const [priceMinIn, setPriceMinIn] = useState("");
@@ -55,12 +57,32 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
     [priceMinIn, priceMaxIn, sizeMinIn, sizeMaxIn, availability]
   );
   const filtered = useMemo(() => filterPropertyListings(listings, filters), [listings, filters]);
+  const sortedFiltered = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+    return arr;
+  }, [filtered]);
+  const [page, setPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(sortedFiltered.length / PAGE_SIZE));
+  const pageSafe = Math.min(Math.max(1, page), totalPages);
+  const pageItems = sortedFiltered.slice((pageSafe - 1) * PAGE_SIZE, pageSafe * PAGE_SIZE);
+  const prevPageSafeRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (prevPageSafeRef.current === null) {
+      prevPageSafeRef.current = pageSafe;
+      return;
+    }
+    if (prevPageSafeRef.current === pageSafe) return;
+    prevPageSafeRef.current = pageSafe;
+    document.getElementById("available-units")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [pageSafe]);
   const reset = () => {
     setPriceMinIn("");
     setPriceMaxIn("");
     setSizeMinIn("");
     setSizeMaxIn("");
     setAvailability("all");
+    setPage(1);
   };
   return (
     <section className="relative overflow-hidden border-t border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02] py-16 sm:py-20 lg:py-24" aria-labelledby="listings-heading">
@@ -80,7 +102,8 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
           <div className="flex items-center gap-2 font-sans text-sm text-muted-foreground">
             <SlidersHorizontal className="size-4 text-gi-navy" aria-hidden />
             <span>
-              <span className="font-semibold text-foreground">{filtered.length}</span> of {listings.length} shown
+              <span className="font-semibold text-foreground">{sortedFiltered.length}</span> of {listings.length} match filters
+              {sortedFiltered.length > PAGE_SIZE ? ` · Page ${pageSafe} of ${totalPages}` : null}
             </span>
           </div>
         </div>
@@ -97,10 +120,10 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Price (USD)</Label>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Input type="number" inputMode="numeric" placeholder={`From · ${formatPrice(bounds.priceMin)}`} value={priceMinIn} onChange={(e) => setPriceMinIn(e.target.value)} className="h-10" aria-label="Minimum price USD" />
+                    <Input type="number" inputMode="numeric" placeholder={`From · ${formatPrice(bounds.priceMin)}`} value={priceMinIn} onChange={(e) => { setPriceMinIn(e.target.value); setPage(1); }} className="h-10" aria-label="Minimum price USD" />
                   </div>
                   <div>
-                    <Input type="number" inputMode="numeric" placeholder={`To · ${formatPrice(bounds.priceMax)}`} value={priceMaxIn} onChange={(e) => setPriceMaxIn(e.target.value)} className="h-10" aria-label="Maximum price USD" />
+                    <Input type="number" inputMode="numeric" placeholder={`To · ${formatPrice(bounds.priceMax)}`} value={priceMaxIn} onChange={(e) => { setPriceMaxIn(e.target.value); setPage(1); }} className="h-10" aria-label="Maximum price USD" />
                   </div>
                 </div>
               </div>
@@ -108,10 +131,10 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Size (m²)</Label>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Input type="number" inputMode="decimal" placeholder={`Min · ${bounds.sizeMin}`} value={sizeMinIn} onChange={(e) => setSizeMinIn(e.target.value)} className="h-10" aria-label="Minimum size square meters" />
+                    <Input type="number" inputMode="decimal" placeholder={`Min · ${bounds.sizeMin}`} value={sizeMinIn} onChange={(e) => { setSizeMinIn(e.target.value); setPage(1); }} className="h-10" aria-label="Minimum size square meters" />
                   </div>
                   <div>
-                    <Input type="number" inputMode="decimal" placeholder={`Max · ${bounds.sizeMax}`} value={sizeMaxIn} onChange={(e) => setSizeMaxIn(e.target.value)} className="h-10" aria-label="Maximum size square meters" />
+                    <Input type="number" inputMode="decimal" placeholder={`Max · ${bounds.sizeMax}`} value={sizeMaxIn} onChange={(e) => { setSizeMaxIn(e.target.value); setPage(1); }} className="h-10" aria-label="Maximum size square meters" />
                   </div>
                 </div>
               </div>
@@ -122,7 +145,7 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                     <button
                       key={opt}
                       type="button"
-                      onClick={() => setAvailability(opt)}
+                      onClick={() => { setAvailability(opt); setPage(1); }}
                       className={cn(
                         "rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-all",
                         availability === opt ? "border-primary bg-primary text-primary-foreground shadow-sm" : "border-border bg-muted/40 text-muted-foreground hover:border-primary/30 hover:bg-muted"
@@ -136,21 +159,28 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
             </div>
           </CardContent>
         </Card>
-        {filtered.length === 0 ? (
+        {sortedFiltered.length === 0 ? (
           <p className="mt-12 rounded-2xl border border-dashed border-border/80 bg-muted/20 py-14 text-center text-muted-foreground">No units match these filters. Adjust ranges or reset.</p>
         ) : (
-          <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((unit) => (
-              <li key={unit.id}>
-                <article className="group h-full overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),0_16px_48px_-28px_rgba(13,27,62,0.1)] transition-all duration-500 hover:-translate-y-1 hover:border-gi-gold/35 hover:shadow-[0_24px_56px_-32px_rgba(13,27,62,0.14)]">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image src={unit.image} alt={`${unit.label ?? unit.id} · ${propertyListingTypeLabels[unit.type]}`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" sizes="(max-width:1024px) 50vw, 33vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-80" aria-hidden />
-                    <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-black/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white backdrop-blur-md">{propertyListingTypeLabels[unit.type]}</span>
-                    <span className={cn("absolute right-4 top-4 rounded-full border px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider backdrop-blur-md", availabilityStyles(unit.availability))}>
-                      {propertyListingAvailabilityLabels[unit.availability]}
-                    </span>
-                  </div>
+          <>
+            <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {pageItems.map((unit) => (
+                <li key={unit.id}>
+                  <article className={cn("group h-full overflow-hidden rounded-2xl border bg-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),0_16px_48px_-28px_rgba(13,27,62,0.1)] transition-all duration-500 hover:-translate-y-1 hover:border-gi-gold/35 hover:shadow-[0_24px_56px_-32px_rgba(13,27,62,0.14)]", unit.featured ? "border-gi-gold/50 ring-2 ring-gi-gold/25" : "border-gi-navy/[0.08]")}>
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image src={unit.image} alt={`${unit.label ?? unit.id} · ${propertyListingTypeLabels[unit.type]}`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" sizes="(max-width:1024px) 50vw, 33vw" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-80" aria-hidden />
+                      {unit.featured ? (
+                        <span className="absolute left-4 top-4 flex items-center gap-1 rounded-full border border-gi-gold/50 bg-gi-gold/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-gi-navy shadow-sm">
+                          <Star className="size-3 fill-gi-navy text-gi-navy" aria-hidden />
+                          Featured
+                        </span>
+                      ) : null}
+                      <span className={cn("absolute rounded-full border border-white/25 bg-black/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white backdrop-blur-md", unit.featured ? "left-4 top-14" : "left-4 top-4")}>{propertyListingTypeLabels[unit.type]}</span>
+                      <span className={cn("absolute right-4 top-4 rounded-full border px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider backdrop-blur-md", availabilityStyles(unit.availability))}>
+                        {propertyListingAvailabilityLabels[unit.availability]}
+                      </span>
+                    </div>
                   <div className="space-y-3 p-6">
                     {unit.label ? <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{unit.label}</p> : null}
                     <p className="font-sans text-2xl font-semibold tabular-nums tracking-tight text-gi-navy">{formatPrice(unit.priceUsd)}</p>
@@ -162,9 +192,25 @@ export function PropertyListingsSection({ projectName, listings }: PropertyListi
                     </Button>
                   </div>
                 </article>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+            {totalPages > 1 ? (
+              <nav className="mt-10 flex flex-wrap items-center justify-center gap-2" aria-label="Listing pages">
+                <Button type="button" variant="outline" size="sm" className="gap-1" disabled={pageSafe <= 1} onClick={() => setPage(pageSafe - 1)}>
+                  <ChevronLeft className="size-4" aria-hidden />
+                  Previous
+                </Button>
+                <span className="px-3 text-sm text-muted-foreground">
+                  {pageSafe} / {totalPages}
+                </span>
+                <Button type="button" variant="outline" size="sm" className="gap-1" disabled={pageSafe >= totalPages} onClick={() => setPage(pageSafe + 1)}>
+                  Next
+                  <ChevronRight className="size-4" aria-hidden />
+                </Button>
+              </nav>
+            ) : null}
+          </>
         )}
       </div>
     </section>

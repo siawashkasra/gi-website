@@ -7,8 +7,8 @@ import { ProjectGallery } from "@/components/sections/ProjectGallery";
 import { ProjectSpecs } from "@/components/sections/ProjectSpecs";
 import { PropertyListingsSection } from "@/components/property-listings/property-listings-section";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/data/projects";
-import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects-data";
+import { getAllProjectSlugs } from "@/lib/projects-data";
+import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
 import { getRibbonItems } from "@/lib/project-ribbon";
 import { siteConfig } from "@/lib/site";
 
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getMergedProject(slug);
   if (!project) return { title: "Project" };
   return {
     title: project.name,
@@ -36,17 +36,22 @@ function isRealEstateProject(slug: string) {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getMergedProject(slug);
   if (!project) notFound();
   const ribbon = getRibbonItems(project);
-  const related = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
+  const mergedList = await getMergedProjects();
+  const related = mergedList.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));
   return (
     <article className="max-w-full overflow-x-hidden border-b border-border/60">
       <ProjectDetailShell project={project} ribbon={ribbon}>
         <ProjectSpecs project={project} />
         <ProjectGallery images={project.gallery} projectName={project.name} />
-        {showUnits ? <PropertyListingsSection projectName={project.name} listings={project.listings!} /> : null}
+        {showUnits ? (
+          <div id="available-units" className="scroll-mt-24">
+            <PropertyListingsSection projectName={project.name} listings={project.listings!} />
+          </div>
+        ) : null}
         <section className="relative overflow-hidden bg-gi-navy py-20 text-white sm:py-28">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
