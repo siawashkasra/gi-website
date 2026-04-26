@@ -65,6 +65,20 @@ export function runMigrationsIfNeeded() {
       \`created_at\` integer NOT NULL
     );
     CREATE INDEX IF NOT EXISTS project_listings_slug_idx ON project_listings(project_slug);
+    CREATE TABLE IF NOT EXISTS \`project_hero_sidebar\` (
+      \`project_slug\` text PRIMARY KEY NOT NULL,
+      \`eyebrow\` text,
+      \`title\` text,
+      \`blurb\` text
+    );
+    CREATE TABLE IF NOT EXISTS \`project_hero_sidebar_rows\` (
+      \`id\` text PRIMARY KEY NOT NULL,
+      \`project_slug\` text NOT NULL,
+      \`sort_order\` integer NOT NULL DEFAULT 0,
+      \`label\` text NOT NULL,
+      \`value\` text NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS project_hero_sidebar_rows_slug_idx ON project_hero_sidebar_rows(project_slug);
   `);
   seedStaticProjectListingsFromData(sqlite);
   sqlite.close();

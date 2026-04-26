@@ -28,6 +28,23 @@ export const placements = sqliteTable("placements", {
   alt: text("alt").notNull(),
 });
 
+export const projectHeroSidebar = sqliteTable("project_hero_sidebar", {
+  projectSlug: text("project_slug").primaryKey(),
+  eyebrow: text("eyebrow"),
+  title: text("title"),
+  blurb: text("blurb"),
+});
+
+export const projectHeroSidebarRows = sqliteTable("project_hero_sidebar_rows", {
+  id: text("id").primaryKey(),
+  projectSlug: text("project_slug").notNull(),
+  sortOrder: integer("sort_order", { mode: "number" }).notNull().default(0),
+  label: text("label").notNull(),
+  value: text("value").notNull(),
+});
+
 export type AssetRow = typeof assets.$inferSelect;
 export type PlacementRow = typeof placements.$inferSelect;
 export type ProjectListingRow = typeof projectListings.$inferSelect;
+export type ProjectHeroSidebarRow = typeof projectHeroSidebar.$inferSelect;
+export type ProjectHeroSidebarMetricRow = typeof projectHeroSidebarRows.$inferSelect;

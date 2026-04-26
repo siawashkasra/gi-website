@@ -9,7 +9,7 @@ import { PropertyListingsSection } from "@/components/property-listings/property
 import { Button } from "@/components/ui/button";
 import { getAllProjectSlugs } from "@/lib/projects-data";
 import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
-import { getRibbonItems } from "@/lib/project-ribbon";
+import { resolveHeroSidebar } from "@/lib/project-hero-sidebar";
 import { siteConfig } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,13 +38,13 @@ export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
   const project = await getMergedProject(slug);
   if (!project) notFound();
-  const ribbon = getRibbonItems(project);
+  const heroSidebar = resolveHeroSidebar(project);
   const mergedList = await getMergedProjects();
   const related = mergedList.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));
   return (
     <article className="max-w-full overflow-x-hidden border-b border-border/60">
-      <ProjectDetailShell project={project} ribbon={ribbon}>
+      <ProjectDetailShell project={project} heroSidebar={heroSidebar}>
         <ProjectSpecs project={project} />
         <ProjectGallery images={project.gallery} projectName={project.name} />
         {showUnits ? (

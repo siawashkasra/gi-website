@@ -8,11 +8,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
 import { projectTypeLabels } from "@/data/projects";
-import type { RibbonItem } from "@/lib/project-ribbon";
+import type { HeroSidebarRibbonItem, ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
 import { formatProjectStatusLabel } from "@/lib/project-status";
 import { cn } from "@/lib/utils";
 
-export const ProjectHero = forwardRef<HTMLElement, { project: Project; ribbon: RibbonItem[] }>(function ProjectHero({ project, ribbon }, ref) {
+export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro: ResolvedHeroSidebar["intro"]; ribbon: HeroSidebarRibbonItem[] }>(function ProjectHero({ project, heroIntro, ribbon }, ref) {
   const localRef = useRef<HTMLElement | null>(null);
   const setRefs = useCallback(
     (node: HTMLElement | null) => {
@@ -73,13 +73,13 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; ribbon: R
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.035)_0%,transparent_42%)]" aria-hidden />
             <div className="relative">
-              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-white/55">At a glance</p>
-              <p className="mt-3 font-heading text-lg font-semibold leading-snug tracking-tight text-white xl:text-xl">Key figures</p>
-              <p className="mt-3 font-sans text-xs leading-relaxed text-white/68 sm:text-sm">Structured metrics for this development — use them as a quick scale reference before the full overview.</p>
+              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-white/55">{heroIntro.eyebrow}</p>
+              <p className="mt-3 font-heading text-lg font-semibold leading-snug tracking-tight text-white xl:text-xl">{heroIntro.title}</p>
+              <p className="mt-3 font-sans text-xs leading-relaxed text-white/68 sm:text-sm">{heroIntro.blurb}</p>
             </div>
             <ul className="relative mt-8 space-y-6 border-t border-white/10 pt-8 lg:mt-10 lg:flex-1">
               {ribbon.map((item) => (
-                <li key={item.label}>
+                <li key={item.rowKey}>
                   <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/50">{item.label}</p>
                   <p className="mt-1 break-words font-heading text-2xl font-semibold tabular-nums tracking-tight text-white sm:text-3xl">{item.value}</p>
                 </li>

@@ -22,6 +22,11 @@ export default function AdminOverviewPage() {
           </Link>
         </li>
         <li>
+          <Link href="/admin/hero-sidebar" className="underline-offset-2 hover:underline">
+            Hero sidebar (key figures column)
+          </Link>
+        </li>
+        <li>
           <Link href="/admin/units" className="underline-offset-2 hover:underline">
             Unit listings (CRUD, featured, pagination on site)
           </Link>
