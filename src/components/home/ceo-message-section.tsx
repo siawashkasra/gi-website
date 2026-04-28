@@ -6,11 +6,12 @@ import { ceoProfile } from "@/data/company-profile";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
-const ceoPortrait = "/images/ghulam-rabani-rabani.png";
+const defaultCeoPortrait = "/images/ghulam-rabani-rabani.png";
+const defaultCeoPortraitAlt = "Ghulam Rabani Rabani, Chief Executive Officer";
 
-type CeoMessageSectionProps = { sectionId?: string; headingId?: string };
+type CeoMessageSectionProps = { sectionId?: string; headingId?: string; portraitSrc?: string; portraitAlt?: string };
 
-export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-message-heading" }: CeoMessageSectionProps) {
+export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-message-heading", portraitSrc = defaultCeoPortrait, portraitAlt = defaultCeoPortraitAlt }: CeoMessageSectionProps) {
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.12, delayChildren: reduce ? 0 : 0.14 } } };
   const item = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
@@ -20,7 +21,7 @@ export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-
         <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)] lg:grid lg:min-h-[min(26rem,70vh)] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
           <div className="relative order-2 min-h-[15rem] border-b border-border/50 sm:min-h-[18rem] lg:order-1 lg:min-h-0 lg:border-b-0 lg:border-r lg:border-border/50">
             <div className="group/image relative h-full min-h-[15rem] sm:min-h-[18rem] lg:min-h-[min(32rem,72vh)]">
-              <Image src={ceoPortrait} alt="Ghulam Rabani Rabani, Chief Executive Officer" fill className="object-cover object-[center_12%] transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 42vw" />
+              <Image src={portraitSrc} alt={portraitAlt} fill className="object-cover object-[center_12%] transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 42vw" />
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(13,27,62,0.68)_0%,rgba(13,27,62,0.15)_40%,transparent_65%)]" aria-hidden />
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(13,27,62,0.32)_0%,transparent_48%)]" aria-hidden />
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_tr,rgba(255,255,255,0.06)_0%,transparent_40%)]" aria-hidden />

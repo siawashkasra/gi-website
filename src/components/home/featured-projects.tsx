@@ -2,11 +2,12 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
-import { getFeaturedProjects, projects } from "@/data/projects";
+import { getMergedProjects } from "@/lib/media/merge";
 
-export function FeaturedProjects() {
-  const marked = getFeaturedProjects();
-  const featured = marked.length > 0 ? marked : projects.slice(0, 3);
+export async function FeaturedProjects() {
+  const merged = await getMergedProjects();
+  const marked = merged.filter((p) => p.featured);
+  const featured = marked.length > 0 ? marked : merged.slice(0, 3);
   return (
     <section id="featured-projects" className="ds-section relative border-b border-border/60 bg-gradient-to-b from-muted via-background to-muted">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" aria-hidden />

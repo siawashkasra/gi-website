@@ -6,9 +6,10 @@ import { milestones } from "@/data/home-premium";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
-const milestonesImageSrc = "/images/home/milestones-side.png";
+const defaultMilestonesImageSrc = "/images/home/milestones-side.png";
+const defaultMilestonesImageAlt = "Gulbahar flagship development";
 
-export function MilestonesSection() {
+export function MilestonesSection({ imageSrc = defaultMilestonesImageSrc, imageAlt = defaultMilestonesImageAlt }: { imageSrc?: string; imageAlt?: string }) {
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.11, delayChildren: reduce ? 0 : 0.08 } } };
   const item = { hidden: { opacity: 0, x: reduce ? 0 : -12 }, visible: { opacity: 1, x: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
@@ -39,7 +40,7 @@ export function MilestonesSection() {
             </div>
             <div className="relative order-1 min-h-[13rem] border-b border-border/50 sm:min-h-[16rem] lg:order-2 lg:min-h-0 lg:self-stretch lg:border-b-0">
               <div className="group/image relative h-full min-h-[13rem] sm:min-h-[16rem] lg:sticky lg:top-28 lg:min-h-[min(36rem,78vh)]">
-                <Image src={milestonesImageSrc} alt="Gulbahar flagship development" fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 40vw" />
+                <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 40vw" />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(13,27,62,0.65)_0%,rgba(13,27,62,0.12)_42%,transparent_68%)]" aria-hidden />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(13,27,62,0.28)_0%,transparent_45%)]" aria-hidden />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_tr,rgba(255,255,255,0.07)_0%,transparent_38%)]" aria-hidden />

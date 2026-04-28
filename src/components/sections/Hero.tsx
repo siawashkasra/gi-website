@@ -7,7 +7,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { companyHero } from "@/data/company-profile";
 
-const heroImageSrc = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2880&q=92";
+const defaultHeroImageSrc = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2880&q=92";
+
+export type HeroCmsImage = { desktopSrc: string; mobileSrc?: string; alt: string };
 
 const heroStats = [
   { value: "1250+", label: "Residential units" },
@@ -49,7 +51,10 @@ function MagneticPrimaryCta({ children, delay, reduce }: { children: React.React
   );
 }
 
-export function Hero() {
+export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
+  const heroImageSrc = cmsHero?.desktopSrc ?? defaultHeroImageSrc;
+  const heroImageAlt = cmsHero?.alt ?? "";
+  const mobileSrc = cmsHero?.mobileSrc;
   const sectionRef = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const starPathD = useMemo(() => {
@@ -86,7 +91,14 @@ export function Hero() {
     <section ref={sectionRef} className="relative -mt-[4.25rem] min-h-screen h-[100dvh] w-full overflow-hidden" aria-labelledby="hero-heading">
       <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y: bgParallaxY }}>
         <div className="hero-ken-burns absolute inset-0 will-change-transform">
-          <Image src={heroImageSrc} alt="" fill priority className="object-cover" sizes="100vw" />
+          {mobileSrc ? (
+            <>
+              <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="hidden object-cover sm:block" sizes="100vw" />
+              <Image src={mobileSrc} alt={heroImageAlt} fill priority className="object-cover sm:hidden" sizes="100vw" />
+            </>
+          ) : (
+            <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="object-cover" sizes="100vw" />
+          )}
         </div>
       </motion.div>
       <motion.div className="pointer-events-none absolute inset-0 z-[2]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }} aria-hidden style={{ background: gradientOverlayBg }} />

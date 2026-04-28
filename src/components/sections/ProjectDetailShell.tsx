@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
-import type { RibbonItem } from "@/lib/project-ribbon";
+import type { ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
 import { ProjectHero } from "@/components/sections/ProjectHero";
 import { ProjectStickySidebar } from "@/components/sections/ProjectStickySidebar";
 
-export function ProjectDetailShell({ project, ribbon, children }: { project: Project; ribbon: RibbonItem[]; children: React.ReactNode }) {
+export function ProjectDetailShell({ project, heroSidebar, children }: { project: Project; heroSidebar: ResolvedHeroSidebar; children: React.ReactNode }) {
   const heroSectionRef = useRef<HTMLElement>(null);
   const [ctaVisible, setCtaVisible] = useState(false);
   useEffect(() => { window.scrollTo(0, 0); }, [project.slug]);
@@ -26,7 +26,7 @@ export function ProjectDetailShell({ project, ribbon, children }: { project: Pro
   }, []);
   return (
     <>
-      <ProjectHero ref={heroSectionRef} project={project} ribbon={ribbon} />
+      <ProjectHero ref={heroSectionRef} project={project} heroIntro={heroSidebar.intro} ribbon={heroSidebar.ribbon} />
       {children}
       <ProjectStickySidebar project={project} visible={ctaVisible} />
     </>

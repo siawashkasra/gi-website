@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { companies, companyHref } from "@/data/companies";
+import type { Company } from "@/data/companies";
+import { companies as staticCompanies, companyHref } from "@/data/companies";
 import { cn } from "@/lib/utils";
 
 const ROW_EPS = 3;
 
-export function OurCompaniesGrid() {
+export function OurCompaniesGrid({ companies: companiesList }: { companies?: Company[] }) {
+  const companies = companiesList ?? staticCompanies;
   const rootRef = useRef<HTMLUListElement>(null);
   const [visible, setVisible] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);

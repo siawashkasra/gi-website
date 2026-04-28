@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JobsPageContent } from "@/components/jobs/jobs-page-content";
+import { getResolvedPageHero } from "@/lib/media/merge";
 import { siteConfig } from "@/lib/site";
 
-const jobsHeroImage = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=2400&q=90";
+const jobsHeroFallback = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=2400&q=90";
 
 export const metadata: Metadata = {
   title: "Jobs & careers",
@@ -12,12 +13,15 @@ export const metadata: Metadata = {
   openGraph: { title: `Jobs & careers | ${siteConfig.name}`, description: `Build your career with ${siteConfig.name}.` },
 };
 
-export default function JobsPage() {
+export default async function JobsPage() {
+  const hero = await getResolvedPageHero("jobs");
+  const jobsHeroImage = hero?.desktop ?? jobsHeroFallback;
+  const jobsHeroAlt = hero?.alt ?? "";
   return (
     <main>
       <div className="border-b border-border/60">
         <div className="relative min-h-[22rem] overflow-hidden border-b border-border bg-primary text-primary-foreground sm:min-h-[26rem] lg:min-h-[30rem]">
-          <Image src={jobsHeroImage} alt="" fill className="object-cover object-[center_20%] sm:object-center" sizes="100vw" priority />
+          <Image src={jobsHeroImage} alt={jobsHeroAlt} fill className="object-cover object-[center_20%] sm:object-center" sizes="100vw" priority />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1f4e79]/92 via-[#1f4e79]/78 to-[#1f4e79]/65" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.28),transparent_52%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.06)_50%,transparent_65%)]" aria-hidden />

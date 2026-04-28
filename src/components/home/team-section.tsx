@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { leadershipTeam } from "@/data/team";
+import type { TeamMember } from "@/data/team";
+import { leadershipTeam as staticLeadershipTeam } from "@/data/team";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
-export function TeamSection() {
+export function TeamSection({ members }: { members?: TeamMember[] }) {
+  const leadershipTeam = members ?? staticLeadershipTeam;
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.06 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };

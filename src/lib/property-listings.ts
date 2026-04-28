@@ -10,6 +10,7 @@ export type PropertyListing = {
   availability: PropertyListingAvailability;
   image: string;
   label?: string;
+  featured?: boolean;
 };
 
 export type PropertyListingFilters = {

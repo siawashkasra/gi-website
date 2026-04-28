@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { getCompanyForCompanyPage, getCompanyPageSlugs } from "@/data/companies";
+import { getCompanyPageSlugs } from "@/data/companies";
+import { getMergedCompanyForCompanyPage } from "@/lib/media/merge";
 import { siteConfig } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -14,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const company = getCompanyForCompanyPage(slug);
+  const company = await getMergedCompanyForCompanyPage(slug);
   if (!company) return { title: "Company" };
   return {
     title: company.name,
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CompanyPage({ params }: Props) {
   const { slug } = await params;
-  const company = getCompanyForCompanyPage(slug);
+  const company = await getMergedCompanyForCompanyPage(slug);
   if (!company) notFound();
   return (
     <article className="border-b border-border/60 bg-background">

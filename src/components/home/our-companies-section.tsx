@@ -2,10 +2,11 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { OurCompaniesGrid } from "@/components/home/our-companies-grid";
+import type { Company } from "@/data/companies";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
-export function OurCompaniesSection() {
+export function OurCompaniesSection({ companies }: { companies?: Company[] }) {
   const reduce = useReducedMotion();
   return (
     <section id="companies" className="ds-section relative overflow-visible border-b border-border/60 bg-white" aria-labelledby="our-companies-heading">
@@ -19,7 +20,7 @@ export function OurCompaniesSection() {
             <div className="mx-auto mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/35 to-transparent" aria-hidden />
           </div>
           <div className="relative overflow-visible px-5 pb-9 pt-8 sm:px-7 sm:pb-10 sm:pt-9 md:px-8 lg:px-10 lg:pb-11 lg:pt-10 xl:px-11">
-            <OurCompaniesGrid />
+            <OurCompaniesGrid companies={companies} />
             <p className="mx-auto mt-10 max-w-3xl border-t border-border/50 pt-6 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:text-xs">Each mark opens the relevant company or group profile; composition reflects the active platform, not a complete legal entity listing.</p>
           </div>
         </motion.div>
