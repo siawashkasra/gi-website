@@ -1,11 +1,15 @@
+"use client";
+
+import { useMessages, useTranslations } from "next-intl";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { organizationalStructure, type OrgStructureUnit } from "@/data/company-profile";
+import type { OrgStructureUnit } from "@/data/company-profile";
+import { getOrgStructure, type Messages } from "@/lib/i18n/localized-data";
 import { cn } from "@/lib/utils";
 
 const impactCard =
   "group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 shadow-lg transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.06] hover:scale-[1.02] sm:p-8";
 
-const impactBlob = "pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-primary/[0.06] transition-transform duration-500 group-hover:scale-110";
+const impactBlob = "pointer-events-none absolute -end-8 -top-8 size-32 rounded-full bg-primary/[0.06] transition-transform duration-500 group-hover:scale-110";
 
 function LeaderCard({ name, position }: { name: string; position: string }) {
   return (
@@ -42,7 +46,7 @@ function UnitCard({ unit, className }: { unit: OrgStructureUnit; className?: str
           {unit.pairs.map(([left, right], i) => (
             <div key={i} className="grid grid-cols-2 gap-2 py-2.5 first:pt-0 last:pb-0">
               <p className="text-xs font-normal leading-snug text-muted-foreground">{left}</p>
-              <p className="border-l border-border/40 pl-2 text-xs font-normal leading-snug text-muted-foreground">{right}</p>
+              <p className="border-s border-border/40 ps-2 text-xs font-normal leading-snug text-muted-foreground">{right}</p>
             </div>
           ))}
           {unit.extraSingles?.map((role) => (
@@ -69,12 +73,15 @@ function UnitCard({ unit, className }: { unit: OrgStructureUnit; className?: str
 }
 
 export function OrganizationChartSection() {
-  const o = organizationalStructure;
+  const tGov = useTranslations("company.governance");
+  const tOrg = useTranslations("company.org");
+  const messages = useMessages() as Messages;
+  const o = getOrgStructure(messages);
   return (
     <section id="org" className="ds-section relative border-b border-border/60 bg-white" aria-labelledby="org-chart-heading">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)/0.08,transparent)]" aria-hidden />
       <div className="relative ds-container">
-        <SectionHeading id="org-chart-heading" align="center" eyebrow="Structure" title={o.sectionTitle} description="Leadership and key roles across Gulbahar Group businesses." className="mx-auto max-w-2xl" />
+        <SectionHeading id="org-chart-heading" align="center" eyebrow={tGov("eyebrow")} title={o.sectionTitle} description={tOrg("description")} className="mx-auto max-w-2xl" />
         <div className="mx-auto mt-16 flex max-w-xl flex-col gap-6 lg:gap-8">
           <LeaderCard name={o.chairman.name} position={o.chairman.title} />
           <LeaderCard name={o.chiefExecutive.name} position={o.chiefExecutive.title} />

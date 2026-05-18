@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getProjectBySlug } from "@/data/projects";
 import { getMergedProject } from "@/lib/media/merge";
 import { fetchHeroSidebarConfig, fetchHeroSidebarRows, parseHeroSidebarPutBody, saveHeroSidebarPayload } from "@/lib/media/project-hero-sidebar-repo";
-import { resolveHeroSidebar } from "@/lib/project-hero-sidebar";
+import { DEFAULT_RIBBON_LABELS, resolveHeroSidebar } from "@/lib/project-hero-sidebar";
 import { getRibbonItems } from "@/lib/project-ribbon";
 
 export const runtime = "nodejs";
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const project = (await getMergedProject(slug)) ?? base;
   const config = fetchHeroSidebarConfig(slug);
   const rows = fetchHeroSidebarRows(slug);
-  const computedFallback = getRibbonItems(project);
+  const computedFallback = getRibbonItems(project, DEFAULT_RIBBON_LABELS);
   const resolved = resolveHeroSidebar(project);
   return NextResponse.json({ ok: true, config: config ?? null, rows, computedFallback, resolved });
 }

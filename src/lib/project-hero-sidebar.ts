@@ -3,12 +3,14 @@ import type { Project } from "@/data/projects";
 import { HERO_SIDEBAR_DEFAULT_INTRO } from "@/lib/project-hero-sidebar-defaults";
 import { fetchHeroSidebarConfig, fetchHeroSidebarRows } from "@/lib/media/project-hero-sidebar-repo";
 import type { ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
-import { getRibbonItems } from "@/lib/project-ribbon";
+import { getRibbonItems, type RibbonLabels } from "@/lib/project-ribbon";
 
 export type { HeroSidebarRibbonItem, ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
 export { HERO_SIDEBAR_DEFAULT_INTRO } from "@/lib/project-hero-sidebar-defaults";
 
-export function resolveHeroSidebar(project: Project): ResolvedHeroSidebar {
+export const DEFAULT_RIBBON_LABELS: RibbonLabels = { floors: "Floors", retailUnits: "Retail units", apartments: "Apartments", investment: "Investment", scale: "Scale", capacity: "Capacity", scope: "Scope", footprint: "Footprint" };
+
+export function resolveHeroSidebar(project: Project, ribbonLabels: RibbonLabels = DEFAULT_RIBBON_LABELS): ResolvedHeroSidebar {
   const config = fetchHeroSidebarConfig(project.slug);
   const dbRows = fetchHeroSidebarRows(project.slug);
   const intro = {
@@ -19,6 +21,6 @@ export function resolveHeroSidebar(project: Project): ResolvedHeroSidebar {
   const ribbon: ResolvedHeroSidebar["ribbon"] =
     dbRows.length > 0
       ? dbRows.map((r) => ({ rowKey: r.id, label: r.label, value: r.value }))
-      : getRibbonItems(project).map((r, i) => ({ rowKey: `legacy-${project.slug}-${i}`, label: r.label, value: r.value }));
+      : getRibbonItems(project, ribbonLabels).map((r, i) => ({ rowKey: `legacy-${project.slug}-${i}`, label: r.label, value: r.value }));
   return { intro, ribbon };
 }

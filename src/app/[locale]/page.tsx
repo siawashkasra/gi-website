@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { AboutSection } from "@/components/home/about-section";
 import { CeoMessageSection } from "@/components/home/ceo-message-section";
 import { CompanySnapshotSection } from "@/components/home/company-snapshot-section";
@@ -18,12 +19,16 @@ import { ValuesSection } from "@/components/home/values-section";
 import { getMergedCompanies, getMergedLeadershipTeam, getResolvedHomeSectionMedia } from "@/lib/media/merge";
 import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: { absolute: siteConfig.name },
-  description: siteConfig.description,
-  openGraph: { title: siteConfig.name, description: siteConfig.description, url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: siteConfig.name }] },
-  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: [siteConfig.openGraphImage] },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.home" });
+  return {
+    title: { absolute: t("title") },
+    description: t("description"),
+    openGraph: { title: t("title"), description: t("description"), url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: t("title") }] },
+    twitter: { card: "summary_large_image", title: t("title"), description: t("description"), images: [siteConfig.openGraphImage] },
+  };
+}
 
 export default async function HomePage() {
   const homeMedia = await getResolvedHomeSectionMedia();

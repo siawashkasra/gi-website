@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 import { CompanyAboutFull } from "@/components/company/company-about-full";
 import { CompanyCeoBlock } from "@/components/company/company-ceo-block";
 import { CompanyClientsSection } from "@/components/company/company-clients-section";
@@ -20,13 +21,19 @@ import { siteConfig } from "@/lib/site";
 
 const companyHeroFallback = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2400&q=90";
 
-export const metadata: Metadata = {
-  title: `Company | ${siteConfig.name}`,
-  description: "Governance, sectors, competitive strengths, and international presence for Gulbahar Investment.",
-  openGraph: { title: `Company | ${siteConfig.name}`, description: "Governance, sectors, competitive strengths, and international presence.", url: `${siteConfig.url}/company`, images: [{ url: siteConfig.openGraphImage, alt: siteConfig.name }] },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.company" });
+  const site = await getTranslations({ locale, namespace: "site" });
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description"), url: `${siteConfig.url}/company`, images: [{ url: siteConfig.openGraphImage, alt: site("name") }] },
+  };
+}
 
 export default async function CompanyPage() {
+  const t = await getTranslations("company");
   const hero = await getResolvedPageHero("company");
   const companyHeroImage = hero?.desktop ?? companyHeroFallback;
   const companyHeroAlt = hero?.alt ?? "";
@@ -39,15 +46,15 @@ export default async function CompanyPage() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.28),transparent_52%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.06)_50%,transparent_65%)]" aria-hidden />
           <div className="relative ds-container py-20 sm:py-24 lg:py-28">
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-[#2f6ea5]">Company</p>
-            <h1 className="mt-4 max-w-4xl font-heading text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.02]">Gulbahar Investment</h1>
-            <p className="mt-6 max-w-2xl font-sans text-base font-normal leading-relaxed text-white/80 sm:text-lg sm:leading-relaxed">Privately held Afghan investment and development group — real estate, infrastructure, energy, and cement — with disciplined governance and long-term capital orientation.</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-[#2f6ea5]">{t("eyebrow")}</p>
+            <h1 className="mt-4 max-w-4xl font-heading text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl md:text-6xl md:leading-[1.02]">{t("title")}</h1>
+            <p className="mt-6 max-w-2xl font-sans text-base font-normal leading-relaxed text-white/80 sm:text-lg sm:leading-relaxed">{t("heroDescription")}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-12 rounded-xl border-0 bg-white px-8 font-semibold text-primary hover:bg-[#f5f7fa]">
-                View projects
+                {t("viewProjects")}
               </Button>
               <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-12 rounded-xl border-white/40 bg-white/5 px-8 font-semibold text-white hover:bg-white/10">
-                Contact
+                {t("contact")}
               </Button>
             </div>
           </div>

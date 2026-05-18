@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { useMessages, useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import {
   Building2,
   Car,
@@ -16,9 +19,11 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { Project, ProjectFeatureIcon, ProjectUnitBlock } from "@/data/projects";
-import { projectTypeLabels } from "@/data/projects";
+import { formatProjectStatusLabel } from "@/lib/project-status";
+import { getProjectTypeLabels, type Messages } from "@/lib/i18n/localized-data";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 import { cn } from "@/lib/utils";
 
 const FEATURE_ICONS: Record<ProjectFeatureIcon, LucideIcon> = {
@@ -51,41 +56,46 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
 }
 
 function StatHighlight({ label, value }: { label: string; value: string }) {
+  const { localizeText } = useLocalizedFormat();
   const empty = value === "—" || value === "";
   return (
     <div className={cn(luxCard, "p-8 sm:p-9")}>
       <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-gi-navy/50">{label}</p>
-      <p className={cn("mt-4 font-heading text-4xl font-semibold tabular-nums tracking-tight text-gi-navy sm:text-5xl", empty && "text-muted-foreground/45")}>{empty ? "—" : value}</p>
+      <p className={cn("mt-4 font-heading text-4xl font-semibold tabular-nums tracking-tight text-gi-navy sm:text-5xl", empty && "text-muted-foreground/45")}>{empty ? "—" : localizeText(value)}</p>
     </div>
   );
 }
 
 function UnitBlockCard({ block }: { block: ProjectUnitBlock }) {
+  const { localizeText } = useLocalizedFormat();
   return (
     <div className={cn(luxCard, "group flex flex-col p-8 sm:p-9", luxEase, "hover:-translate-y-0.5")}>
-      <span className="font-heading text-3xl font-bold tabular-nums text-gi-navy transition-colors group-hover:text-gi-blue sm:text-4xl">{block.count}</span>
+      <span className="font-heading text-3xl font-bold tabular-nums text-gi-navy transition-colors group-hover:text-gi-blue sm:text-4xl">{localizeText(block.count)}</span>
       <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-gi-navy">{block.title}</h3>
       <p className="mt-2 font-sans text-sm leading-relaxed text-muted-foreground">{block.subtitle}</p>
     </div>
   );
 }
 
-const defaultKeyStatLabels = { units: "Residential units", shops: "Retail & shops", facilities: "Facilities & assets" } as const;
-
 export function ProjectSpecs({ project }: { project: Project }) {
-  const overviewTitle = project.detailOverviewTitle ?? "A destination shaped for longevity";
+  const t = useTranslations("projects.specs");
+  const tStatus = useTranslations("projects.status");
+  const { localizeText } = useLocalizedFormat();
+  const messages = useMessages() as Messages;
+  const projectTypeLabels = getProjectTypeLabels(messages);
+  const overviewTitle = project.detailOverviewTitle ?? t("defaultOverview");
   const paras = project.detailOverviewParagraphs?.length ? project.detailOverviewParagraphs : [project.description];
   const hasUnits = !!(project.unitsInfo.apartments || project.unitsInfo.shops || project.unitsInfo.offices);
-  const featuresEyebrow = project.featuresSectionEyebrow ?? "Experience";
-  const featuresTitle = project.featuresSectionTitle ?? "Signature features";
-  const statLabels = project.keyStatLabels ?? defaultKeyStatLabels;
+  const featuresEyebrow = project.featuresSectionEyebrow ?? t("experience");
+  const featuresTitle = project.featuresSectionTitle ?? t("signatureFeatures");
+  const statLabels = project.keyStatLabels ?? { units: t("residentialUnits"), shops: t("retailShops"), facilities: t("facilitiesAssets") };
   return (
     <>
       <section className="relative border-b border-border/60 bg-gradient-to-b from-white to-gi-navy/[0.02]" aria-labelledby="project-overview-heading">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gi-gold/30 to-transparent" aria-hidden />
         <div className="ds-section">
           <div className="ds-container">
-            <SectionEyebrow>Overview</SectionEyebrow>
+            <SectionEyebrow>{t("overview")}</SectionEyebrow>
             <h2 id="project-overview-heading" className="mt-4 max-w-3xl font-heading text-[clamp(1.85rem,4vw,2.85rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">
               {overviewTitle}
             </h2>
@@ -95,28 +105,28 @@ export function ProjectSpecs({ project }: { project: Project }) {
               <StatHighlight label={statLabels.facilities} value={project.keyStats.facilities} />
             </div>
             <div className="mt-20 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:items-stretch lg:gap-16">
-              <div className="min-w-0 space-y-20 border-l-2 border-gi-gold/55 pl-8 lg:col-span-7 lg:space-y-24">
+              <div className="min-w-0 space-y-20 border-s-2 border-gi-gold/55 ps-8 lg:col-span-7 lg:space-y-24">
                 <div className="space-y-8 lg:space-y-10">
                   {paras.map((para, i) => (
                     <p key={i} className="max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">
-                      {para}
+                      {localizeText(para)}
                     </p>
                   ))}
                 </div>
                 {project.strategicPositioning ? (
                   <div>
-                    <SectionEyebrow>Strategic positioning</SectionEyebrow>
-                    <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.strategicPositioning}</p>
+                    <SectionEyebrow>{t("strategic")}</SectionEyebrow>
+                    <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{localizeText(project.strategicPositioning)}</p>
                   </div>
                 ) : null}
                 {project.keyComponentBullets?.length ? (
                   <div>
-                    <SectionEyebrow>Key components</SectionEyebrow>
+                    <SectionEyebrow>{t("keyComponents")}</SectionEyebrow>
                     <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
                       {project.keyComponentBullets.map((b) => (
                         <li key={b} className="flex gap-3">
                           <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
-                          <span>{b}</span>
+                          <span>{localizeText(b)}</span>
                         </li>
                       ))}
                     </ul>
@@ -124,12 +134,12 @@ export function ProjectSpecs({ project }: { project: Project }) {
                 ) : null}
                 {project.facilityBullets?.length ? (
                   <div>
-                    <SectionEyebrow>Facilities</SectionEyebrow>
+                    <SectionEyebrow>{t("facilities")}</SectionEyebrow>
                     <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
                       {project.facilityBullets.map((b) => (
                         <li key={b} className="flex gap-3">
                           <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
-                          <span>{b}</span>
+                          <span>{localizeText(b)}</span>
                         </li>
                       ))}
                     </ul>
@@ -138,20 +148,20 @@ export function ProjectSpecs({ project }: { project: Project }) {
                 {project.missionVision ? (
                   <div className="space-y-10">
                     <div>
-                      <SectionEyebrow>Vision</SectionEyebrow>
-                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.vision}</p>
+                      <SectionEyebrow>{t("vision")}</SectionEyebrow>
+                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{localizeText(project.missionVision.vision)}</p>
                     </div>
                     <div>
-                      <SectionEyebrow>Mission</SectionEyebrow>
-                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{project.missionVision.mission}</p>
+                      <SectionEyebrow>{t("mission")}</SectionEyebrow>
+                      <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-muted-foreground sm:text-lg">{localizeText(project.missionVision.mission)}</p>
                     </div>
                     <div>
-                      <SectionEyebrow>Values</SectionEyebrow>
+                      <SectionEyebrow>{t("values")}</SectionEyebrow>
                       <ul className="mt-4 max-w-xl space-y-2.5 font-sans text-base text-muted-foreground sm:text-lg">
                         {project.missionVision.values.map((v) => (
                           <li key={v} className="flex gap-3">
                             <span className="mt-2 size-1 shrink-0 rounded-full bg-gi-gold/60" aria-hidden />
-                            <span>{v}</span>
+                            <span>{localizeText(v)}</span>
                           </li>
                         ))}
                       </ul>
@@ -164,27 +174,27 @@ export function ProjectSpecs({ project }: { project: Project }) {
                   <div>
                     <h3 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                       <MapPin className="size-4 shrink-0 text-gi-navy" strokeWidth={1.5} aria-hidden />
-                      Location
+                      {t("location")}
                     </h3>
                     <p className="mt-3 font-sans text-lg font-medium text-gi-navy">{project.location}</p>
                   </div>
                   <Separator className="bg-border/70" />
                   <div>
-                    <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Timeline</h3>
-                    <ul className="relative mt-5 space-y-6 border-l border-gi-navy/12 pl-6">
+                    <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">{t("timeline")}</h3>
+                    <ul className="relative mt-5 space-y-6 border-s border-gi-navy/12 ps-6">
                       {project.timeline.map((phase) => (
                         <li key={phase.label} className="relative">
-                          <span className="absolute -left-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-white bg-gi-navy shadow-[0_0_0_3px_rgba(201,168,76,0.2)]" aria-hidden />
+                          <span className="absolute -start-6 top-1.5 size-2.5 -translate-x-1/2 rounded-full border-2 border-white bg-gi-navy shadow-[0_0_0_3px_rgba(201,168,76,0.2)] rtl:translate-x-1/2" aria-hidden />
                           <p className="font-sans text-sm font-semibold text-gi-navy">{phase.label}</p>
-                          <p className="mt-0.5 font-sans text-sm text-muted-foreground">{phase.value}</p>
+                          <p className="mt-0.5 font-sans text-sm text-muted-foreground">{localizeText(phase.value)}</p>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <span className="rounded-full border border-gi-navy/12 bg-gi-navy/[0.04] px-4 py-2 font-sans text-xs font-semibold text-gi-navy">{project.status}</span>
+                    <span className="rounded-full border border-gi-navy/12 bg-gi-navy/[0.04] px-4 py-2 font-sans text-xs font-semibold text-gi-navy">{formatProjectStatusLabel(project.status, tStatus)}</span>
                     <span className="rounded-full border border-gi-navy/12 bg-white px-4 py-2 font-sans text-xs font-semibold text-gi-navy/80">{projectTypeLabels[project.type]}</span>
-                    {project.area !== "—" ? <span className="rounded-full border border-gi-navy/12 bg-white px-4 py-2 font-sans text-xs font-semibold text-muted-foreground">{project.area}</span> : null}
+                    {project.area !== "—" ? <span className="rounded-full border border-gi-navy/12 bg-white px-4 py-2 font-sans text-xs font-semibold text-muted-foreground">{localizeText(project.area)}</span> : null}
                   </div>
                 </div>
               </aside>
@@ -223,11 +233,10 @@ export function ProjectSpecs({ project }: { project: Project }) {
         <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-gi-navy/[0.03] to-white" aria-labelledby="project-units-heading">
           <div className="ds-section">
             <div className="ds-container">
-              <SectionEyebrow>Inventory</SectionEyebrow>
+              <SectionEyebrow>{t("inventory")}</SectionEyebrow>
               <h2 id="project-units-heading" className="mt-4 max-w-2xl font-heading text-[clamp(1.75rem,3.5vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">
-                Scale at a glance
+                {t("scale")}
               </h2>
-              <p className="mt-4 max-w-2xl font-sans text-muted-foreground sm:text-[0.9375rem]">Residential, retail, and office volumes for this development — confirm live availability with our team.</p>
               <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {project.unitsInfo.apartments ? <UnitBlockCard block={project.unitsInfo.apartments} /> : null}
                 {project.unitsInfo.shops ? <UnitBlockCard block={project.unitsInfo.shops} /> : null}
@@ -235,7 +244,7 @@ export function ProjectSpecs({ project }: { project: Project }) {
               </div>
               <div className="mt-12 flex flex-wrap gap-4">
                 <Button render={<Link href={`/contact?project=${encodeURIComponent(project.slug)}`} />} nativeButton={false} size="lg" className="h-12 rounded-xl bg-gi-navy px-8 font-semibold text-white shadow-[0_16px_40px_-20px_rgba(13,27,62,0.45)] transition-colors hover:bg-gi-navy/92">
-                  Request inventory
+                  {t("requestInventory")}
                 </Button>
               </div>
             </div>

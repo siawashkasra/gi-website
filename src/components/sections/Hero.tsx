@@ -3,19 +3,21 @@
 import { useMemo, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { useMessages, useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
-import { companyHero } from "@/data/company-profile";
+import type { Messages } from "@/lib/i18n/localized-data";
+import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 
 const defaultHeroImageSrc = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2880&q=92";
 
 export type HeroCmsImage = { desktopSrc: string; mobileSrc?: string; alt: string };
 
-const heroStats = [
-  { value: "1250+", label: "Residential units" },
-  { value: "1500+", label: "Retail units" },
-  { value: "2006", label: "Founded" },
-  { value: "5000+", label: "Industrial jobs" },
+const heroStatValues = [
+  { value: "1250+", key: "residential" as const },
+  { value: "1500+", key: "retail" as const },
+  { value: "2006", key: "founded" as const },
+  { value: "5000+", key: "industrialJobs" as const },
 ];
 
 function MagneticPrimaryCta({ children, delay, reduce }: { children: React.ReactNode; delay: number; reduce: boolean | null }) {
@@ -52,6 +54,10 @@ function MagneticPrimaryCta({ children, delay, reduce }: { children: React.React
 }
 
 export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
+  const t = useTranslations("hero");
+  const { localizeText } = useLocalizedFormat();
+  const messages = useMessages() as Messages;
+  const subtitle = (messages.companyProfile as { companyHero: { subtitle: string } }).companyHero.subtitle;
   const heroImageSrc = cmsHero?.desktopSrc ?? defaultHeroImageSrc;
   const heroImageAlt = cmsHero?.alt ?? "";
   const mobileSrc = cmsHero?.mobileSrc;
@@ -78,7 +84,7 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
   const ctaDur = 0.5;
   const ctaEndSec = ctaStartSec + ctaDur;
   const statsFirstDelaySec = Math.max(1.4, ctaEndSec + 0.08);
-  const statsCount = heroStats.length;
+  const statsCount = heroStatValues.length;
   const statsEndSec = statsFirstDelaySec + (statsCount - 1) * 0.1 + 0.35;
   const scrollFadeDelaySec = Math.max(1.6, statsEndSec + 0.12);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
@@ -102,7 +108,7 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
         </div>
       </motion.div>
       <motion.div className="pointer-events-none absolute inset-0 z-[2]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }} aria-hidden style={{ background: gradientOverlayBg }} />
-      <motion.div className="pointer-events-none absolute inset-y-0 right-0 z-[3] h-full w-[40%]" initial={{ opacity: 0 }} animate={{ opacity: 0.04 }} transition={reduce ? { duration: 0 } : { duration: 1.2, ease: "easeOut" }} aria-hidden>
+      <motion.div className="pointer-events-none absolute inset-y-0 end-0 z-[3] h-full w-[40%]" initial={{ opacity: 0 }} animate={{ opacity: 0.04 }} transition={reduce ? { duration: 0 } : { duration: 1.2, ease: "easeOut" }} aria-hidden>
         <svg className="h-full w-full text-white" viewBox="0 0 60 60" preserveAspectRatio="xMidYMid slice">
           <defs>
             <pattern id="gi-star-pattern-hero" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -112,44 +118,44 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
           <rect width="120%" height="100%" x="-10%" fill="url(#gi-star-pattern-hero)" />
         </svg>
       </motion.div>
-      <div className="relative z-[20] flex min-h-[100dvh] flex-col">
+      <motion.div className="relative z-[20] flex min-h-[100dvh] flex-col">
         <div className="flex flex-1 flex-col items-center justify-center px-4 pb-20 pt-[5.5rem] text-center sm:px-6 sm:pb-24 sm:pt-24">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { delay: 0.2, duration: tagDur, ease: "easeOut" }} className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/90 sm:text-xs sm:tracking-[0.42em]">
-              SINCE 2006
+              {localizeText(t("since2006"))}
             </motion.p>
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={reduce ? { duration: 0 } : { delay: lineDelaySec, duration: 0.45, ease: [0.16, 1, 0.3, 1] }} className="mt-6 h-0.5 w-16 origin-center rounded-full bg-gradient-to-r from-transparent via-white/85 to-transparent sm:mt-7 sm:w-20" aria-hidden />
             <motion.h1 id="hero-heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={reduce ? { duration: 0 } : { delay: headlineDelaySec, duration: headlineDurSec, ease: [0.16, 1, 0.3, 1] }} className="mt-8 max-w-[min(100%,44rem)] px-3 text-balance text-center font-sans text-5xl font-bold leading-[1.15] tracking-[-0.035em] sm:mt-10 sm:text-6xl sm:leading-[1.12] md:max-w-[min(100%,52rem)] md:text-7xl md:leading-[1.08] lg:text-8xl lg:leading-[1.06]">
-              Gulbahar Investments
+              {t("title")}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={reduce ? { duration: 0 } : { delay: subheadDelaySec, duration: subheadDur, ease: [0.16, 1, 0.3, 1] }} className="mx-auto mt-8 max-w-2xl font-sans text-base font-normal leading-relaxed text-white/82 sm:mt-10 sm:text-lg md:text-xl">
-              {companyHero.subtitle}
+              {localizeText(subtitle)}
             </motion.p>
             <div className="mt-12 flex w-full max-w-6xl flex-col items-center justify-center gap-4 sm:mt-14 sm:flex-row sm:flex-wrap sm:gap-5">
               <div className="flex w-full shrink-0 justify-center sm:w-auto">
                 <MagneticPrimaryCta delay={ctaStartSec} reduce={reduce}>
                   <Button render={<Link href="/projects" />} nativeButton={false} size="lg" className="h-14 w-full min-w-[min(100%,12.5rem)] max-w-md rounded-xl border-2 border-white bg-white px-8 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-primary shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#f5f7fa] hover:text-primary sm:w-auto">
-                    Explore Projects
+                    {t("exploreProjects")}
                   </Button>
                 </MagneticPrimaryCta>
               </div>
               <motion.div initial={{ opacity: 0, y: 24, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={reduce ? { duration: 0 } : { delay: ctaStartSec, duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="flex w-full shrink-0 justify-center sm:w-auto">
                 <Button render={<Link href="/company" />} nativeButton={false} variant="outline" size="lg" className="h-14 w-full min-w-[min(100%,12.5rem)] max-w-md rounded-xl border-2 border-white/50 bg-white/[0.08] px-8 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/25 hover:text-white sm:w-auto">
-                  Company profile
+                  {t("companyProfile")}
                 </Button>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 24, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={reduce ? { duration: 0 } : { delay: ctaStartSec + 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="flex w-full shrink-0 justify-center sm:w-auto">
                 <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="lg" className="h-14 w-full min-w-[min(100%,12.5rem)] max-w-md rounded-xl border-2 border-white/50 bg-white/[0.08] px-8 text-[0.8125rem] font-semibold uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#2f6ea5] hover:bg-[#2f6ea5]/25 hover:text-white sm:w-auto">
-                  Book a Visit
+                  {t("bookVisit")}
                 </Button>
               </motion.div>
             </div>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:gap-3">
-              {heroStats.map((s, i) => (
-                <motion.span key={s.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { delay: statsFirstDelaySec + i * 0.1, duration: 0.45, ease: "easeOut" }} className="rounded-full border border-white/25 bg-white/10 px-4 py-2 font-sans text-[0.7rem] font-semibold uppercase tracking-widest text-white/90 sm:text-xs">
-                  <span className="text-white">{s.value}</span>
+              {heroStatValues.map((s, i) => (
+                <motion.span key={s.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { delay: statsFirstDelaySec + i * 0.1, duration: 0.45, ease: "easeOut" }} className="rounded-full border border-white/25 bg-white/10 px-4 py-2 font-sans text-[0.7rem] font-semibold uppercase tracking-widest text-white/90 sm:text-xs">
+                  <span className="text-white">{localizeText(s.value)}</span>
                   <span className="mx-2 text-white/40">·</span>
-                  <span className="font-normal normal-case tracking-normal text-white/75">{s.label}</span>
+                  <span className="font-normal normal-case tracking-normal text-white/75">{t(`stats.${s.key}`)}</span>
                 </motion.span>
               ))}
             </div>
@@ -157,7 +163,7 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
         </div>
         <AnimatePresence>
           <motion.div key="scroll-hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={reduce ? { duration: 0 } : { delay: scrollFadeDelaySec, duration: 0.45, ease: "easeOut" }} className="pointer-events-none flex shrink-0 flex-col items-center gap-2 pb-6 pt-2 sm:pb-8" aria-hidden>
-            <span className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85 sm:text-xs">Scroll</span>
+            <span className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/85 sm:text-xs">{t("scroll")}</span>
             {!reduce ? (
               <motion.span className="block h-11 w-0.5 rounded-full bg-gradient-to-b from-transparent via-white/80 to-transparent sm:h-12" animate={{ opacity: [0.65, 1, 0.65] }} transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }} />
             ) : (
@@ -165,7 +171,7 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
             )}
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
     </section>
   );
 }

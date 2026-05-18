@@ -1,16 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link } from "@/i18n/routing";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMessages, useTranslations } from "next-intl";
 import type { Company } from "@/data/companies";
 import { companies as staticCompanies, companyHref } from "@/data/companies";
+import { getLocalizedCompanies, type Messages } from "@/lib/i18n/localized-data";
 import { cn } from "@/lib/utils";
 
 const ROW_EPS = 3;
 
 export function OurCompaniesGrid({ companies: companiesList }: { companies?: Company[] }) {
-  const companies = companiesList ?? staticCompanies;
+  const t = useTranslations("companies");
+  const messages = useMessages() as Messages;
+  const localizedBySlug = useMemo(() => new Map(getLocalizedCompanies(messages).map((c) => [c.slug, c])), [messages]);
+  const companies = useMemo(() => {
+    const base = companiesList ?? staticCompanies;
+    return base.map((c) => {
+      const loc = localizedBySlug.get(c.slug);
+      return loc ? { ...c, name: loc.name, industry: loc.industry, description: loc.description } : c;
+    });
+  }, [companiesList, localizedBySlug]);
   const rootRef = useRef<HTMLUListElement>(null);
   const [visible, setVisible] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -83,11 +94,11 @@ export function OurCompaniesGrid({ companies: companiesList }: { companies?: Com
               className="group relative flex flex-col items-center overflow-visible rounded-2xl border border-gi-navy/[0.08] bg-white/95 px-2 py-3.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-gi-navy/18 group-hover:bg-card group-hover:shadow-[0_20px_48px_-20px_rgba(13,27,62,0.12),0_0_40px_-12px_rgba(13,27,62,0.2)]"
             >
               <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-500 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0 group-hover:drop-shadow-[0_0_20px_rgba(13,27,62,0.32)] group-focus-visible:scale-[1.04] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
-                <Image src={c.logo} alt={`${c.name} logo`} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" />
+                <Image src={c.logo} alt={t("logoAlt", { name: c.name })} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" />
               </div>
               <div
                 className={cn(
-                  "pointer-events-none absolute left-1/2 z-20 w-[min(calc(100vw-2rem),13.5rem)] -translate-x-1/2 rounded-xl border border-border bg-card px-2.5 py-2 text-center opacity-0 shadow-xl shadow-primary/10 ring-1 ring-primary/15 transition-[opacity,transform] duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 md:w-[min(100%,14rem)] md:px-3 md:py-2",
+                  "pointer-events-none absolute start-1/2 z-20 w-[min(calc(100vw-2rem),13.5rem)] -translate-x-1/2 rounded-xl border border-border bg-card px-2.5 py-2 text-center opacity-0 shadow-xl shadow-primary/10 ring-1 ring-primary/15 transition-[opacity,transform] duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 md:w-[min(100%,14rem)] md:px-3 md:py-2 rtl:translate-x-1/2",
                   below
                     ? "top-full mt-2 translate-y-1 group-hover:translate-y-0 group-focus-visible:translate-y-0"
                     : "bottom-full mb-2 -translate-y-1 group-hover:translate-y-0 group-focus-visible:translate-y-0",
