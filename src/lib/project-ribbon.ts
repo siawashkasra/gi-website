@@ -2,22 +2,33 @@ import type { Project } from "@/data/projects";
 
 export type RibbonItem = { label: string; value: string };
 
-export function getRibbonItems(project: Project): RibbonItem[] {
+export type RibbonLabels = {
+  floors: string;
+  retailUnits: string;
+  apartments: string;
+  investment: string;
+  scale: string;
+  capacity: string;
+  scope: string;
+  footprint: string;
+};
+
+export function getRibbonItems(project: Project, labels: RibbonLabels): RibbonItem[] {
   if (project.slug === "gulbahar-center") {
     return [
-      { label: "Floors", value: "17" },
-      { label: "Retail units", value: "1,172" },
-      { label: "Apartments", value: "225+" },
-      { label: "Investment", value: "USD 120M" },
+      { label: labels.floors, value: "17" },
+      { label: labels.retailUnits, value: "1,172" },
+      { label: labels.apartments, value: "225+" },
+      { label: labels.investment, value: "USD 120M" },
     ];
   }
-  const labels = project.keyStatLabels;
+  const keyLabels = project.keyStatLabels;
   const k = project.keyStats;
   const rows: RibbonItem[] = [
-    { label: labels?.units ?? "Scale", value: k.units },
-    { label: labels?.shops ?? "Capacity", value: k.shops },
-    { label: labels?.facilities ?? "Scope", value: k.facilities },
+    { label: keyLabels?.units ?? labels.scale, value: k.units },
+    { label: keyLabels?.shops ?? labels.capacity, value: k.shops },
+    { label: keyLabels?.facilities ?? labels.scope, value: k.facilities },
   ];
-  if (project.area && project.area !== "—") rows.push({ label: "Footprint", value: project.area });
+  if (project.area && project.area !== "—") rows.push({ label: labels.footprint, value: project.area });
   return rows.filter((r) => r.value && r.value !== "—");
 }

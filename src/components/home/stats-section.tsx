@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { CalendarDays, Home, Store, UsersRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { AnimatedCounter } from "@/components/home/animated-counter";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ function StatTile({ icon: Icon, children, label, sublabel, className, size = "de
         className,
       )}
     >
-      <div className="pointer-events-none absolute -right-8 -top-8 size-[7.5rem] rounded-full bg-primary/[0.055] transition-transform duration-500 ease-out group-hover:scale-110" aria-hidden />
+      <div className="pointer-events-none absolute -end-8 -top-8 size-[7.5rem] rounded-full bg-primary/[0.055] transition-transform duration-500 ease-out group-hover:scale-110" aria-hidden />
       <div className="relative flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/12 transition-colors duration-300 group-hover:bg-primary/[0.14]">
         <Icon className={cn("shrink-0 text-primary", hero ? "size-7" : "size-6")} aria-hidden />
       </div>
@@ -39,6 +40,7 @@ function StatTile({ icon: Icon, children, label, sublabel, className, size = "de
 }
 
 export function StatsSection() {
+  const t = useTranslations("home.stats");
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: reduce ? 0 : 0.04 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.5, ease: easeLuxury } } };
@@ -50,9 +52,9 @@ export function StatsSection() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_0%_100%,rgba(255,255,255,0.1),transparent_58%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
             <div className="relative">
-              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/55">Achievements</p>
-              <h2 id="stats-heading" className="mt-4 font-heading text-[clamp(1.65rem,3.6vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-white">Impact at a glance</h2>
-              <p className="mt-5 max-w-md font-sans text-sm leading-relaxed text-white/72 sm:text-[0.9375rem]">Structured residential and commercial capacity across flagship Kabul assets, with industrial scale in cement and energy aligned to national demand.</p>
+              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/55">{t("eyebrow")}</p>
+              <h2 id="stats-heading" className="mt-4 font-heading text-[clamp(1.65rem,3.6vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-white">{t("title")}</h2>
+              <p className="mt-5 max-w-md font-sans text-sm leading-relaxed text-white/72 sm:text-[0.9375rem]">{t("description")}</p>
               <div className="mt-8 h-px w-20 bg-gradient-to-r from-white/45 to-transparent" aria-hidden />
             </div>
             <div className="relative mt-12 border-t border-white/12 pt-10 lg:mt-10 lg:border-t-0 lg:pt-0">
@@ -61,35 +63,35 @@ export function StatsSection() {
                   <CalendarDays className="size-6" aria-hidden />
                 </div>
                 <div>
-                  <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">Established</p>
+                  <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">{t("established")}</p>
                   <p className="mt-1 font-sans text-4xl font-bold tabular-nums tracking-tight text-white sm:text-5xl">
                     <AnimatedCounter start={2000} end={2006} durationMs={1600} />
                   </p>
-                  <p className="mt-1.5 font-sans text-xs leading-relaxed text-white/60">Privately held platform since incorporation.</p>
+                  <p className="mt-1.5 font-sans text-xs leading-relaxed text-white/60">{t("establishedNote")}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="relative border-t border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02] p-7 sm:p-8 lg:border-t-0 lg:border-l lg:border-border/50 lg:p-9 xl:p-11">
+          <div className="relative border-t border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02] p-7 sm:p-8 lg:border-t-0 lg:border-s lg:border-border/50 lg:p-9 xl:p-11">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" aria-hidden />
             <motion.ul className="grid list-none grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
               <motion.li variants={item}>
-                <StatTile icon={Home} label="Residential units" sublabel="Across Center, Towers, Plaza and related developments.">
+                <StatTile icon={Home} label={t("residential")} sublabel={t("residentialSub")}>
                   <AnimatedCounter end={1250} suffix="+" durationMs={2400} />
                 </StatTile>
               </motion.li>
               <motion.li variants={item}>
-                <StatTile icon={Store} label="Commercial retail units" sublabel="Including Gulbahar Center marketplace scale.">
+                <StatTile icon={Store} label={t("commercial")} sublabel={t("commercialSub")}>
                   <AnimatedCounter end={1500} suffix="+" durationMs={2200} />
                 </StatTile>
               </motion.li>
               <motion.li variants={item} className="sm:col-span-2">
-                <StatTile icon={UsersRound} label="Industrial employment" sublabel="Cement operations direct jobs target; construction and facilities network." size="hero">
+                <StatTile icon={UsersRound} label={t("industrial")} sublabel={t("industrialSub")} size="hero">
                   <AnimatedCounter end={5000} suffix="+" durationMs={2800} />
                 </StatTile>
               </motion.li>
             </motion.ul>
-            <p className="mt-8 border-t border-border/50 pt-6 font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:text-xs">Figures represent portfolio-scale capacity and planning targets across active and delivered assets; employment reflects cement and related operations scope.</p>
+            <p className="mt-8 border-t border-border/50 pt-6 font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:text-xs">{t("footnote")}</p>
           </div>
         </motion.div>
       </div>

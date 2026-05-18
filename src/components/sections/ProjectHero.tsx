@@ -2,17 +2,32 @@
 
 import { forwardRef, useCallback, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useMessages, useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import type { Project } from "@/data/projects";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
-import { projectTypeLabels } from "@/data/projects";
 import type { HeroSidebarRibbonItem, ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
+import { HERO_SIDEBAR_DEFAULT_INTRO, HERO_SIDEBAR_DEFAULT_INTRO_KEYS } from "@/lib/project-hero-sidebar-defaults";
 import { formatProjectStatusLabel } from "@/lib/project-status";
+import { getProjectTypeLabels, type Messages } from "@/lib/i18n/localized-data";
+import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 import { cn } from "@/lib/utils";
 
 export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro: ResolvedHeroSidebar["intro"]; ribbon: HeroSidebarRibbonItem[] }>(function ProjectHero({ project, heroIntro, ribbon }, ref) {
+  const t = useTranslations("projects.detail");
+  const tIntro = useTranslations("projects.heroIntro");
+  const tSpecs = useTranslations("projects.specs");
+  const tStatus = useTranslations("projects.status");
+  const { localizeText } = useLocalizedFormat();
+  const messages = useMessages() as Messages;
+  const projectTypeLabels = getProjectTypeLabels(messages);
+  const displayIntro = {
+    eyebrow: heroIntro.eyebrow === HERO_SIDEBAR_DEFAULT_INTRO.eyebrow ? tIntro(HERO_SIDEBAR_DEFAULT_INTRO_KEYS.eyebrow) : heroIntro.eyebrow,
+    title: heroIntro.title === HERO_SIDEBAR_DEFAULT_INTRO.title ? tIntro(HERO_SIDEBAR_DEFAULT_INTRO_KEYS.title) : heroIntro.title,
+    blurb: heroIntro.blurb === HERO_SIDEBAR_DEFAULT_INTRO.blurb ? tIntro(HERO_SIDEBAR_DEFAULT_INTRO_KEYS.blurb) : heroIntro.blurb,
+  };
   const localRef = useRef<HTMLElement | null>(null);
   const setRefs = useCallback(
     (node: HTMLElement | null) => {
@@ -24,7 +39,7 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro
   );
   const { scrollYProgress } = useScroll({ target: localRef, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
-  const statusLabel = formatProjectStatusLabel(project.status);
+  const statusLabel = formatProjectStatusLabel(project.status, tStatus);
   const hasRibbon = ribbon.length > 0;
   return (
     <header ref={setRefs} className="relative -mt-[var(--header-h)] w-full max-w-full overflow-hidden pt-[var(--header-h)]" aria-labelledby="project-detail-title">
@@ -44,12 +59,12 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_100%,rgba(255,255,255,0.08),transparent_55%)]" aria-hidden />
           <div className="relative z-10 flex min-h-[min(88svh,38rem)] min-w-0 max-w-full flex-col pb-12 pt-6 sm:min-h-[min(90svh,42rem)] sm:pb-16 sm:pt-8 lg:min-h-[calc(100svh-4.25rem)] lg:pb-16 lg:pt-10">
             <div className="ds-container flex min-w-0 max-w-full flex-1 flex-col px-0 sm:px-0">
-              <nav className="min-w-0 font-sans text-xs text-white/50" aria-label="Breadcrumb">
+              <nav className="min-w-0 font-sans text-xs text-white/50" aria-label={t("breadcrumbAria")}>
                 <Link href="/projects" className="transition-colors hover:text-white/85">
-                  All projects
+                  {t("allProjects")}
                 </Link>
                 <span className="mx-2 inline-flex align-middle text-white/35" aria-hidden>
-                  <ChevronRight className="inline size-3" />
+                  <ChevronRight className="inline size-3 rtl:scale-x-[-1]" />
                 </span>
                 <span className="break-words text-white/60">{project.name}</span>
               </nav>
@@ -69,25 +84,25 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro
           </div>
         </div>
         {hasRibbon ? (
-          <aside className="relative flex min-w-0 max-w-full flex-col justify-between border-t border-white/10 bg-gi-navy px-6 py-9 text-white sm:px-8 sm:py-10 lg:min-h-[calc(100svh-4.25rem)] lg:border-l lg:border-t-0 lg:px-8 lg:py-11 xl:px-10 xl:py-12" aria-label="Project key figures">
+          <aside className="relative flex min-w-0 max-w-full flex-col justify-between border-t border-white/10 bg-gi-navy px-6 py-9 text-white sm:px-8 sm:py-10 lg:min-h-[calc(100svh-4.25rem)] lg:border-s lg:border-t-0 lg:px-8 lg:py-11 xl:px-10 xl:py-12" aria-label={tSpecs("keyFiguresAria")}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.035)_0%,transparent_42%)]" aria-hidden />
             <div className="relative">
-              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-white/55">{heroIntro.eyebrow}</p>
-              <p className="mt-3 font-heading text-lg font-semibold leading-snug tracking-tight text-white xl:text-xl">{heroIntro.title}</p>
-              <p className="mt-3 font-sans text-xs leading-relaxed text-white/68 sm:text-sm">{heroIntro.blurb}</p>
+              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-white/55">{displayIntro.eyebrow}</p>
+              <p className="mt-3 font-heading text-lg font-semibold leading-snug tracking-tight text-white xl:text-xl">{displayIntro.title}</p>
+              <p className="mt-3 font-sans text-xs leading-relaxed text-white/68 sm:text-sm">{displayIntro.blurb}</p>
             </div>
             <ul className="relative mt-8 space-y-6 border-t border-white/10 pt-8 lg:mt-10 lg:flex-1">
               {ribbon.map((item) => (
                 <li key={item.rowKey}>
                   <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/50">{item.label}</p>
-                  <p className="mt-1 break-words font-heading text-2xl font-semibold tabular-nums tracking-tight text-white sm:text-3xl">{item.value}</p>
+                  <p className="mt-1 break-words font-heading text-2xl font-semibold tabular-nums tracking-tight text-white sm:text-3xl">{localizeText(item.value)}</p>
                 </li>
               ))}
             </ul>
             <div className="relative mt-8 border-t border-white/10 pt-8 lg:mt-10">
               <Link href={`/contact?project=${encodeURIComponent(project.slug)}`} className="inline-flex w-full items-center justify-center rounded-xl border border-white/35 bg-white/[0.06] px-5 py-3 text-center text-sm font-semibold text-white shadow-none backdrop-blur-sm transition-colors hover:border-white/55 hover:bg-white/12">
-                Discuss this project
+                {t("discussProject")}
               </Link>
             </div>
           </aside>

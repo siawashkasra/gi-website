@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -17,7 +20,7 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
-    return [{ source: "/complaint", destination: "/events", permanent: true }];
+    return [{ source: "/complaint", destination: "/en/events", permanent: true }];
   },
   images: {
     remotePatterns: [
@@ -26,4 +29,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

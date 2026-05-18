@@ -3,11 +3,15 @@
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
+import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 import { cn } from "@/lib/utils";
 
 export function ProjectGallery({ images, projectName }: { images: string[]; projectName: string }) {
+  const t = useTranslations("projects.gallery");
+  const { formatNumber } = useLocalizedFormat();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [index, setIndex] = useState(0);
@@ -47,17 +51,17 @@ export function ProjectGallery({ images, projectName }: { images: string[]; proj
           <div>
             <div className="flex items-center gap-2.5">
               <span className="size-1 shrink-0 rounded-full bg-gi-gold/75 shadow-[0_0_14px_rgba(201,168,76,0.45)]" aria-hidden />
-              <p className="[font-variant-caps:small-caps] text-xs font-semibold tracking-[0.28em] text-white/65">Gallery</p>
+              <p className="[font-variant-caps:small-caps] text-xs font-semibold tracking-[0.28em] text-white/65">{t("title")}</p>
             </div>
             <h2 id="project-gallery-heading" className="mt-3 font-heading text-[clamp(1.65rem,3.5vw,2.35rem)] font-semibold leading-tight tracking-tight sm:mt-4">
-              On-site & atmosphere
+              {t("subtitle")}
             </h2>
           </div>
-          <p className="max-w-md font-sans text-sm leading-relaxed text-white/55">Swipe or scroll horizontally. Keyboard arrows step between frames. Imagery is shown without aggressive cropping.</p>
+          <p className="max-w-md font-sans text-sm leading-relaxed text-white/55">{t("swipe")}</p>
         </div>
         <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-14 bg-gradient-to-r from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-14 bg-gradient-to-l from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
+          <div className="pointer-events-none absolute inset-y-0 start-0 z-[5] w-14 bg-gradient-to-r from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
+          <div className="pointer-events-none absolute inset-y-0 end-0 z-[5] w-14 bg-gradient-to-l from-gi-navy via-gi-navy/80 to-transparent sm:w-16" aria-hidden />
           <div ref={scrollerRef} className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-5 pt-2 scrollbar-gi sm:gap-6 md:px-8 md:pb-6" style={{ WebkitOverflowScrolling: "touch" }}>
             {images.map((src, i) => (
               <div
@@ -76,22 +80,22 @@ export function ProjectGallery({ images, projectName }: { images: string[]; proj
                   i % 3 === 0 ? "h-[min(72vh,36rem)] w-[min(92vw,52rem)]" : i % 3 === 1 ? "h-[min(58vh,30rem)] w-[min(78vw,38rem)]" : "h-[min(64vh,32rem)] w-[min(85vw,44rem)]"
                 )}
               >
-                <Image src={src} alt={`${projectName} — ${i + 1} of ${len}`} fill loading={i === 0 ? "eager" : "lazy"} placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-contain p-2" sizes="(max-width:768px) 92vw, 52rem" priority={i === 0} fetchPriority={i === 0 ? "high" : undefined} />
+                <Image src={src} alt={t("imageAlt", { name: projectName, index: formatNumber(i + 1), total: formatNumber(len) })} fill loading={i === 0 ? "eager" : "lazy"} placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-contain p-2" sizes="(max-width:768px) 92vw, 52rem" priority={i === 0} fetchPriority={i === 0 ? "high" : undefined} />
               </div>
             ))}
           </div>
           <div className="pointer-events-none mx-6 mt-1 h-px max-w-none bg-gradient-to-r from-transparent via-white/18 to-transparent md:mx-10" aria-hidden />
           <div className="pointer-events-none mx-auto mt-2 hidden h-[3px] max-w-md rounded-full bg-gradient-to-r from-transparent via-gi-gold/35 to-transparent opacity-90 md:block" aria-hidden />
-          <div className="pointer-events-none absolute right-4 top-3 z-[15] flex items-center gap-3 sm:right-8 md:right-10">
+          <div className="pointer-events-none absolute end-4 top-3 z-[15] flex items-center gap-3 sm:end-8 md:end-10">
             <span className="rounded-full border border-white/20 bg-gi-navy/70 px-4 py-1.5 font-sans text-sm font-semibold tabular-nums text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-md">
-              {index + 1} / {len}
+              {formatNumber(index + 1)} / {formatNumber(len)}
             </span>
           </div>
-          <Button type="button" variant="outline" size="icon" onClick={() => go(-1)} className="absolute left-2 top-1/2 z-10 hidden size-12 -translate-y-1/2 rounded-full border-white/35 bg-gi-navy/60 text-white shadow-lg backdrop-blur-md transition-colors hover:border-gi-gold/50 hover:bg-gi-navy/80 md:left-6 md:flex" aria-label="Previous image">
-            <ChevronLeft className="size-5" />
+          <Button type="button" variant="outline" size="icon" onClick={() => go(-1)} className="absolute start-2 top-1/2 z-10 hidden size-12 -translate-y-1/2 rounded-full border-white/35 bg-gi-navy/60 text-white shadow-lg backdrop-blur-md transition-colors hover:border-gi-gold/50 hover:bg-gi-navy/80 md:start-6 md:flex" aria-label={t("prev")}>
+            <ChevronLeft className="size-5 rtl:scale-x-[-1]" aria-hidden />
           </Button>
-          <Button type="button" variant="outline" size="icon" onClick={() => go(1)} className="absolute right-2 top-1/2 z-10 hidden size-12 -translate-y-1/2 rounded-full border-white/35 bg-gi-navy/60 text-white shadow-lg backdrop-blur-md transition-colors hover:border-gi-gold/50 hover:bg-gi-navy/80 md:right-6 md:flex" aria-label="Next image">
-            <ChevronRight className="size-5" />
+          <Button type="button" variant="outline" size="icon" onClick={() => go(1)} className="absolute end-2 top-1/2 z-10 hidden size-12 -translate-y-1/2 rounded-full border-white/35 bg-gi-navy/60 text-white shadow-lg backdrop-blur-md transition-colors hover:border-gi-gold/50 hover:bg-gi-navy/80 md:end-6 md:flex" aria-label={t("next")}>
+            <ChevronRight className="size-5 rtl:scale-x-[-1]" aria-hidden />
           </Button>
         </div>
       </div>

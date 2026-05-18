@@ -1,19 +1,21 @@
 import type { MetadataRoute } from "next";
 import { getCompanyPageSlugs } from "@/data/companies";
 import { projects } from "@/data/projects";
+import { locales } from "../../i18n";
 import { siteConfig } from "@/lib/site";
+
+const paths = ["", "/company", "/projects", "/contact", "/jobs", "/events", ...projects.map((p) => `/projects/${p.slug}`), ...getCompanyPageSlugs().map((slug) => `/companies/${slug}`)];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   const last = new Date();
-  return [
-    { url: base, lastModified: last, changeFrequency: "monthly", priority: 1 },
-    { url: `${base}/company`, lastModified: last, changeFrequency: "monthly", priority: 0.95 },
-    { url: `${base}/projects`, lastModified: last, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${base}/contact`, lastModified: last, changeFrequency: "yearly", priority: 0.7 },
-    { url: `${base}/jobs`, lastModified: last, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/events`, lastModified: last, changeFrequency: "monthly", priority: 0.55 },
-    ...projects.map((p) => ({ url: `${base}/projects/${p.slug}`, lastModified: last, changeFrequency: "monthly" as const, priority: 0.85 })),
-    ...getCompanyPageSlugs().map((slug) => ({ url: `${base}/companies/${slug}`, lastModified: last, changeFrequency: "monthly" as const, priority: 0.75 })),
-  ];
+  return locales.flatMap((locale) =>
+    paths.map((path) => ({
+      url: `${base}/${locale}${path}`,
+      lastModified: last,
+      changeFrequency: path === "" ? ("monthly" as const) : ("monthly" as const),
+      priority: path === "" ? 1 : path.startsWith("/projects/") ? 0.85 : 0.7,
+      alternates: { languages: Object.fromEntries(locales.map((l) => [l, `${base}/${l}${path}`])) },
+    })),
+  );
 }
