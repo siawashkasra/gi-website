@@ -56,7 +56,7 @@ export function Header({ menuProjects, siteLogoUrl, siteLogoAlt }: { menuProject
                 </button>
                 <span className="pointer-events-none absolute bottom-1 inset-x-3 h-px origin-left scale-x-0 bg-gi-gold transition-transform duration-300 ease-out group-hover:scale-x-100 rtl:origin-right" aria-hidden />
               </span>
-              <NavLink href="/company">{t("aboutus")}</NavLink>
+              <NavLink href="/company">{t("company")}</NavLink>
               <NavLink href="/jobs">{t("jobs")}</NavLink>
               <NavLink href="/events">{t("events")}</NavLink>
               <NavLink href="/contact">{t("contact")}</NavLink>
