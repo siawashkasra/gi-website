@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { getCompanyPageSlugs } from "@/data/companies";
 import { getLocalizedCompanies, type Messages } from "@/lib/i18n/localized-data";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { getMergedCompanyForCompanyPage } from "@/lib/media/merge";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -21,12 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const localized = getLocalizedCompanies(messages as Messages).find((c) => c.slug === slug) ?? merged;
   const tMeta = await getTranslations({ locale, namespace: "metadata" });
   const site = await getTranslations({ locale, namespace: "site" });
-  if (!localized) return { title: tMeta("companyFallback") };
-  return {
+  if (!localized) return mergePageMetadata(locale, `/companies/${slug}`, { title: tMeta("companyFallback") });
+  return mergePageMetadata(locale, `/companies/${slug}`, {
     title: localized.name,
     description: localized.description,
     openGraph: { title: `${localized.name} | ${site("name")}`, description: localized.description },
-  };
+  });
 }
 
 export default async function CompanyPage({ params }: Props) {

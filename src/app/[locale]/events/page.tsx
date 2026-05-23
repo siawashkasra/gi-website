@@ -3,6 +3,9 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { EventsPageContent } from "@/components/events/events-page-content";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildEventsJsonLd } from "@/lib/seo/structured-data";
 import { fetchPublishedEventsForLocale } from "@/lib/cms/events-repo";
 import { getSiteSettingsPayload } from "@/lib/cms/site-settings-repo";
 import type { CmsLocale } from "@/lib/cms/apply-content-overlay";
@@ -14,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.events" });
   const site = await getTranslations({ locale, namespace: "site" });
-  return { title: t("title"), description: t("description"), openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description") } };
+  return mergePageMetadata(locale, "/events", { title: t("title"), description: t("description"), openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description") } });
 }
 
 export default async function EventsPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -22,12 +25,14 @@ export default async function EventsPage({ params }: { params: Promise<{ locale:
   const t = await getTranslations("events");
   const tNav = await getTranslations("nav");
   const events = fetchPublishedEventsForLocale(locale as CmsLocale);
+  const eventsJsonLd = buildEventsJsonLd(locale);
   const contactEmail = getSiteSettingsPayload().email ?? "info@gi.com.af";
   const hero = await getResolvedPageHero("events");
   const eventsHeroImage = hero?.desktop ?? eventsHeroFallback;
   const eventsHeroAlt = hero?.alt ?? "";
   return (
     <main>
+      {eventsJsonLd ? <JsonLd data={eventsJsonLd} /> : null}
       <div className="border-b border-border/60">
         <div className="relative min-h-[22rem] overflow-hidden border-b border-border bg-primary text-primary-foreground sm:min-h-[26rem] lg:min-h-[30rem]">
           <Image src={eventsHeroImage} alt={eventsHeroAlt} fill className="object-cover object-[center_40%]" sizes="100vw" priority />

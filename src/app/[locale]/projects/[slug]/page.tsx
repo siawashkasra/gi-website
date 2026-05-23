@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { getAllProjectSlugs } from "@/lib/projects-data";
 import { getLocalizedProject, localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
 import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildProjectJsonLd } from "@/lib/seo/structured-data";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { resolveHeroSidebar } from "@/lib/project-hero-sidebar";
 import type { CmsLocale } from "@/lib/i18n/locales";
 
@@ -28,13 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const localized = merged ? localizeMergedProjects(messages as Messages, [merged])[0] : getLocalizedProject(messages as Messages, slug);
   const tMeta = await getTranslations({ locale, namespace: "metadata" });
   const site = await getTranslations({ locale, namespace: "site" });
-  if (!localized) return { title: tMeta("projectFallback") };
-  return {
+  if (!localized) return mergePageMetadata(locale, `/projects/${slug}`, { title: tMeta("projectFallback") });
+  return mergePageMetadata(locale, `/projects/${slug}`, {
     title: localized.name,
     description: localized.excerpt,
     openGraph: { title: `${localized.name} | ${site("name")}`, description: localized.excerpt, images: [{ url: localized.image, width: 1200, height: 630, alt: localized.name }] },
     twitter: { card: "summary_large_image", title: localized.name, description: localized.excerpt, images: [localized.image] },
-  };
+  });
 }
 
 function isRealEstateProject(slug: string) {
@@ -54,8 +57,10 @@ export default async function ProjectDetailPage({ params }: Props) {
   const mergedList = localizeMergedProjects(messages as Messages, await getMergedProjects());
   const related = mergedList.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));
+  const projectJsonLd = buildProjectJsonLd({ locale, slug: project.slug, name: project.name, description: project.excerpt, image: project.image, location: project.location });
   return (
     <article className="max-w-full overflow-x-hidden border-b border-border/60">
+      <JsonLd data={projectJsonLd} />
       <ProjectDetailShell project={project} heroSidebar={heroSidebar}>
         <ProjectSpecs project={project} />
         <ProjectGallery images={project.gallery} projectName={project.name} />

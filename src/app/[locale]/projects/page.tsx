@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { formatNumber } from "@/lib/i18n/format";
 import { ProjectsExplorer } from "@/components/projects/projects-explorer";
 import { localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { getMergedProjects, getResolvedPageHero } from "@/lib/media/merge";
 
 const projectsHeroFallback = "/images/projects/gulbahar-plaza/gulbahar-plaza-hero-page.png";
@@ -13,11 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.projects" });
   const site = await getTranslations({ locale, namespace: "site" });
-  return {
+  return mergePageMetadata(locale, "/projects", {
     title: t("title"),
     description: t("description"),
-    openGraph: { title: `${t("title")} | ${site("name")}` },
-  };
+    openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description") },
+  });
 }
 
 export default async function ProjectsPage() {

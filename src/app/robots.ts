@@ -3,5 +3,5 @@ import { siteConfig } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   const base = siteConfig.url.replace(/\/$/, "");
-  return { rules: { userAgent: "*", allow: "/" }, sitemap: `${base}/sitemap.xml` };
+  return { rules: { userAgent: "*", allow: "/", disallow: ["/admin", "/admin/", "/api", "/api/"] }, sitemap: `${base}/sitemap.xml` };
 }
