@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
     return [{ source: "/complaint", destination: "/en/events", permanent: true }];
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
     ],

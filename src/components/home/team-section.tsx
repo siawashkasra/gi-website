@@ -1,27 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useMessages, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import type { TeamMember } from "@/data/team";
 import { leadershipTeam as staticLeadershipTeam } from "@/data/team";
-import { getLocalizedTeam, type Messages } from "@/lib/i18n/localized-data";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
 export function TeamSection({ members }: { members?: TeamMember[] }) {
   const t = useTranslations("home.team");
-  const messages = useMessages() as Messages;
-  const localizedTeam = getLocalizedTeam(messages);
-  const leadershipTeam = useMemo(() => {
-    const base = members ?? staticLeadershipTeam;
-    const byName = new Map(localizedTeam.map((m) => [m.name, m]));
-    return base.map((m) => {
-      const loc = byName.get(m.name);
-      return loc ? { ...m, title: loc.title, bio: loc.bio } : m;
-    });
-  }, [members, localizedTeam]);
+  const leadershipTeam = members ?? staticLeadershipTeam;
   const reduce = useReducedMotion();
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.06 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
@@ -38,8 +27,8 @@ export function TeamSection({ members }: { members?: TeamMember[] }) {
           </div>
           <div className="relative bg-white px-7 py-9 sm:px-9 sm:py-10 lg:px-10 lg:py-11 xl:px-12 xl:py-12">
             <motion.ul className="mx-auto grid max-w-6xl list-none grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-28px" }}>
-              {leadershipTeam.map((m) => (
-                <motion.li key={m.name} variants={item}>
+              {leadershipTeam.map((m, i) => (
+                <motion.li key={`${i}-${m.name}`} variants={item}>
                   <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white p-0 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] transition-[border-color,box-shadow] duration-500 hover:border-gi-navy/18 hover:shadow-[0_20px_56px_-36px_rgba(13,27,62,0.14)]">
                     <div className="pointer-events-none absolute -end-4 -top-4 z-0 size-20 rounded-full bg-primary/[0.06] transition-transform duration-500 group-hover:scale-110" aria-hidden />
                     <div className="relative z-[1] aspect-[4/5] w-full shrink-0 bg-muted">

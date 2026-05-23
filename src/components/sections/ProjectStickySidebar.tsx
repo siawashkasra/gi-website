@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import type { Project } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { useSiteContact } from "@/lib/i18n/use-site-contact";
@@ -24,7 +24,7 @@ export function ProjectStickySidebar({ project, visible }: { project: Project; v
           <Button render={<Link href={`/contact?project=${encodeURIComponent(project.slug)}&intent=visit`} />} nativeButton={false} className="mt-5 h-11 w-full rounded-xl bg-gi-gold font-semibold text-gi-navy shadow-[0_8px_24px_-8px_rgba(201,168,76,0.45)] hover:bg-gi-gold-light">
             {t("bookVisit")}
           </Button>
-          <a href={contact.telHref} className="mt-4 block text-center font-sans text-sm font-medium text-white/80 transition-colors hover:text-white">
+          <a href={contact.telHref} className="mt-4 block text-center font-sans text-sm font-medium tabular-nums text-white/80 transition-colors hover:text-white" dir="ltr">
             {contact.phoneDisplay}
           </a>
           <a href={wa.toString()} target="_blank" rel="noopener noreferrer" className="mt-3 block text-center font-sans text-xs font-semibold uppercase tracking-[0.16em] text-gi-gold/90 transition-colors hover:text-gi-gold">

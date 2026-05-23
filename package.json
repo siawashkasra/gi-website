@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "messages:build": "npx tsx scripts/build-messages.mts",
+    "messages:build": "npx tsx scripts/localize-data-exports.mts && npx tsx scripts/build-messages.mts",
     "predev": "npm run messages:build",
     "prebuild": "npm run messages:build",
     "build": "next build",

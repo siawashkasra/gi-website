@@ -13,6 +13,7 @@ services:
       SQLITE_URL: file:/app/data/site-media.db
     env_file:
       - .env.docker
+      - .env
     volumes:
       - gi-data:/app/data
       - gi-uploads:/app/public/uploads

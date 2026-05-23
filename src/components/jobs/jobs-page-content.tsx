@@ -1,12 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight, Briefcase, Building2, Factory, Mail } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
+import type { JobPostingListItem } from "@/lib/cms/job-postings-repo";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
@@ -23,7 +24,26 @@ function HighlightCard({ icon: Icon, title, body }: { icon: LucideIcon; title: s
   );
 }
 
-export function JobsPageContent() {
+function JobPostingRow({ item }: { item: JobPostingListItem }) {
+  return (
+    <article className="rounded-2xl border border-gi-navy/[0.08] bg-white p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] sm:p-8">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+        <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-primary/90">{item.dateLabel}</p>
+        {item.location ? <p className="font-sans text-xs text-muted-foreground sm:text-end">{item.location}</p> : null}
+      </div>
+      <h3 className="mt-3 font-heading text-xl font-semibold leading-snug tracking-tight text-gi-navy sm:text-2xl">{item.title}</h3>
+      {item.department ? <p className="mt-1 text-sm font-medium text-gi-navy/80">{item.department}</p> : null}
+      <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground sm:text-base">{item.summary}</p>
+      {item.ctaLabel && item.ctaHref ? (
+        <a href={item.ctaHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 transition-colors hover:underline" target={item.ctaHref.startsWith("http") ? "_blank" : undefined} rel={item.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}>
+          {item.ctaLabel} <ArrowRight className="size-4 rtl:scale-x-[-1]" aria-hidden />
+        </a>
+      ) : null}
+    </article>
+  );
+}
+
+export function JobsPageContent({ postings }: { postings: JobPostingListItem[] }) {
   const t = useTranslations("jobs");
   const mailtoCareers = `mailto:${siteConfig.email}?subject=${encodeURIComponent(t("subject"))}`;
   const highlightTiles: { icon: LucideIcon; title: string; body: string }[] = [
@@ -36,6 +56,24 @@ export function JobsPageContent() {
   const item = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
   return (
     <>
+      {postings.length > 0 ? (
+        <section id="open-roles" className="ds-section border-b border-border/60 bg-gradient-to-b from-gi-navy/[0.02] to-white" aria-labelledby="jobs-open-roles-heading">
+          <div className="ds-container">
+            <div className="mx-auto max-w-4xl">
+              <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">{t("openRoles.eyebrow")}</p>
+              <h2 id="jobs-open-roles-heading" className="mt-3 font-heading text-[clamp(1.5rem,2.8vw,2.1rem)] font-semibold leading-tight tracking-tight text-gi-navy">{t("openRoles.title")}</h2>
+              <p className="mt-3 max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground">{t("openRoles.description")}</p>
+              <motion.div className="mt-8 space-y-6" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-24px" }}>
+                {postings.map((p) => (
+                  <motion.div key={p.id} variants={item}>
+                    <JobPostingRow item={p} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      ) : null}
       <section className="ds-section border-b border-border/60 bg-white" aria-labelledby="jobs-primary-heading">
         <div className="ds-container">
           <motion.div className="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.75, ease: easeLuxury }}>

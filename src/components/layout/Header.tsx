@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { LogoMark } from "@/components/shared/logo-mark";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
@@ -14,7 +14,7 @@ import { useScrollProgress } from "@/hooks/use-scroll-progress";
 import type { Project } from "@/data/projects";
 import { projects as fallbackMenuProjects } from "@/data/projects";
 
-export function Header({ menuProjects }: { menuProjects?: Project[] }) {
+export function Header({ menuProjects, siteLogoUrl, siteLogoAlt }: { menuProjects?: Project[]; siteLogoUrl?: string | null; siteLogoAlt?: string }) {
   const t = useTranslations("nav");
   const megaMenuProjects = menuProjects ?? fallbackMenuProjects;
   const [megaOpen, setMegaOpen] = useState(false);
@@ -47,7 +47,7 @@ export function Header({ menuProjects }: { menuProjects?: Project[] }) {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
         <div className="relative z-[1]">
           <div className="ds-container flex h-[4.25rem] items-center justify-between gap-4">
-            <LogoMark variant="light" />
+            <LogoMark variant="light" siteLogoUrl={siteLogoUrl} siteLogoAlt={siteLogoAlt} />
             <nav className="hidden items-center gap-1 md:flex" aria-label={t("mainAria")}>
               <NavLink href="/">{t("home")}</NavLink>
               <span className="group relative inline-flex">
@@ -80,7 +80,7 @@ export function Header({ menuProjects }: { menuProjects?: Project[] }) {
         {mobileOpen ? (
           <motion.div key="drawer" id="mobile-nav" initial={{ x: "var(--drawer-from)" }} animate={{ x: 0 }} exit={{ x: "var(--drawer-from)" }} transition={{ type: "tween", duration: 0.32, ease: [0.16, 1, 0.3, 1] }} style={{ "--drawer-from": "calc(-100% * var(--drawer-sign, 1))" } as React.CSSProperties} className="fixed inset-0 z-[250] flex flex-col bg-gi-navy text-white [--drawer-sign:1] rtl:[--drawer-sign:-1]">
             <div className="flex h-[4.25rem] items-center justify-between border-b border-white/10 px-4">
-              <LogoMark variant="light" />
+              <LogoMark variant="light" siteLogoUrl={siteLogoUrl} siteLogoAlt={siteLogoAlt} />
               <button type="button" className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/25 text-white transition-colors hover:bg-white/10" aria-label={t("closeMenu")} onClick={() => setMobileOpen(false)}>
                 <X className="size-4" />
               </button>

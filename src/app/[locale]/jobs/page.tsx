@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { JobsPageContent } from "@/components/jobs/jobs-page-content";
+import { fetchPublishedJobPostingsForLocale } from "@/lib/cms/job-postings-repo";
+import type { CmsLocale } from "@/lib/i18n/locales";
 import { getResolvedPageHero } from "@/lib/media/merge";
 const jobsHeroFallback = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=2400&q=90";
 
@@ -13,7 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t("title"), description: t("description"), openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description") } };
 };
 
-export default async function JobsPage() {
+export default async function JobsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const postings = fetchPublishedJobPostingsForLocale(locale as CmsLocale);
   const t = await getTranslations("jobs");
   const tNav = await getTranslations("nav");
   const hero = await getResolvedPageHero("jobs");
@@ -43,7 +47,7 @@ export default async function JobsPage() {
           </div>
         </div>
       </div>
-      <JobsPageContent />
+      <JobsPageContent postings={postings} />
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import type { Project } from "@/data/projects";
+import type { CmsLocale } from "@/lib/i18n/locales";
 
 export type RibbonItem = { label: string; value: string };
 
@@ -13,13 +14,22 @@ export type RibbonLabels = {
   footprint: string;
 };
 
-export function getRibbonItems(project: Project, labels: RibbonLabels): RibbonItem[] {
+export const DEFAULT_RIBBON_LABELS: RibbonLabels = { floors: "Floors", retailUnits: "Retail units", apartments: "Apartments", investment: "Investment", scale: "Scale", capacity: "Capacity", scope: "Scope", footprint: "Footprint" };
+
+const GULBAHAR_CENTER_VALUES: Record<CmsLocale, [string, string, string, string]> = {
+  en: ["17", "1,172", "225+", "USD 120M"],
+  "fa-AF": ["۱۷", "۱٬۱۷۲", "۲۲۵+", "۱۲۰ میلیون دلار"],
+  ps: ["۱۷", "۱٬۱۷۲", "۲۲۵+", "۱۲۰ میلیون امریکایی ډالر"],
+};
+
+export function getRibbonItems(project: Project, labels: RibbonLabels, locale: CmsLocale = "en"): RibbonItem[] {
   if (project.slug === "gulbahar-center") {
+    const [floors, retailUnits, apartments, investment] = GULBAHAR_CENTER_VALUES[locale];
     return [
-      { label: labels.floors, value: "17" },
-      { label: labels.retailUnits, value: "1,172" },
-      { label: labels.apartments, value: "225+" },
-      { label: labels.investment, value: "USD 120M" },
+      { label: labels.floors, value: floors },
+      { label: labels.retailUnits, value: retailUnits },
+      { label: labels.apartments, value: apartments },
+      { label: labels.investment, value: investment },
     ];
   }
   const keyLabels = project.keyStatLabels;

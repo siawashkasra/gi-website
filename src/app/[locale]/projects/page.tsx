@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
-import type { Locale } from "../../../../i18n";
+import type { Locale } from "@/lib/i18n/locales";
 import { formatNumber } from "@/lib/i18n/format";
 import { ProjectsExplorer } from "@/components/projects/projects-explorer";
 import { localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";

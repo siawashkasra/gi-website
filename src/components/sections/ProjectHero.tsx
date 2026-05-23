@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import type { Project } from "@/data/projects";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
 import type { HeroSidebarRibbonItem, ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";

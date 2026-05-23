@@ -3,7 +3,7 @@
 import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Button } from "@/components/ui/button";
 import { useSiteContact } from "@/lib/i18n/use-site-contact";

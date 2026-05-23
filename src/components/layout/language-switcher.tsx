@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Globe, ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/routing";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const options = [{ code: "en" as const, labelKey: "english" as const }, { code: "fa-AF" as const, labelKey: "dari" as const }, { code: "ps" as const, labelKey: "pashto" as const }];

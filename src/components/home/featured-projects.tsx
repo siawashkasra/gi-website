@@ -1,15 +1,17 @@
 import { getMessages, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
+import { fetchFeaturedProjectSlugs } from "@/lib/cms/project-featured-repo";
 import { getMergedProjects } from "@/lib/media/merge";
 
 export async function FeaturedProjects() {
   const t = await getTranslations("home.featured");
   const messages = await getMessages();
-  const merged = localizeMergedProjects(messages as Messages, await getMergedProjects());
+  const featuredSlugs = fetchFeaturedProjectSlugs();
+  const merged = localizeMergedProjects(messages as Messages, await getMergedProjects()).map((p) => ({ ...p, featured: featuredSlugs.has(p.slug) }));
   const marked = merged.filter((p) => p.featured);
   const featured = marked.length > 0 ? marked : merged.slice(0, 3);
   return (

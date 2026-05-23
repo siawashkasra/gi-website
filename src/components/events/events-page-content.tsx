@@ -4,10 +4,9 @@ import { ArrowRight, Building2, Calendar, Home, Mail, Megaphone } from "lucide-r
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { type EventListItem, upcomingEvents } from "@/data/events";
-import { siteConfig } from "@/lib/site";
+import type { EventListItem } from "@/data/events";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
@@ -30,9 +29,9 @@ function EventRow({ item }: { item: EventListItem }) {
   );
 }
 
-export function EventsPageContent() {
+export function EventsPageContent({ events, contactEmail }: { events: EventListItem[]; contactEmail: string }) {
   const t = useTranslations("events");
-  const mailtoEvents = `mailto:${siteConfig.email}?subject=${encodeURIComponent(t("subject"))}`;
+  const mailtoEvents = `mailto:${contactEmail}?subject=${encodeURIComponent(t("subject"))}`;
   const formatIcons = [Building2, Home, Megaphone] as const;
   const formatCards: { icon: LucideIcon; title: string; body: string }[] = [
     { icon: formatIcons[0], title: t("format1.title"), body: t("format1.body") },
@@ -55,9 +54,9 @@ export function EventsPageContent() {
               <div className="mx-auto mt-6 h-px w-16 bg-gradient-to-r from-transparent via-primary/35 to-transparent" aria-hidden />
             </div>
             <div className="space-y-6 border-t border-border/50 bg-white px-7 py-9 sm:px-9 sm:py-10 sm:space-y-8 lg:px-11 lg:py-11">
-              {upcomingEvents.length > 0 ? (
+              {events.length > 0 ? (
                 <motion.div className="space-y-6" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-24px" }}>
-                  {upcomingEvents.map((e) => (
+                  {events.map((e) => (
                     <motion.div key={e.id} variants={item}>
                       <EventRow item={e} />
                     </motion.div>
@@ -113,7 +112,7 @@ export function EventsPageContent() {
                 );
               })}
             </motion.div>
-            <p className="border-t border-border/50 bg-white px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:py-6 sm:text-xs">{t("footnote2", { email: siteConfig.email })}</p>
+            <p className="border-t border-border/50 bg-white px-7 py-5 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:px-9 sm:py-6 sm:text-xs">{t("footnote2", { email: contactEmail })}</p>
           </motion.div>
         </div>
       </section>

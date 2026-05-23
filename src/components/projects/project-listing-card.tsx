@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import type { Project } from "@/data/projects";
 import { formatProjectStatusLabel } from "@/lib/project-status";
 import { getProjectTypeLabels, type Messages } from "@/lib/i18n/localized-data";

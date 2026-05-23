@@ -1,18 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Vazirmatn } from "next/font/google";
+import { siteFontManrope, siteFontVazirmatn } from "@/lib/site-fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { locales, type Locale } from "../../../i18n";
+import { locales, type Locale } from "@/lib/i18n/locales";
 import { getMergedProjects } from "@/lib/media/merge";
+import { resolveSiteBrand } from "@/lib/media/resolve-brand";
 import { localizeMergedProjects } from "@/lib/i18n/localized-data";
 import { siteConfig } from "@/lib/site";
-
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
-const vazirmatn = Vazirmatn({ subsets: ["arabic"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-vazirmatn", display: "swap", preload: true });
 
 export const dynamic = "force-dynamic";
 
@@ -24,14 +22,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
   const site = await getTranslations({ locale, namespace: "site" });
+  const brand = resolveSiteBrand();
   return {
     metadataBase: new URL(siteConfig.url),
     title: { default: site("name"), template: `%s | ${site("name")}` },
     description: site("description"),
     keywords: t.raw("keywords") as string[],
     authors: [{ name: site("name") }],
-    openGraph: { type: "website", locale: locale === "en" ? "en_US" : locale === "fa-AF" ? "fa_AF" : "ps_AF", siteName: site("name"), url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: site("name") }] },
-    twitter: { card: "summary_large_image", images: [siteConfig.openGraphImage] },
+    openGraph: { type: "website", locale: locale === "en" ? "en_US" : locale === "fa-AF" ? "fa_AF" : "ps_AF", siteName: site("name"), url: siteConfig.url, images: [{ url: brand.ogImagePath, alt: site("name") }] },
+    twitter: { card: "summary_large_image", images: [brand.ogImagePath] },
     robots: { index: true, follow: true },
     alternates: { languages: { en: "/en", "fa-AF": "/fa-AF", ps: "/ps" } },
   };
@@ -45,17 +44,18 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   setRequestLocale(locale);
   const messages = await getMessages();
   const menuProjects = localizeMergedProjects(messages as Parameters<typeof localizeMergedProjects>[0], await getMergedProjects());
+  const brand = resolveSiteBrand();
   const t = await getTranslations({ locale, namespace: "site" });
-  const jsonLd = { "@context": "https://schema.org", "@type": "Organization", name: t("name"), description: t("description"), url: siteConfig.url, logo: `${siteConfig.url.replace(/\/$/, "")}${siteConfig.openGraphImage}`, foundingDate: "2006", email: siteConfig.email, telephone: `${siteConfig.phoneLandline}, ${siteConfig.phone}`, address: { "@type": "PostalAddress", streetAddress: t("address"), addressCountry: "AF" } };
+  const jsonLd = { "@context": "https://schema.org", "@type": "Organization", name: t("name"), description: t("description"), url: siteConfig.url, logo: `${siteConfig.url.replace(/\/$/, "")}${brand.ogImagePath}`, foundingDate: "2006", email: siteConfig.email, telephone: `${siteConfig.phoneLandline}, ${siteConfig.phone}`, address: { "@type": "PostalAddress", streetAddress: t("address"), addressCountry: "AF" } };
   const isEn = locale === "en";
   return (
-    <html lang={locale} dir={isEn ? "ltr" : "rtl"} className={`${isEn ? manrope.variable : vazirmatn.variable} h-full scroll-smooth`} suppressHydrationWarning>
+    <html lang={locale} dir={isEn ? "ltr" : "rtl"} className={`${isEn ? siteFontManrope.variable : siteFontVazirmatn.variable} h-full scroll-smooth`} suppressHydrationWarning>
       <body id="gi-root" className="flex min-h-full flex-col" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-          <SiteHeader menuProjects={menuProjects} />
+          <SiteHeader menuProjects={menuProjects} siteLogoUrl={brand.siteLogoUrl} siteLogoAlt={brand.siteLogoAlt} />
           <main className="flex-1 pt-[4.25rem]">{children}</main>
-          <SiteFooter />
+          <SiteFooter siteLogoUrl={brand.siteLogoUrl} siteLogoAlt={brand.siteLogoAlt} />
         </NextIntlClientProvider>
       </body>
     </html>

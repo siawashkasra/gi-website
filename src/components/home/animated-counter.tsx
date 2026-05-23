@@ -10,6 +10,7 @@ type AnimatedCounterProps = {
   suffix?: string;
   prefix?: string;
   className?: string;
+  groupThousands?: boolean;
 };
 
 function prefersReducedMotion() {
@@ -17,8 +18,8 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, suffix = "", prefix = "", className }: AnimatedCounterProps) {
-  const { formatNumber, localizeText } = useLocalizedFormat();
+export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, suffix = "", prefix = "", className, groupThousands = true }: AnimatedCounterProps) {
+  const { formatNumber, formatInteger, localizeText } = useLocalizedFormat();
   const [value, setValue] = useState(startVal);
   const ref = useRef<HTMLSpanElement>(null);
   const done = useRef(false);
@@ -53,10 +54,11 @@ export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, s
     return () => ob.disconnect();
   }, [end, durationMs, startVal]);
 
+  const formatValue = groupThousands ? formatNumber : formatInteger;
   return (
     <span ref={ref} className={className}>
       {localizeText(prefix)}
-      {formatNumber(value)}
+      {formatValue(value)}
       {localizeText(suffix)}
     </span>
   );

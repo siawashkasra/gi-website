@@ -46,18 +46,18 @@ export function ContactSection({ showHeading = true, className }: ContactSection
                 <div>
                   <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">{t("email")}</dt>
                   <dd className="mt-2">
-                    <a href={contact.mailtoHref} className={linkClass}>
+                    <a href={contact.mailtoHref} className={linkClass} dir="ltr">
                       {contact.email}
                     </a>
                   </dd>
                 </div>
                 <div>
                   <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">{t("phone")}</dt>
-                  <dd className="mt-2 space-y-2">
-                    <a href={contact.telLandlineHref} className={`block ${linkClass}`}>
+                  <dd className="mt-2 space-y-2" dir="ltr">
+                    <a href={contact.telLandlineHref} className={`block tabular-nums ${linkClass}`}>
                       {contact.phoneLandlineDisplay}
                     </a>
-                    <a href={contact.telHref} className={`block ${linkClass}`}>
+                    <a href={contact.telHref} className={`block tabular-nums ${linkClass}`}>
                       {t("mobile")} {contact.phoneDisplay}
                     </a>
                   </dd>

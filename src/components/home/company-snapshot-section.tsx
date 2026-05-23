@@ -4,7 +4,7 @@ import { ArrowRight, Building2, Globe2, Landmark, Layers3, MapPin } from "lucide
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { homeHighlights } from "@/data/company-profile";
 import { getLocalizedCompanySnapshot, type Messages } from "@/lib/i18n/localized-data";

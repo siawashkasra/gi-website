@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { getCompanyPageSlugs } from "@/data/companies";
 import { getLocalizedCompanies, type Messages } from "@/lib/i18n/localized-data";

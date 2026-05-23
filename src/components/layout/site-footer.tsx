@@ -1,26 +1,28 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { useLocale, useMessages, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Facebook, Instagram } from "lucide-react";
+import { BidiLtr } from "@/components/shared/bidi-ltr";
 import { LogoMark } from "@/components/shared/logo-mark";
 import { Separator } from "@/components/ui/separator";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useSiteContact } from "@/lib/i18n/use-site-contact";
 import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
-import { siteConfig } from "@/lib/site";
-import { useMessages } from "next-intl";
 import { getLocalizedProjects, type Messages } from "@/lib/i18n/localized-data";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { siteConfig } from "@/lib/site";
 
-export function SiteFooter() {
+export function SiteFooter({ siteLogoUrl, siteLogoAlt }: { siteLogoUrl?: string | null; siteLogoAlt?: string }) {
+  const locale = useLocale();
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
   const tSite = useTranslations("site");
   const messages = useMessages() as Messages;
   const contact = useSiteContact();
-  const { formatNumber } = useLocalizedFormat();
+  const { formatYear } = useLocalizedFormat();
   const projects = getLocalizedProjects(messages).slice(0, 5);
-  const year = formatNumber(new Date().getFullYear());
+  const year = formatYear(new Date().getFullYear());
+  const siteName = tSite("name");
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-gi-navy text-white" role="contentinfo">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />
@@ -28,7 +30,7 @@ export function SiteFooter() {
       <div className="relative z-[1] ds-container py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <LogoMark variant="light" />
+            <LogoMark variant="light" siteLogoUrl={siteLogoUrl} siteLogoAlt={siteLogoAlt} />
             <p className="mt-6 max-w-md font-sans text-sm leading-relaxed text-white/70">{tSite("description")}</p>
           </div>
           <div>
@@ -57,13 +59,13 @@ export function SiteFooter() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="font-sans text-sm text-white/65">
             <p>{contact.address}</p>
-            <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1" dir="ltr">
               <a href={contact.mailtoHref} className="underline-offset-4 hover:underline">{contact.email}</a>
-              <span className="text-white/40">·</span>
-              <a href={contact.telLandlineHref} className="underline-offset-4 hover:underline">{contact.phoneLandlineDisplay}</a>
-              <span className="text-white/40">·</span>
-              <a href={contact.telHref} className="underline-offset-4 hover:underline">{contact.phoneDisplay}</a>
-              <span className="text-white/40">·</span>
+              <span className="text-white/40" aria-hidden>·</span>
+              <a href={contact.telLandlineHref} className="tabular-nums underline-offset-4 hover:underline">{contact.phoneLandlineDisplay}</a>
+              <span className="text-white/40" aria-hidden>·</span>
+              <a href={contact.telHref} className="tabular-nums underline-offset-4 hover:underline">{contact.phoneDisplay}</a>
+              <span className="text-white/40" aria-hidden>·</span>
               <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-[#7eb8e8] underline-offset-4 hover:underline">{t("whatsapp")}</a>
             </p>
             {siteConfig.social.instagram || siteConfig.social.facebook ? (
@@ -85,7 +87,9 @@ export function SiteFooter() {
           </div>
           <div className="flex flex-col items-start gap-4 lg:items-end">
             <LanguageSwitcher dropUp />
-            <p className="font-sans text-xs text-white/50">{t("rights", { year, name: tSite("name") })}</p>
+            <p className="flex flex-row flex-wrap items-center gap-x-1.5 font-sans text-xs text-white/50 lg:justify-end">
+              {locale === "en" ? t("rights", { year, name: siteName }) : (<><span>{siteName}</span><BidiLtr className="whitespace-nowrap tabular-nums">· © {year}</BidiLtr></>)}
+            </p>
           </div>
         </div>
       </div>

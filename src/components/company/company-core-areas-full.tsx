@@ -3,7 +3,7 @@
 import { ArrowUpRight, Factory, Flame, LayoutGrid, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { getLocalizedCoreBusinessAreas, getLocalizedProject, type Messages } from "@/lib/i18n/localized-data";
 

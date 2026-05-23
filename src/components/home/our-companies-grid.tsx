@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useMessages, useTranslations } from "next-intl";
 import type { Company } from "@/data/companies";

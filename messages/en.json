@@ -384,7 +384,10 @@
     "name": "Gulbahar Investment",
     "tagline": "Real estate, commercial infrastructure, energy, and cement — Afghanistan",
     "description": "Privately held Afghan investment and development company established in 2006, operating across real estate, infrastructure, and industrial sectors. Headquarters Kabul; international affiliation United Arab Emirates.",
-    "address": "Gulbahar Center, Charahi Malik Asghar, Kabul, Afghanistan"
+    "address": "Gulbahar Center, Charahi Malik Asghar, Kabul, Afghanistan",
+    "email": "info@gi.com.af",
+    "phone": "+93 78 600 9797",
+    "phoneLandline": "+93 20 11 12 13"
   },
   "nav": {
     "home": "Home",
@@ -807,6 +810,11 @@
     "sector3": {
       "title": "Corporate & support",
       "body": "Finance, HR, legal, procurement, and IT functions supporting group-wide delivery."
+    },
+    "openRoles": {
+      "eyebrow": "Open roles",
+      "title": "Current opportunities",
+      "description": "Published vacancies and programmes. Contact us if you do not see a fit — general applications are welcome."
     }
   },
   "events": {

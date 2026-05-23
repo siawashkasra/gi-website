@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getCompanyPageSlugs } from "@/data/companies";
 import { projects } from "@/data/projects";
-import { locales } from "../../i18n";
+import { locales } from "@/lib/i18n/locales";
 import { siteConfig } from "@/lib/site";
 
 const paths = ["", "/company", "/projects", "/contact", "/jobs", "/events", ...projects.map((p) => `/projects/${p.slug}`), ...getCompanyPageSlugs().map((slug) => `/companies/${slug}`)];

@@ -16,6 +16,7 @@ import { StatsSection } from "@/components/home/stats-section";
 import { TeamSection } from "@/components/home/team-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { ValuesSection } from "@/components/home/values-section";
+import type { Locale } from "@/lib/i18n/locales";
 import { getMergedCompanies, getMergedLeadershipTeam, getResolvedHomeSectionMedia } from "@/lib/media/merge";
 import { siteConfig } from "@/lib/site";
 
@@ -30,10 +31,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const cmsLocale = locale as Locale;
   const homeMedia = await getResolvedHomeSectionMedia();
-  const companies = await getMergedCompanies();
-  const team = await getMergedLeadershipTeam();
+  const companies = await getMergedCompanies(cmsLocale);
+  const team = await getMergedLeadershipTeam(cmsLocale);
   return (
     <>
       <HeroSection />

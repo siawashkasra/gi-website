@@ -41,6 +41,14 @@ export function teamPhotoKey(memberKey: string) {
   return `team:${memberKey}`;
 }
 
+export function brandSiteLogoKey() {
+  return "brand:site-logo";
+}
+
+export function brandOgImageKey() {
+  return "brand:og-image";
+}
+
 export function parseGalleryPlacementKey(key: string): { slug: string; index: number } | null {
   const m = key.match(/^project:([^:]+):gallery:(\d+)$/);
   if (!m) return null;

@@ -4,7 +4,7 @@ import { useMemo, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import type { Messages } from "@/lib/i18n/localized-data";
 import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";

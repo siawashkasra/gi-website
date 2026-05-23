@@ -3,7 +3,7 @@
 import { HardHat, HeartHandshake, Scale } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { getLocalizedStandardPillars, type Messages } from "@/lib/i18n/localized-data";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;

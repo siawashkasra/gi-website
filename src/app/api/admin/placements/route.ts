@@ -4,10 +4,14 @@ import { eq } from "drizzle-orm";
 import { assets, placements } from "@/db/schema";
 import { getDb } from "@/db/index";
 import { isValidPlacementKey } from "@/lib/admin/placement-guard";
+import { requireAdminApi } from "@/lib/admin/require-admin";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
   let body: { placementKey?: string; assetId?: string; alt?: string };
   try {
     body = (await request.json()) as { placementKey?: string; assetId?: string; alt?: string };
@@ -28,6 +32,8 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
   const { searchParams } = new URL(request.url);
   const placementKey = searchParams.get("placementKey");
   if (!placementKey || !isValidPlacementKey(placementKey)) return NextResponse.json({ ok: false, message: "Invalid placement key" }, { status: 400 });

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { ChevronLeft, ChevronRight, SlidersHorizontal, Star } from "lucide-react";
 import type { PropertyListing, PropertyListingAvailability } from "@/lib/property-listings";
 import {

@@ -65,7 +65,7 @@ export function StatsSection() {
                 <div>
                   <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">{t("established")}</p>
                   <p className="mt-1 font-sans text-4xl font-bold tabular-nums tracking-tight text-white sm:text-5xl">
-                    <AnimatedCounter start={2000} end={2006} durationMs={1600} />
+                    <AnimatedCounter start={2000} end={2006} durationMs={1600} groupThousands={false} />
                   </p>
                   <p className="mt-1.5 font-sans text-xs leading-relaxed text-white/60">{t("establishedNote")}</p>
                 </div>

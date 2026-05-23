@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { EventsPageContent } from "@/components/events/events-page-content";
+import { fetchPublishedEventsForLocale } from "@/lib/cms/events-repo";
+import { getSiteSettingsPayload } from "@/lib/cms/site-settings-repo";
+import type { CmsLocale } from "@/lib/cms/apply-content-overlay";
 import { getResolvedPageHero } from "@/lib/media/merge";
 
 const eventsHeroFallback = "https://images.unsplash.com/photo-1511578314322-379afb476865?w=2400&q=90";
@@ -14,9 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t("title"), description: t("description"), openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description") } };
 }
 
-export default async function EventsPage() {
+export default async function EventsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations("events");
   const tNav = await getTranslations("nav");
+  const events = fetchPublishedEventsForLocale(locale as CmsLocale);
+  const contactEmail = getSiteSettingsPayload().email ?? "info@gi.com.af";
   const hero = await getResolvedPageHero("events");
   const eventsHeroImage = hero?.desktop ?? eventsHeroFallback;
   const eventsHeroAlt = hero?.alt ?? "";
@@ -44,7 +50,7 @@ export default async function EventsPage() {
           </div>
         </div>
       </div>
-      <EventsPageContent />
+      <EventsPageContent events={events} contactEmail={contactEmail} />
     </main>
   );
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { ProjectDetailShell } from "@/components/sections/ProjectDetailShell";
 import { ProjectGallery } from "@/components/sections/ProjectGallery";
 import { ProjectSpecs } from "@/components/sections/ProjectSpecs";
@@ -12,6 +12,7 @@ import { getAllProjectSlugs } from "@/lib/projects-data";
 import { getLocalizedProject, localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
 import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
 import { resolveHeroSidebar } from "@/lib/project-hero-sidebar";
+import type { CmsLocale } from "@/lib/i18n/locales";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -21,8 +22,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
+  const cmsLocale = locale as CmsLocale;
   const messages = await getMessages();
-  const merged = await getMergedProject(slug);
+  const merged = await getMergedProject(slug, cmsLocale);
   const localized = merged ? localizeMergedProjects(messages as Messages, [merged])[0] : getLocalizedProject(messages as Messages, slug);
   const tMeta = await getTranslations({ locale, namespace: "metadata" });
   const site = await getTranslations({ locale, namespace: "site" });
@@ -40,14 +42,15 @@ function isRealEstateProject(slug: string) {
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  const cmsLocale = locale as CmsLocale;
   const t = await getTranslations("projects.detail");
   const tRibbon = await getTranslations("projects.ribbon");
   const messages = await getMessages();
-  const merged = await getMergedProject(slug);
+  const merged = await getMergedProject(slug, cmsLocale);
   if (!merged) notFound();
   const project = localizeMergedProjects(messages as Messages, [merged])[0]!;
-  const heroSidebar = resolveHeroSidebar(project, { floors: tRibbon("floors"), retailUnits: tRibbon("retailUnits"), apartments: tRibbon("apartments"), investment: tRibbon("investment"), scale: tRibbon("scale"), capacity: tRibbon("capacity"), scope: tRibbon("scope"), footprint: tRibbon("footprint") });
+  const heroSidebar = resolveHeroSidebar(project, { floors: tRibbon("floors"), retailUnits: tRibbon("retailUnits"), apartments: tRibbon("apartments"), investment: tRibbon("investment"), scale: tRibbon("scale"), capacity: tRibbon("capacity"), scope: tRibbon("scope"), footprint: tRibbon("footprint") }, cmsLocale);
   const mergedList = localizeMergedProjects(messages as Messages, await getMergedProjects());
   const related = mergedList.filter((p) => p.slug !== project.slug).slice(0, 2);
   const showUnits = !!(project.listings?.length && isRealEstateProject(project.slug));

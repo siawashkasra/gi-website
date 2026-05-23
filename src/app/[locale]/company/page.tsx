@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { CompanyAboutFull } from "@/components/company/company-about-full";
 import { CompanyCeoBlock } from "@/components/company/company-ceo-block";
 import { CompanyClientsSection } from "@/components/company/company-clients-section";
