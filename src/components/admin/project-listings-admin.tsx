@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pencil, Plus, Upload } from "lucide-react";
+import { LocalePanel, LocaleTabs, type CmsLocaleId } from "@/components/admin/locale-tabs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 import { propertyListingAvailabilityLabels, propertyListingTypeLabels } from "@/lib/property-listings";
 
 type ProjectOption = { slug: string; name: string };
@@ -19,6 +21,7 @@ type Row = {
   availability: string;
   imagePath: string;
   label: string | null;
+  labelsByLocale?: Partial<Record<CmsLocaleId, string>>;
   sortOrder: number;
   featured: number;
   createdAt: number;
@@ -26,26 +29,39 @@ type Row = {
 
 const types = ["apartment", "shop"] as const;
 const availabilities = ["available", "reserved", "sold"] as const;
-
 function formatUsd(n: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 }
 
-export function ProjectListingsAdmin({ projectOptions }: { projectOptions: ProjectOption[] }) {
-  const [slug, setSlug] = useState(projectOptions[0]?.slug ?? "");
+function labelForLocale(labels: Partial<Record<CmsLocaleId, string>>, locale: CmsLocaleId): { text: string; usesEnglishFallback: boolean } {
+  const direct = labels[locale]?.trim();
+  if (direct) return { text: direct, usesEnglishFallback: false };
+  const en = labels.en?.trim();
+  if (locale !== "en" && en) return { text: en, usesEnglishFallback: true };
+  return { text: "", usesEnglishFallback: false };
+}
+
+function listingLocaleCompleteness(labels: Partial<Record<CmsLocaleId, string>>): Partial<Record<CmsLocaleId, boolean>> {
+  const hasEn = Boolean(labels.en?.trim());
+  return { en: hasEn, "fa-AF": Boolean(labels["fa-AF"]?.trim()), ps: Boolean(labels.ps?.trim()) };
+}
+
+export function ProjectListingsAdmin({ projectOptions, fixedProjectSlug }: { projectOptions: ProjectOption[]; fixedProjectSlug?: string }) {
+  const [slug, setSlug] = useState(fixedProjectSlug ?? projectOptions[0]?.slug ?? "");
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState<{ text: string; err: boolean } | null>(null);
   const [addSuccessOpen, setAddSuccessOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [addLocale, setAddLocale] = useState<CmsLocaleId>("en");
   const addFileRef = useRef<HTMLInputElement>(null);
   const [pickedName, setPickedName] = useState("");
-  const [form, setForm] = useState({ priceUsd: "", sizeSqm: "", type: "apartment" as (typeof types)[number], availability: "available" as (typeof availabilities)[number], label: "", featured: false, sortOrder: "" });
+  const [form, setForm] = useState({ priceUsd: "", sizeSqm: "", type: "apartment" as (typeof types)[number], availability: "available" as (typeof availabilities)[number], labelsByLocale: {} as Partial<Record<CmsLocaleId, string>>, featured: false, sortOrder: "" });
   const load = useCallback(async () => {
     if (!slug) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/project-listings?projectSlug=${encodeURIComponent(slug)}`);
+      const res = await adminFetch(`/api/admin/project-listings?projectSlug=${encodeURIComponent(slug)}`);
       const j = (await res.json()) as { ok?: boolean; listings?: Row[] };
       if (res.ok && j.ok && j.listings) setRows(j.listings);
       else setRows([]);
@@ -57,14 +73,15 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
   useEffect(() => {
     if (!addModalOpen) return;
     setMsg(null);
-    setForm({ priceUsd: "", sizeSqm: "", type: "apartment", availability: "available", label: "", featured: false, sortOrder: "" });
+    setAddLocale("en");
+    setForm({ priceUsd: "", sizeSqm: "", type: "apartment", availability: "available", labelsByLocale: {}, featured: false, sortOrder: "" });
     setPickedName("");
     if (addFileRef.current) addFileRef.current.value = "";
   }, [addModalOpen]);
   async function uploadFile(f: File) {
     const fd = new FormData();
     fd.append("file", f);
-    const up = await fetch("/api/admin/upload", { method: "POST", body: fd });
+    const up = await adminFetch("/api/admin/upload", { method: "POST", body: fd });
     const j = (await up.json()) as { ok?: boolean; id?: string; message?: string };
     if (!up.ok || !j.ok || !j.id) throw new Error(j.message ?? "Upload failed");
     return j.id;
@@ -95,7 +112,7 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
       return;
     }
     const sortOrder = form.sortOrder.trim() === "" ? undefined : Number.parseInt(form.sortOrder, 10);
-    const res = await fetch("/api/admin/project-listings", {
+    const res = await adminFetch("/api/admin/project-listings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -104,7 +121,7 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
         sizeSqm,
         type: form.type,
         availability: form.availability,
-        label: form.label.trim() || undefined,
+        labelsByLocale: form.labelsByLocale,
         featured: form.featured,
         sortOrder: Number.isFinite(sortOrder) ? sortOrder : undefined,
         assetId,
@@ -183,9 +200,13 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
                   ))}
                 </select>
               </div>
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-2 space-y-2">
                 <Label>Label (optional)</Label>
-                <Input className="mt-1" value={form.label} onChange={(e) => setForm((s) => ({ ...s, label: e.target.value }))} placeholder="Tower A · 12 East" />
+                <LocaleTabs value={addLocale} onChange={setAddLocale} completeness={listingLocaleCompleteness(form.labelsByLocale)} />
+                <LocalePanel locale={addLocale}>
+                  <Input className="mt-1" value={form.labelsByLocale[addLocale] ?? ""} onChange={(e) => setForm((s) => ({ ...s, labelsByLocale: { ...s.labelsByLocale, [addLocale]: e.target.value } }))} placeholder={addLocale === "en" ? "Tower A · 12 East" : "Translated label for this language"} />
+                </LocalePanel>
+                <p className="text-xs text-muted-foreground">Price, size, type, and availability are shared across languages. The label can differ per language.</p>
               </div>
               <div className="flex items-center gap-2 sm:col-span-2">
                 <input id="feat-new-modal" type="checkbox" checked={form.featured} onChange={(e) => setForm((s) => ({ ...s, featured: e.target.checked }))} className="size-4 rounded border-input" />
@@ -205,19 +226,21 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
         </DialogContent>
       </Dialog>
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-wrap items-end gap-4">
-          <div>
-            <Label className="text-sm font-medium">Project</Label>
-            <select value={slug} onChange={(e) => setSlug(e.target.value)} className="mt-1 block min-w-[14rem] rounded-md border border-input bg-background px-3 py-2 text-sm">
-              {projectOptions.map((p) => (
-                <option key={p.slug} value={p.slug}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
+        {!fixedProjectSlug ? (
+          <div className="flex flex-wrap items-end gap-4">
+            <div>
+              <Label className="text-sm font-medium">Project</Label>
+              <select value={slug} onChange={(e) => setSlug(e.target.value)} className="mt-1 block min-w-[14rem] rounded-md border border-input bg-background px-3 py-2 text-sm">
+                {projectOptions.map((p) => (
+                  <option key={p.slug} value={p.slug}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {loading ? <span className="text-xs text-muted-foreground">Loading…</span> : null}
           </div>
-          {loading ? <span className="text-xs text-muted-foreground">Loading…</span> : null}
-        </div>
+        ) : loading ? <span className="text-xs text-muted-foreground">Loading…</span> : null}
         <Button type="button" className="gap-1.5" onClick={() => setAddModalOpen(true)}>
           <Plus className="size-4" aria-hidden />
           Add unit
@@ -225,7 +248,7 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
       </div>
       <div>
         <h2 className="font-heading text-lg font-semibold text-gi-navy">Current listings</h2>
-        <p className="mt-1 text-sm text-muted-foreground">These are the units shown on the public project page for the selected development. Clearing every listing here restores file-based sample data until new rows exist again.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Each unit has English, Dari, and Pashto tabs for its label. Price, size, type, and availability are shared across languages.</p>
         <ul className="mt-6 space-y-6">
           {rows.map((r) => (
             <ListingRow key={r.id} row={r} onSaved={load} onMsg={setMsg} />
@@ -239,6 +262,7 @@ export function ProjectListingsAdmin({ projectOptions }: { projectOptions: Proje
 }
 
 function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<void>; onMsg: (m: { text: string; err: boolean } | null) => void }) {
+  const [locale, setLocale] = useState<CmsLocaleId>("en");
   const [editing, setEditing] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -246,17 +270,18 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
   const [sizeSqm, setSizeSqm] = useState(row.sizeSqm);
   const [type, setType] = useState(row.type);
   const [availability, setAvailability] = useState(row.availability);
-  const [label, setLabel] = useState(row.label ?? "");
+  const [labelsByLocale, setLabelsByLocale] = useState<Partial<Record<CmsLocaleId, string>>>(() => ({ ...(row.labelsByLocale ?? {}), ...(row.label ? { en: row.label } : {}) }));
   const [sortOrder, setSortOrder] = useState(String(row.sortOrder));
   const [featured, setFeatured] = useState(row.featured === 1);
   const [previewPath, setPreviewPath] = useState(row.imagePath);
   const [busy, setBusy] = useState(false);
+  const activeLabel = labelsByLocale[locale] ?? "";
   function resetFromRow() {
     setPriceUsd(String(row.priceUsd));
     setSizeSqm(row.sizeSqm);
     setType(row.type);
     setAvailability(row.availability);
-    setLabel(row.label ?? "");
+    setLabelsByLocale({ ...(row.labelsByLocale ?? {}), ...(row.label ? { en: row.label } : {}) });
     setSortOrder(String(row.sortOrder));
     setFeatured(row.featured === 1);
     setPreviewPath(row.imagePath);
@@ -267,7 +292,7 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
     setSizeSqm(row.sizeSqm);
     setType(row.type);
     setAvailability(row.availability);
-    setLabel(row.label ?? "");
+    setLabelsByLocale({ ...(row.labelsByLocale ?? {}), ...(row.label ? { en: row.label } : {}) });
     setSortOrder(String(row.sortOrder));
     setFeatured(row.featured === 1);
     setPreviewPath(row.imagePath);
@@ -277,6 +302,14 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
     resetFromRow();
     setEditing(false);
     onMsg(null);
+  }
+  function setActiveLabel(value: string) {
+    setLabelsByLocale((prev) => {
+      const next = { ...prev };
+      if (value.trim()) next[locale] = value;
+      else delete next[locale];
+      return next;
+    });
   }
   async function save(assetId?: string) {
     onMsg(null);
@@ -291,9 +324,10 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
       return;
     }
     const so = Number.parseInt(sortOrder, 10);
+    const labelPayload = activeLabel.trim() || null;
     setBusy(true);
     try {
-      const res = await fetch(`/api/admin/project-listings/${encodeURIComponent(row.id)}`, {
+      const res = await adminFetch(`/api/admin/project-listings/${encodeURIComponent(row.id)}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -301,17 +335,25 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
           sizeSqm: sz,
           type,
           availability,
-          label: label.trim() || null,
+          label: labelPayload,
+          locale,
           sortOrder: Number.isFinite(so) ? so : row.sortOrder,
           featured,
           ...(assetId ? { assetId } : {}),
         }),
       });
-      const j = (await res.json()) as { ok?: boolean; message?: string };
+      const j = (await res.json()) as { ok?: boolean; message?: string; labelsByLocale?: Partial<Record<CmsLocaleId, string>> };
       if (!res.ok || !j.ok) {
         onMsg({ text: j.message ?? "Save failed", err: true });
         return;
       }
+      if (j.labelsByLocale) setLabelsByLocale(j.labelsByLocale);
+      else setLabelsByLocale((prev) => {
+        const next = { ...prev };
+        if (labelPayload) next[locale] = labelPayload;
+        else delete next[locale];
+        return next;
+      });
       onMsg(null);
       setEditing(false);
       await onSaved();
@@ -323,7 +365,7 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
     onMsg(null);
     setBusy(true);
     try {
-      const res = await fetch(`/api/admin/project-listings/${encodeURIComponent(row.id)}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/admin/project-listings/${encodeURIComponent(row.id)}`, { method: "DELETE" });
       const j = (await res.json()) as { ok?: boolean };
       if (!res.ok || !j.ok) {
         onMsg({ text: "Delete failed", err: true });
@@ -344,14 +386,14 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
     try {
       const fd = new FormData();
       fd.append("file", f);
-      const up = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const up = await adminFetch("/api/admin/upload", { method: "POST", body: fd });
       const j = (await up.json()) as { ok?: boolean; id?: string; message?: string };
       if (!up.ok || !j.ok || !j.id) {
         onMsg({ text: j.message ?? "Upload failed", err: true });
         return;
       }
       await save(j.id);
-      const pathRes = await fetch(`/api/admin/project-listings?projectSlug=${encodeURIComponent(row.projectSlug)}`);
+      const pathRes = await adminFetch(`/api/admin/project-listings?projectSlug=${encodeURIComponent(row.projectSlug)}`);
       const pathJ = (await pathRes.json()) as { listings?: Row[] };
       const updated = pathJ.listings?.find((x) => x.id === row.id);
       if (updated) setPreviewPath(updated.imagePath);
@@ -362,6 +404,7 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
   }
   const typeLabel = propertyListingTypeLabels[row.type as keyof typeof propertyListingTypeLabels] ?? row.type;
   const availLabel = propertyListingAvailabilityLabels[row.availability as keyof typeof propertyListingAvailabilityLabels] ?? row.availability;
+  const viewLabel = labelForLocale(labelsByLocale, locale);
   return (
     <li className="rounded-lg border border-border bg-card p-4">
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
@@ -382,6 +425,20 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <LocaleTabs value={locale} onChange={setLocale} completeness={listingLocaleCompleteness(labelsByLocale)} />
+        {!editing ? (
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" variant="outline" size="sm" className="gap-1" disabled={busy} onClick={() => { onMsg(null); setEditing(true); }}>
+              <Pencil className="size-3.5" aria-hidden />
+              Edit
+            </Button>
+            <Button type="button" variant="destructive" size="sm" disabled={busy} onClick={() => setDeleteOpen(true)}>
+              Delete
+            </Button>
+          </div>
+        ) : null}
+      </div>
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="shrink-0 lg:w-56">
           <div className="flex h-36 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/50">
@@ -399,50 +456,44 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
         </div>
         <div className="min-w-0 flex-1">
           {!editing ? (
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-muted-foreground">Price · </span>
-                    <span className="font-semibold tabular-nums text-gi-navy">{formatUsd(row.priceUsd)}</span>
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Size · </span>
-                    <span className="font-medium">{row.sizeSqm} m²</span>
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Type · </span>
-                    {typeLabel}
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Availability · </span>
-                    {availLabel}
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Sort order · </span>
-                    {row.sortOrder}
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Featured · </span>
-                    {row.featured === 1 ? "Yes" : "No"}
-                  </p>
-                  {row.label ? (
-                    <p>
-                      <span className="text-muted-foreground">Label · </span>
-                      {row.label}
-                    </p>
-                  ) : null}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Button type="button" variant="outline" size="sm" className="gap-1" disabled={busy} onClick={() => { onMsg(null); setEditing(true); }}>
-                    <Pencil className="size-3.5" aria-hidden />
-                    Edit
-                  </Button>
-                  <Button type="button" variant="destructive" size="sm" disabled={busy} onClick={() => setDeleteOpen(true)}>
-                    Delete
-                  </Button>
-                </div>
-              </div>
+            <div className="space-y-2 text-sm">
+              <p>
+                <span className="text-muted-foreground">Price · </span>
+                <span className="font-semibold tabular-nums text-gi-navy">{formatUsd(row.priceUsd)}</span>
+              </p>
+              <p>
+                <span className="text-muted-foreground">Size · </span>
+                <span className="font-medium">{row.sizeSqm} m²</span>
+              </p>
+              <p>
+                <span className="text-muted-foreground">Type · </span>
+                {typeLabel}
+              </p>
+              <p>
+                <span className="text-muted-foreground">Availability · </span>
+                {availLabel}
+              </p>
+              <p>
+                <span className="text-muted-foreground">Sort order · </span>
+                {row.sortOrder}
+              </p>
+              <p>
+                <span className="text-muted-foreground">Featured · </span>
+                {row.featured === 1 ? "Yes" : "No"}
+              </p>
+              <LocalePanel locale={locale}>
+                <p>
+                  <span className="text-muted-foreground">Label · </span>
+                  {viewLabel.text ? (
+                    <>
+                      {viewLabel.text}
+                      {viewLabel.usesEnglishFallback ? <span className="ms-2 text-xs text-muted-foreground">(English fallback)</span> : null}
+                    </>
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </p>
+              </LocalePanel>
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2">
@@ -475,8 +526,10 @@ function ListingRow({ row, onSaved, onMsg }: { row: Row; onSaved: () => Promise<
                 </select>
               </div>
               <div className="sm:col-span-2">
-                <Label className="text-xs">Label</Label>
-                <Input className="mt-1 h-9" value={label} onChange={(e) => setLabel(e.target.value)} />
+                <Label className="text-xs">Label ({locale === "en" ? "English" : locale === "fa-AF" ? "Dari" : "Pashto"})</Label>
+                <LocalePanel locale={locale}>
+                  <Input className="mt-1 h-9" value={activeLabel} onChange={(e) => setActiveLabel(e.target.value)} placeholder={locale === "en" ? "Tower A · 12 East" : "Translation for this unit"} />
+                </LocalePanel>
               </div>
               <div>
                 <Label className="text-xs">Sort order</Label>

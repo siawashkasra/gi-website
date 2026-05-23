@@ -6,6 +6,7 @@ import { allowLoginAttempt } from "@/lib/admin/rate-limit";
 import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_MAX_AGE_SEC } from "@/lib/admin/session-cookie";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const configured = process.env.ADMIN_PASSWORD ?? "";

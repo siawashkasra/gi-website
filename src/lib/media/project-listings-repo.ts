@@ -1,8 +1,9 @@
 import "server-only";
-import { asc, desc, eq } from "drizzle-orm";
-import { assets, projectListings } from "@/db/schema";
+import { and, asc, desc, eq } from "drizzle-orm";
+import { assets, projectListingTranslations, projectListings } from "@/db/schema";
 import { getDb } from "@/db/index";
 import type { PropertyListing, PropertyListingAvailability, PropertyListingType } from "@/lib/property-listings";
+import type { CmsLocale } from "@/lib/i18n/locales";
 
 const types = new Set<PropertyListingType>(["apartment", "shop"]);
 const availabilities = new Set<PropertyListingAvailability>(["available", "reserved", "sold"]);
@@ -15,7 +16,19 @@ export function isValidListingAvailability(v: string): v is PropertyListingAvail
   return availabilities.has(v as PropertyListingAvailability);
 }
 
-export function rowToPropertyListing(r: typeof projectListings.$inferSelect): PropertyListing {
+function resolveListingLabel(listingId: string, locale: CmsLocale, fallback: string | null): string | undefined {
+  const db = getDb();
+  const loc = db.select().from(projectListingTranslations).where(and(eq(projectListingTranslations.listingId, listingId), eq(projectListingTranslations.locale, locale))).get();
+  if (loc?.label?.trim()) return loc.label.trim();
+  if (locale !== "en") {
+    const en = db.select().from(projectListingTranslations).where(and(eq(projectListingTranslations.listingId, listingId), eq(projectListingTranslations.locale, "en"))).get();
+    if (en?.label?.trim()) return en.label.trim();
+  }
+  if (fallback?.trim()) return fallback.trim();
+  return undefined;
+}
+
+export function rowToPropertyListing(r: typeof projectListings.$inferSelect, locale: CmsLocale = "en"): PropertyListing {
   const size = Number.parseFloat(r.sizeSqm);
   return {
     id: r.id,
@@ -24,15 +37,39 @@ export function rowToPropertyListing(r: typeof projectListings.$inferSelect): Pr
     type: r.type as PropertyListingType,
     availability: r.availability as PropertyListingAvailability,
     image: r.imagePath,
-    label: r.label ?? undefined,
+    label: resolveListingLabel(r.id, locale, r.label),
     featured: r.featured === 1,
   };
 }
 
-export function fetchProjectListingsFromDb(projectSlug: string): PropertyListing[] {
+export function getListingLabelsByLocale(listingId: string): Partial<Record<CmsLocale, string>> {
+  const db = getDb();
+  const rows = db.select().from(projectListingTranslations).where(eq(projectListingTranslations.listingId, listingId)).all();
+  const out: Partial<Record<CmsLocale, string>> = {};
+  for (const t of rows) {
+    if (t.label?.trim()) out[t.locale as CmsLocale] = t.label.trim();
+  }
+  const base = db.select({ label: projectListings.label }).from(projectListings).where(eq(projectListings.id, listingId)).get();
+  if (base?.label?.trim() && !out.en) out.en = base.label.trim();
+  return out;
+}
+
+export function saveListingLabelTranslation(listingId: string, locale: CmsLocale, label: string | null) {
+  const db = getDb();
+  const trimmed = label?.trim() ?? "";
+  if (!trimmed) {
+    db.delete(projectListingTranslations).where(and(eq(projectListingTranslations.listingId, listingId), eq(projectListingTranslations.locale, locale))).run();
+    if (locale === "en") db.update(projectListings).set({ label: null }).where(eq(projectListings.id, listingId)).run();
+    return;
+  }
+  db.insert(projectListingTranslations).values({ listingId, locale, label: trimmed }).onConflictDoUpdate({ target: [projectListingTranslations.listingId, projectListingTranslations.locale], set: { label: trimmed } }).run();
+  if (locale === "en") db.update(projectListings).set({ label: trimmed }).where(eq(projectListings.id, listingId)).run();
+}
+
+export function fetchProjectListingsFromDb(projectSlug: string, locale: CmsLocale = "en"): PropertyListing[] {
   const db = getDb();
   const rows = db.select().from(projectListings).where(eq(projectListings.projectSlug, projectSlug)).orderBy(desc(projectListings.featured), asc(projectListings.sortOrder), asc(projectListings.createdAt)).all();
-  return rows.map(rowToPropertyListing);
+  return rows.map((r) => rowToPropertyListing(r, locale));
 }
 
 export function fetchProjectListingRows(projectSlug: string) {

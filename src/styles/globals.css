@@ -120,6 +120,45 @@
   --tracking-luxury: 0.12em;
 }
 
+[dir="rtl"] {
+  font-family: var(--font-vazirmatn), Tahoma, Arial, sans-serif;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] .font-sans,
+[dir="rtl"] .font-heading,
+[dir="rtl"] .font-body,
+[dir="rtl"] .font-serif,
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select,
+[dir="rtl"] button {
+  font-family: var(--font-vazirmatn), Tahoma, Arial, sans-serif;
+}
+
+[dir="rtl"] input::placeholder,
+[dir="rtl"] textarea::placeholder {
+  font-family: var(--font-vazirmatn), Tahoma, Arial, sans-serif;
+}
+
+[dir="rtl"] #hero-heading,
+[dir="rtl"] .text-hero {
+  font-weight: 800;
+}
+
+[dir="rtl"] h1 {
+  font-weight: 700;
+}
+
+[dir="rtl"] h2,
+[dir="rtl"] h3 {
+  font-weight: 600;
+}
+
+[dir="rtl"] .text-eyebrow {
+  font-weight: 300;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

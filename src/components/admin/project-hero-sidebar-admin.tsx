@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
+import { AdminBanner } from "@/components/admin/admin-banner";
+import { LocaleTabs, type CmsLocaleId } from "@/components/admin/locale-tabs";
 import { Button } from "@/components/ui/button";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 import { HERO_SIDEBAR_DEFAULT_INTRO } from "@/lib/project-hero-sidebar-defaults";
 import type { ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
 
@@ -13,12 +16,15 @@ type ConfigRow = { eyebrow: string | null; title: string | null; blurb: string |
 const inlineField =
   "w-full rounded-md border border-white/30 bg-white/20 px-2.5 py-2 !text-white caret-white outline-none placeholder:text-white/55 focus:border-white/55 focus:ring-2 focus:ring-white/25";
 
-export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: ProjectOption[] }) {
-  const [slug, setSlug] = useState(projectOptions[0]?.slug ?? "");
+export function ProjectHeroSidebarAdmin({ projectOptions, fixedProjectSlug, locale: localeProp, onLocaleChange, onResolvedChange }: { projectOptions: ProjectOption[]; fixedProjectSlug?: string; locale?: CmsLocaleId; onLocaleChange?: (l: CmsLocaleId) => void; onResolvedChange?: (r: ResolvedHeroSidebar | null) => void }) {
+  const [localeInternal, setLocaleInternal] = useState<CmsLocaleId>("en");
+  const locale = localeProp ?? localeInternal;
+  const setLocale = onLocaleChange ?? setLocaleInternal;
+  const [slug, setSlug] = useState(fixedProjectSlug ?? projectOptions[0]?.slug ?? "");
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [msg, setMsg] = useState<{ text: string; err: boolean } | null>(null);
+  const [feedback, setFeedback] = useState<{ tone: "success" | "error"; text: string } | null>(null);
   const [resolved, setResolved] = useState<ResolvedHeroSidebar | null>(null);
   const [eyebrowIn, setEyebrowIn] = useState("");
   const [titleIn, setTitleIn] = useState("");
@@ -27,12 +33,12 @@ export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: Pr
   const load = useCallback(async () => {
     if (!slug) return;
     setLoading(true);
-    setMsg(null);
+    setFeedback(null);
     try {
-      const res = await fetch(`/api/admin/project-hero-sidebar?projectSlug=${encodeURIComponent(slug)}`);
+      const res = await adminFetch(`/api/admin/project-hero-sidebar?projectSlug=${encodeURIComponent(slug)}&locale=${encodeURIComponent(locale)}`);
       const j = (await res.json()) as { ok?: boolean; config?: ConfigRow; resolved?: ResolvedHeroSidebar; message?: string };
       if (!res.ok || !j.ok) {
-        setMsg({ text: j.message ?? "Load failed", err: true });
+        setFeedback({ tone: "error", text: j.message ?? "Load failed" });
         setResolved(null);
         return;
       }
@@ -40,11 +46,14 @@ export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: Pr
     } finally {
       setLoading(false);
     }
-  }, [slug]);
+  }, [slug, locale]);
   useEffect(() => { void load(); }, [load]);
   useEffect(() => {
+    onResolvedChange?.(resolved);
+  }, [resolved, onResolvedChange]);
+  useEffect(() => {
     setEditing(false);
-  }, [slug]);
+  }, [slug, locale]);
   function patchRow(i: number, field: "label" | "value", v: string) {
     setRows((prev) => prev.map((r, j) => (j === i ? { ...r, [field]: v } : r)));
   }
@@ -55,46 +64,48 @@ export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: Pr
     setBlurbIn(resolved.intro.blurb);
     setRows(resolved.ribbon.map((r) => ({ label: r.label, value: r.value })));
     setEditing(true);
-    setMsg(null);
+    setFeedback(null);
   }
   async function onSave(e: React.FormEvent) {
     e.preventDefault();
-    setMsg(null);
+    setFeedback(null);
     for (const r of rows) {
       if (!r.label.trim() || !r.value.trim()) {
-        setMsg({ text: "Each metric needs both a label and a value.", err: true });
+        setFeedback({ tone: "error", text: "Each metric needs both a label and a value." });
         return;
       }
     }
     const trimmedRows = rows.map((r) => ({ label: r.label.trim(), value: r.value.trim() }));
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/project-hero-sidebar", {
+      const res = await adminFetch("/api/admin/project-hero-sidebar", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           projectSlug: slug,
+          locale,
           eyebrow: eyebrowIn.trim() === "" ? null : eyebrowIn.trim(),
           title: titleIn.trim() === "" ? null : titleIn.trim(),
           blurb: blurbIn.trim() === "" ? null : blurbIn.trim(),
           rows: trimmedRows,
         }),
       });
-      const j = (await res.json()) as { ok?: boolean; message?: string };
+      const j = (await res.json()) as { ok?: boolean; message?: string; resolved?: ResolvedHeroSidebar };
       if (!res.ok || !j.ok) {
-        setMsg({ text: j.message ?? "Save failed", err: true });
+        setFeedback({ tone: "error", text: j.message ?? "Save failed" });
         return;
       }
-      setMsg({ text: "Saved.", err: false });
+      setFeedback({ tone: "success", text: "Saved." });
       setEditing(false);
-      await load();
+      if (j.resolved) setResolved(j.resolved);
+      else await load();
     } finally {
       setSaving(false);
     }
   }
   function onCancelEdit() {
     setEditing(false);
-    setMsg(null);
+    setFeedback(null);
     void load();
   }
   const introRead = resolved?.intro ?? { eyebrow: HERO_SIDEBAR_DEFAULT_INTRO.eyebrow, title: HERO_SIDEBAR_DEFAULT_INTRO.title, blurb: HERO_SIDEBAR_DEFAULT_INTRO.blurb };
@@ -102,16 +113,18 @@ export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: Pr
   return (
     <div>
       <div className="flex flex-wrap items-end gap-4">
-        <div>
-          <label className="text-sm font-medium">Project</label>
-          <select value={slug} onChange={(e) => setSlug(e.target.value)} className="mt-1 block rounded-md border border-input bg-background px-3 py-2 text-sm" disabled={editing || saving}>
-            {projectOptions.map((s) => (
-              <option key={s.slug} value={s.slug}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        {!fixedProjectSlug ? (
+          <div>
+            <label className="text-sm font-medium">Project</label>
+            <select value={slug} onChange={(e) => setSlug(e.target.value)} className="mt-1 block rounded-md border border-input bg-background px-3 py-2 text-sm" disabled={editing || saving}>
+              {projectOptions.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
         <Button type="button" variant="outline" size="sm" disabled={loading || editing || saving} onClick={() => void load()}>
           Reload
         </Button>
@@ -122,10 +135,12 @@ export function ProjectHeroSidebarAdmin({ projectOptions }: { projectOptions: Pr
           </Button>
         ) : null}
       </div>
-      {msg ? <p className={`mt-4 text-sm ${msg.err ? "text-destructive" : "text-muted-foreground"}`}>{msg.text}</p> : null}
+      {feedback ? <div className="mt-4"><AdminBanner tone={feedback.tone}>{feedback.text}</AdminBanner></div> : null}
+      <div className="mb-4"><LocaleTabs value={locale} onChange={setLocale} /></div>
+      {locale !== "en" ? <p className="mb-4 text-xs text-sky-800">Translate intro and metrics for {locale === "fa-AF" ? "Dari" : "Pashto"}. Add or remove metrics in English.</p> : null}
       <div className="mt-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Hero sidebar</p>
-        <p className="mt-1 max-w-xl text-sm text-muted-foreground">Same layout as the public project hero. Edit updates only this column; the main specs block is unchanged.</p>
+        <p className="mt-1 max-w-xl text-sm text-muted-foreground">Intro and metrics for the sticky sidebar on the project page, per language.</p>
         <div className="mt-6">
           {loading || !resolved ? (
             <div className="h-72 max-w-[19.5rem] animate-pulse rounded-lg bg-muted" />
