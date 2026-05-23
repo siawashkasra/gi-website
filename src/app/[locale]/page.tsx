@@ -18,17 +18,18 @@ import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { ValuesSection } from "@/components/home/values-section";
 import type { Locale } from "@/lib/i18n/locales";
 import { getMergedCompanies, getMergedLeadershipTeam, getResolvedHomeSectionMedia } from "@/lib/media/merge";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { siteConfig } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.home" });
-  return {
+  return mergePageMetadata(locale, "", {
     title: { absolute: t("title") },
     description: t("description"),
-    openGraph: { title: t("title"), description: t("description"), url: siteConfig.url, images: [{ url: siteConfig.openGraphImage, alt: t("title") }] },
+    openGraph: { title: t("title"), description: t("description"), images: [{ url: siteConfig.openGraphImage, alt: t("title") }] },
     twitter: { card: "summary_large_image", title: t("title"), description: t("description"), images: [siteConfig.openGraphImage] },
-  };
+  });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {

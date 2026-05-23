@@ -17,6 +17,7 @@ import { CompanyTechSustainability } from "@/components/company/company-tech-sus
 import { ValuesSection } from "@/components/home/values-section";
 import { Button } from "@/components/ui/button";
 import { getResolvedPageHero } from "@/lib/media/merge";
+import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { siteConfig } from "@/lib/site";
 
 const companyHeroFallback = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2400&q=90";
@@ -25,11 +26,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.company" });
   const site = await getTranslations({ locale, namespace: "site" });
-  return {
+  return mergePageMetadata(locale, "/company", {
     title: t("title"),
     description: t("description"),
-    openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description"), url: `${siteConfig.url}/company`, images: [{ url: siteConfig.openGraphImage, alt: site("name") }] },
-  };
+    openGraph: { title: `${t("title")} | ${site("name")}`, description: t("description"), images: [{ url: siteConfig.openGraphImage, alt: site("name") }] },
+  });
 }
 
 export default async function CompanyPage() {

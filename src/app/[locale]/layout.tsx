@@ -10,6 +10,9 @@ import { locales, type Locale } from "@/lib/i18n/locales";
 import { getMergedProjects } from "@/lib/media/merge";
 import { resolveSiteBrand } from "@/lib/media/resolve-brand";
 import { localizeMergedProjects } from "@/lib/i18n/localized-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo/structured-data";
+import { buildOpenGraphUrl } from "@/lib/seo/page-metadata";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -29,10 +32,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: site("description"),
     keywords: t.raw("keywords") as string[],
     authors: [{ name: site("name") }],
-    openGraph: { type: "website", locale: locale === "en" ? "en_US" : locale === "fa-AF" ? "fa_AF" : "ps_AF", siteName: site("name"), url: siteConfig.url, images: [{ url: brand.ogImagePath, alt: site("name") }] },
+    openGraph: { type: "website", locale: locale === "en" ? "en_US" : locale === "fa-AF" ? "fa_AF" : "ps_AF", siteName: site("name"), url: buildOpenGraphUrl(locale, ""), images: [{ url: brand.ogImagePath, alt: site("name") }] },
     twitter: { card: "summary_large_image", images: [brand.ogImagePath] },
     robots: { index: true, follow: true },
-    alternates: { languages: { en: "/en", "fa-AF": "/fa-AF", ps: "/ps" } },
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } } : {}),
   };
 }
 
@@ -46,13 +49,14 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const menuProjects = localizeMergedProjects(messages as Parameters<typeof localizeMergedProjects>[0], await getMergedProjects());
   const brand = resolveSiteBrand();
   const t = await getTranslations({ locale, namespace: "site" });
-  const jsonLd = { "@context": "https://schema.org", "@type": "Organization", name: t("name"), description: t("description"), url: siteConfig.url, logo: `${siteConfig.url.replace(/\/$/, "")}${brand.ogImagePath}`, foundingDate: "2006", email: siteConfig.email, telephone: `${siteConfig.phoneLandline}, ${siteConfig.phone}`, address: { "@type": "PostalAddress", streetAddress: t("address"), addressCountry: "AF" } };
+  const organizationJsonLd = buildOrganizationJsonLd({ name: t("name"), description: t("description"), address: t("address"), logoPath: brand.ogImagePath });
+  const websiteJsonLd = buildWebSiteJsonLd({ name: t("name"), locale });
   const isEn = locale === "en";
   return (
     <html lang={locale} dir={isEn ? "ltr" : "rtl"} className={`${isEn ? siteFontManrope.variable : siteFontVazirmatn.variable} h-full scroll-smooth`} suppressHydrationWarning>
       <body id="gi-root" className="flex min-h-full flex-col" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
           <SiteHeader menuProjects={menuProjects} siteLogoUrl={brand.siteLogoUrl} siteLogoAlt={brand.siteLogoAlt} />
           <main className="flex-1 pt-[4.25rem]">{children}</main>
           <SiteFooter siteLogoUrl={brand.siteLogoUrl} siteLogoAlt={brand.siteLogoAlt} />
