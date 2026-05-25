@@ -60,6 +60,6 @@ export function ProjectSectionFields({ section, project, placements, listingOpti
       </div>
     </div>
   );
-  if (section === "media") return <ProjectMediaAdmin fixedProjectSlug={project.slug} slugs={[{ slug: project.slug, name: project.name }]} meta={{ [project.slug]: { galleryLength: Math.max(project.gallery.length, 1) } }} placements={placements} projects={[project]} />;
+  if (section === "media") return <ProjectMediaAdmin fixedProjectSlug={project.slug} slugs={[{ slug: project.slug, name: project.name }]} placements={placements} projects={[project]} />;
   return <p className="text-sm text-muted-foreground">Unknown section.</p>;
 }

@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
-import { getProjectBySlug } from "@/data/projects";
 import { getMergedProject } from "@/lib/media/merge";
+import { getProjectRecord } from "@/lib/projects/project-source";
 import { getMessagesForLocale } from "@/lib/cms/get-messages";
 import { fetchHeroSidebarConfig, fetchHeroSidebarRows, parseHeroSidebarPutBody, saveHeroSidebarPayload } from "@/lib/media/project-hero-sidebar-repo";
 import { resolveHeroSidebarForAdmin, ribbonLabelsFromMessages } from "@/lib/media/admin-public-content";
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
   const localeRaw = url.searchParams.get("locale") ?? "en";
   const locale: CmsLocale = localeRaw === "fa-AF" || localeRaw === "ps" ? localeRaw : "en";
   if (!slug) return NextResponse.json({ ok: false, message: "projectSlug required" }, { status: 400 });
-  const base = getProjectBySlug(slug);
+  const base = getProjectRecord(slug, { includeUnpublished: true });
   if (!base) return NextResponse.json({ ok: false, message: "Unknown project" }, { status: 400 });
   const project = (await getMergedProject(slug)) ?? base;
   const messages = await getMessagesForLocale(locale);
@@ -49,10 +49,10 @@ export async function PUT(request: Request) {
   }
   const parsed = parseHeroSidebarPutBody(body);
   if (!parsed) return NextResponse.json({ ok: false, message: "Invalid body" }, { status: 400 });
-  if (!getProjectBySlug(parsed.projectSlug)) return NextResponse.json({ ok: false, message: "Unknown project" }, { status: 400 });
+  if (!getProjectRecord(parsed.projectSlug, { includeUnpublished: true })) return NextResponse.json({ ok: false, message: "Unknown project" }, { status: 400 });
   saveHeroSidebarPayload(parsed.projectSlug, parsed.locale, { eyebrow: parsed.eyebrow, title: parsed.title, blurb: parsed.blurb, rows: parsed.rows });
   revalidateHero(parsed.projectSlug);
-  const project = (await getMergedProject(parsed.projectSlug)) ?? getProjectBySlug(parsed.projectSlug);
+  const project = (await getMergedProject(parsed.projectSlug)) ?? getProjectRecord(parsed.projectSlug, { includeUnpublished: true });
   const messages = project ? await getMessagesForLocale(parsed.locale) : null;
   const resolved = project && messages ? resolveHeroSidebarForAdmin(project, parsed.projectSlug, parsed.locale, messages) : null;
   return NextResponse.json({ ok: true, resolved, locale: parsed.locale });

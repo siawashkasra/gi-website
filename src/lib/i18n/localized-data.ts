@@ -4,6 +4,7 @@ import type { Project, ProjectType } from "@/data/projects";
 import type { MilestoneItem, StandardPillar, TestimonialItem } from "@/data/home-premium";
 import type { TeamMember } from "@/data/team";
 import { projects as projectsBase } from "@/data/projects";
+import { defaultRegistryProject } from "@/lib/projects/project-template";
 
 export type Messages = {
   companyProfile: Record<string, unknown>;
@@ -36,11 +37,21 @@ export function getLocalizedMarketPositioning(messages: Messages): MarketTheme[]
 
 export function getLocalizedProjects(messages: Messages): Project[] {
   const copy = messages.projectsData.projects;
-  return projectsBase.map((p) => {
+  const staticSlugs = new Set(projectsBase.map((p) => p.slug));
+  const staticList = projectsBase.map((p) => {
     const t = copy[p.slug];
     if (!t) return p;
     return mergeLocalizedProject(p, t as Partial<Project>);
   });
+  const extra: Project[] = [];
+  for (const [slug, patch] of Object.entries(copy)) {
+    if (staticSlugs.has(slug) || !patch || typeof patch !== "object") continue;
+    const t = patch as Partial<Project>;
+    if (!t.name?.trim()) continue;
+    const base = defaultRegistryProject(slug, t.name.trim(), typeof t.category === "string" ? t.category : "", (t.type ?? "mixed-use") as ProjectType);
+    extra.push(mergeLocalizedProject(base, t));
+  }
+  return [...staticList, ...extra];
 }
 
 export function getLocalizedProject(messages: Messages, slug: string): Project | undefined {

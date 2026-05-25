@@ -5,14 +5,20 @@ import { usePathname } from "next/navigation";
 import type { AdminEditorSection } from "@/lib/admin/editor-sections";
 import { cn } from "@/lib/utils";
 
-export function AdminEditorLayout({ pageTitle, pageDescription, sections, activeSlug, preview, toolbar }: { pageTitle: string; pageDescription?: string; sections: AdminEditorSection[]; activeSlug: string; preview?: React.ReactNode; toolbar?: React.ReactNode }) {
+export function AdminEditorLayout({ pageTitle, pageDescription, sections, activeSlug, preview, toolbar, headerAction, headerBelow }: { pageTitle: string; pageDescription?: string; sections: AdminEditorSection[]; activeSlug: string; preview?: React.ReactNode; toolbar?: React.ReactNode; headerAction?: React.ReactNode; headerBelow?: React.ReactNode }) {
   const pathname = usePathname();
   const active = sections.find((s) => s.slug === activeSlug) ?? sections[0];
   return (
     <div className="admin-editor-workspace -mx-4 flex min-h-[calc(100vh-8rem)] flex-col sm:-mx-8">
       <div className="admin-page-hero mx-4 mb-4 px-5 py-5 sm:mx-8 sm:px-6">
-        <h1 className="font-heading text-xl font-semibold tracking-tight text-gi-navy sm:text-2xl">{pageTitle}</h1>
-        {pageDescription ? <p className="mt-1 max-w-3xl text-sm text-muted-foreground">{pageDescription}</p> : null}
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="font-heading text-xl font-semibold tracking-tight text-gi-navy sm:text-2xl">{pageTitle}</h1>
+            {pageDescription ? <p className="mt-1 max-w-3xl text-sm text-muted-foreground">{pageDescription}</p> : null}
+          </div>
+          {headerAction ? <div className="ml-auto shrink-0 self-start">{headerAction}</div> : null}
+        </div>
+        {headerBelow ? <div className="mt-4">{headerBelow}</div> : null}
       </div>
       <div className="flex min-h-0 flex-1 flex-col gap-4 px-4 pb-8 sm:px-8 lg:flex-row">
         <aside className="admin-section-nav shrink-0 lg:w-52">

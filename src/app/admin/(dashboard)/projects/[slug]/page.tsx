@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
-import { getProjectBySlug } from "@/data/projects";
+import { getProjectRecord } from "@/lib/projects/project-source";
 
 export default async function AdminProjectIndexPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!getProjectBySlug(slug)) redirect("/admin/projects");
+  if (!getProjectRecord(slug, { includeUnpublished: true })) redirect("/admin/projects");
   redirect(`/admin/projects/${slug}/basics`);
 }

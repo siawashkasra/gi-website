@@ -4,7 +4,7 @@ import { unstable_cache } from "next/cache";
 import type { Company } from "@/data/companies";
 import { companies as staticCompanies, getCompanyForCompanyPage } from "@/data/companies";
 import type { Project } from "@/data/projects";
-import { getProjectBySlug, projects as staticProjects } from "@/data/projects";
+import { listProjectRecords, getProjectRecord } from "@/lib/projects/project-source";
 import type { PropertyListing } from "@/lib/property-listings";
 import { fetchProjectListingRows, rowToPropertyListing } from "@/lib/media/project-listings-repo";
 import type { TeamMember } from "@/data/team";
@@ -67,7 +67,7 @@ export function mergeTeamMemberFromMap(base: TeamMember, map: Map<string, Resolv
 }
 
 export const getMergedProject = cache(async (slug: string, locale: CmsLocale = "en"): Promise<Project | undefined> => {
-  const base = getProjectBySlug(slug);
+  const base = getProjectRecord(slug);
   if (!base) return undefined;
   const map = await placementMap();
   const dbRows = fetchProjectListingRows(slug);
@@ -77,7 +77,7 @@ export const getMergedProject = cache(async (slug: string, locale: CmsLocale = "
 
 export const getMergedProjects = cache(async (): Promise<Project[]> => {
   const map = await placementMap();
-  return staticProjects.map((p) => {
+  return listProjectRecords({ publishedOnly: true }).map((p) => {
     const dbRows = fetchProjectListingRows(p.slug);
     const listingsSource = dbRows.length > 0 ? dbRows.map((r) => rowToPropertyListing(r, "en")) : undefined;
     return mergeProjectFromMap(p, map, listingsSource);

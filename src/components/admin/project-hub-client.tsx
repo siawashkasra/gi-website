@@ -29,7 +29,7 @@ export function ProjectHubClient({ project, placements, listingOptions }: { proj
       <AdminTabs tabs={visibleTabs.map((t) => ({ id: t.id, label: t.label }))} value={active} onChange={(id) => router.replace(`${pathname}?tab=${id}`)} />
       <div className="mt-8">
         {active === "content" ? <ProjectContentFields slug={project.slug} projectName={project.name} /> : null}
-        {active === "media" ? <ProjectMediaAdmin fixedProjectSlug={project.slug} slugs={[{ slug: project.slug, name: project.name }]} meta={{ [project.slug]: { galleryLength: Math.max(project.gallery.length, 1) } }} placements={placements} projects={[project]} /> : null}
+        {active === "media" ? <ProjectMediaAdmin fixedProjectSlug={project.slug} slugs={[{ slug: project.slug, name: project.name }]} placements={placements} projects={[project]} /> : null}
         {active === "sidebar" ? <ProjectHeroSidebarAdmin fixedProjectSlug={project.slug} projectOptions={[{ slug: project.slug, name: project.name }]} /> : null}
         {active === "listings" && isUnitListingAdminProject(project.slug) ? <ProjectListingsAdmin fixedProjectSlug={project.slug} projectOptions={listingOptions} /> : null}
       </div>

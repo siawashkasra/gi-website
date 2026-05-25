@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
-import { projects } from "@/data/projects";
-import { isUnitListingAdminProject } from "@/lib/media/unit-listing-projects";
+import { listProjectRecords, projectSupportsUnitListings } from "@/lib/projects/project-source";
 
 export default function AdminUnitsRedirectPage() {
-  const slug = projects.find((p) => isUnitListingAdminProject(p.slug))?.slug ?? projects[0]?.slug ?? "";
+  const slug = listProjectRecords({ includeStatic: true }).find((p) => projectSupportsUnitListings(p.slug))?.slug ?? listProjectRecords({ includeStatic: true })[0]?.slug ?? "";
   redirect(`/admin/projects/${slug}/listings`);
 }
