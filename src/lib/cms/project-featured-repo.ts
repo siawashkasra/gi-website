@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { projectFeatured } from "@/db/schema";
 import { getDb } from "@/db/index";
 import { projects } from "@/data/projects";
+import { listProjectRecords } from "@/lib/projects/project-source";
 
 export function fetchFeaturedProjectSlugs(): Set<string> {
   const db = getDb();
@@ -13,7 +14,7 @@ export function fetchFeaturedProjectSlugs(): Set<string> {
 
 export function fetchFeaturedAdminState(): { slug: string; name: string; featured: boolean }[] {
   const slugs = fetchFeaturedProjectSlugs();
-  return projects.map((p) => ({ slug: p.slug, name: p.name, featured: slugs.has(p.slug) }));
+  return listProjectRecords({ includeStatic: true }).map((p) => ({ slug: p.slug, name: p.name, featured: slugs.has(p.slug) }));
 }
 
 export function setProjectFeatured(projectSlug: string, featured: boolean) {

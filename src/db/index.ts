@@ -172,6 +172,17 @@ export function runMigrationsIfNeeded() {
       \`cta_href\` text,
       PRIMARY KEY (\`job_id\`, \`locale\`)
     );
+    CREATE TABLE IF NOT EXISTS \`project_registry\` (
+      \`slug\` text PRIMARY KEY NOT NULL,
+      \`name\` text NOT NULL,
+      \`category\` text NOT NULL,
+      \`type\` text NOT NULL,
+      \`published\` integer NOT NULL DEFAULT 0,
+      \`sort_order\` integer NOT NULL DEFAULT 0,
+      \`enable_unit_listings\` integer NOT NULL DEFAULT 0,
+      \`created_at\` integer NOT NULL,
+      \`updated_at\` integer NOT NULL
+    );
   `);
   migrateHeroSidebarToI18n(sqlite);
   migrateListingLabelsToI18n(sqlite);

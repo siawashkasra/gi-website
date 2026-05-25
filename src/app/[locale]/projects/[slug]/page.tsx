@@ -8,7 +8,7 @@ import { ProjectGallery } from "@/components/sections/ProjectGallery";
 import { ProjectSpecs } from "@/components/sections/ProjectSpecs";
 import { PropertyListingsSection } from "@/components/property-listings/property-listings-section";
 import { Button } from "@/components/ui/button";
-import { getAllProjectSlugs } from "@/lib/projects-data";
+import { getAllProjectSlugs } from "@/lib/projects/project-source";
 import { getLocalizedProject, localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
 import { getMergedProject, getMergedProjects } from "@/lib/media/merge";
 import { JsonLd } from "@/components/seo/json-ld";

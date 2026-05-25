@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useMessages, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import type { Messages } from "@/lib/i18n/localized-data";
 import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 
@@ -99,11 +100,11 @@ export function Hero({ cmsHero }: { cmsHero?: HeroCmsImage | null }) {
         <div className="hero-ken-burns absolute inset-0 will-change-transform">
           {mobileSrc ? (
             <>
-              <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="hidden object-cover sm:block" sizes="100vw" />
-              <Image src={mobileSrc} alt={heroImageAlt} fill priority className="object-cover sm:hidden" sizes="100vw" />
+              <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="hidden object-cover sm:block" sizes="100vw" unoptimized={isUploadAssetPath(heroImageSrc)} />
+              <Image src={mobileSrc} alt={heroImageAlt} fill priority className="object-cover sm:hidden" sizes="100vw" unoptimized={isUploadAssetPath(mobileSrc)} />
             </>
           ) : (
-            <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="object-cover" sizes="100vw" />
+            <Image src={heroImageSrc} alt={heroImageAlt} fill priority className="object-cover" sizes="100vw" unoptimized={isUploadAssetPath(heroImageSrc)} />
           )}
         </div>
       </motion.div>

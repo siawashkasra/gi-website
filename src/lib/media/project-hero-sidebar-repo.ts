@@ -1,7 +1,7 @@
 import "server-only";
 import { randomUUID } from "crypto";
 import { and, asc, eq, inArray } from "drizzle-orm";
-import { getProjectBySlug } from "@/data/projects";
+import { getProjectRecord } from "@/lib/projects/project-source";
 import { projectHeroSidebar, projectHeroSidebarI18n, projectHeroSidebarRowI18n, projectHeroSidebarRows } from "@/db/schema";
 import { getDb } from "@/db/index";
 import type { CmsLocale } from "@/lib/i18n/locales";
@@ -45,7 +45,7 @@ export function resolveIntroForLocale(projectSlug: string, locale: CmsLocale): {
 export function ensureHeroSidebarRows(projectSlug: string) {
   const existing = fetchHeroSidebarRows(projectSlug);
   if (existing.length) return existing;
-  const project = getProjectBySlug(projectSlug);
+  const project = getProjectRecord(projectSlug, { includeUnpublished: true });
   if (!project) return [];
   const db = getDb();
   const defaults = getRibbonItems(project, DEFAULT_RIBBON_LABELS);

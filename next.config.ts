@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/complaint", destination: "/en/events", permanent: true }];
   },
+  async rewrites() {
+    return { afterFiles: [{ source: "/uploads/:path*", destination: "/api/uploads/:path*" }] };
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [

@@ -6,7 +6,7 @@ import { getDb } from "@/db/index";
 import { getListingLabelsByLocaleForAdmin } from "@/lib/media/admin-public-content";
 import { clearFeaturedForProject, isValidListingAvailability, isValidListingType, resolveAssetPublicPath, saveListingLabelTranslation } from "@/lib/media/project-listings-repo";
 import type { CmsLocale } from "@/lib/i18n/locales";
-import { isUnitListingAdminProject } from "@/lib/media/unit-listing-projects";
+import { projectSupportsUnitListings } from "@/lib/projects/project-source";
 import { requireAdminApi } from "@/lib/admin/require-admin";
 
 export const runtime = "nodejs";
@@ -28,7 +28,7 @@ export async function PATCH(request: Request, ctx: Ctx) {
   const db = getDb();
   const row = db.select().from(projectListings).where(eq(projectListings.id, id)).get();
   if (!row) return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
-  if (!isUnitListingAdminProject(row.projectSlug)) return NextResponse.json({ ok: false, message: "Forbidden" }, { status: 403 });
+  if (!projectSupportsUnitListings(row.projectSlug)) return NextResponse.json({ ok: false, message: "Forbidden" }, { status: 403 });
   let body: { priceUsd?: number; sizeSqm?: number; type?: string; availability?: string; label?: string | null; locale?: string; featured?: boolean; sortOrder?: number; assetId?: string | null };
   try {
     body = (await request.json()) as typeof body;
@@ -85,7 +85,7 @@ export async function DELETE(_request: Request, ctx: Ctx) {
   const db = getDb();
   const row = db.select().from(projectListings).where(eq(projectListings.id, id)).get();
   if (!row) return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
-  if (!isUnitListingAdminProject(row.projectSlug)) return NextResponse.json({ ok: false, message: "Forbidden" }, { status: 403 });
+  if (!projectSupportsUnitListings(row.projectSlug)) return NextResponse.json({ ok: false, message: "Forbidden" }, { status: 403 });
   db.delete(projectListings).where(eq(projectListings.id, id)).run();
   revalidateProject(row.projectSlug);
   return NextResponse.json({ ok: true });

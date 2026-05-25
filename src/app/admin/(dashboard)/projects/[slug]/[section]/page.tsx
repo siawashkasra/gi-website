@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/data/projects";
 import { buildProjectEditorSections } from "@/lib/admin/editor-sections";
-import { isUnitListingAdminProject } from "@/lib/media/unit-listing-projects";
+import { getProjectRecord, projectSupportsUnitListings } from "@/lib/projects/project-source";
 
 export default async function AdminProjectSectionPage({ params }: { params: Promise<{ slug: string; section: string }> }) {
   const { slug, section } = await params;
-  if (!getProjectBySlug(slug)) notFound();
-  const sections = buildProjectEditorSections(slug, isUnitListingAdminProject(slug));
+  if (!getProjectRecord(slug, { includeUnpublished: true })) notFound();
+  const sections = buildProjectEditorSections(slug, projectSupportsUnitListings(slug));
   if (!sections.some((s) => s.slug === section)) notFound();
   return null;
 }

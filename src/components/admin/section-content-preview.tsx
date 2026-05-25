@@ -18,11 +18,11 @@ const TYPE_KEYS = ["residential", "commercial", "mixed-use"] as const;
 
 export type PreviewDomain = "company" | "home" | "jobs" | "team" | "settings" | "events" | "companyDirectory" | "project" | "heroes" | "projectsLabels";
 
-export function SectionContentPreview({ domain, section, data, members, settings, locale, placements, event, companyCard, heroImage, heroLabel, projectLabels }: { domain: PreviewDomain; section: string; data?: Record<string, unknown>; members?: Member[]; settings?: SiteSettingsPayload; locale?: CmsLocaleId; placements?: Map<string, { publicPath: string; alt: string } | null | undefined>; event?: EventPreviewData | null; companyCard?: { name?: string; industry?: string; description?: string; logoUrl?: string | null }; heroImage?: string | null; heroLabel?: string; projectLabels?: Record<string, string> }) {
+export function SectionContentPreview({ domain, section, data, members, settings, locale, placements, event, companyCard, heroImage, heroLabel, projectLabels, selectedMemberId, onSelectMember, teamPlacements }: { domain: PreviewDomain; section: string; data?: Record<string, unknown>; members?: Member[]; settings?: SiteSettingsPayload; locale?: CmsLocaleId; placements?: Map<string, { publicPath: string; alt: string } | null | undefined>; event?: EventPreviewData | null; companyCard?: { name?: string; industry?: string; description?: string; logoUrl?: string | null }; heroImage?: string | null; heroLabel?: string; projectLabels?: Record<string, string>; selectedMemberId?: string | null; onSelectMember?: (id: string | null) => void; teamPlacements?: Record<string, { publicPath: string; alt: string } | null> }) {
   if (domain === "company" && data) return <CompanySectionPreview section={section} data={data} />;
   if (domain === "home" && data) return <HomeSectionPreview section={section} data={data} placements={placements} />;
   if (domain === "jobs" && data) return <JobsSectionPreview section={section} data={data} />;
-  if (domain === "team" && members) return <TeamSectionPreview members={members} />;
+  if (domain === "team" && members) return <TeamSectionPreview members={members} selectedMemberId={selectedMemberId} onSelectMember={onSelectMember} placements={teamPlacements} />;
   if (domain === "settings" && settings) return <SettingsSectionPreview section={section} settings={settings} locale={locale} />;
   if (domain === "events") return <EventsSectionPreview section={section} event={event} />;
   if (domain === "companyDirectory" && companyCard) return <CompanyDirectoryPreview {...companyCard} />;

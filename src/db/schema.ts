@@ -158,6 +158,20 @@ export const projectFeatured = sqliteTable("project_featured", {
   updatedAt: integer("updated_at", { mode: "number" }).notNull(),
 });
 
+export const projectRegistry = sqliteTable("project_registry", {
+  slug: text("slug").primaryKey(),
+  name: text("name").notNull(),
+  category: text("category").notNull(),
+  type: text("type").notNull(),
+  published: integer("published", { mode: "number" }).notNull().default(0),
+  sortOrder: integer("sort_order", { mode: "number" }).notNull().default(0),
+  enableUnitListings: integer("enable_unit_listings", { mode: "number" }).notNull().default(0),
+  createdAt: integer("created_at", { mode: "number" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "number" }).notNull(),
+});
+
+export type ProjectRegistryRow = typeof projectRegistry.$inferSelect;
+
 export type SiteSettingsRow = typeof siteSettings.$inferSelect;
 export type EventRow = typeof events.$inferSelect;
 export type EventTranslationRow = typeof eventTranslations.$inferSelect;

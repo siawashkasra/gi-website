@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/data/projects";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { NAVY_BLUR_DATA_URL } from "@/lib/image-placeholders";
 import type { HeroSidebarRibbonItem, ResolvedHeroSidebar } from "@/lib/project-hero-sidebar-types";
 import { HERO_SIDEBAR_DEFAULT_INTRO, HERO_SIDEBAR_DEFAULT_INTRO_KEYS } from "@/lib/project-hero-sidebar-defaults";
@@ -51,7 +52,7 @@ export const ProjectHero = forwardRef<HTMLElement, { project: Project; heroIntro
       >
         <div className="relative min-h-[min(88svh,38rem)] min-w-0 w-full max-w-full lg:min-h-[calc(100svh-4.25rem)]">
           <motion.div className="absolute inset-0 will-change-transform" style={{ y }}>
-            <Image src={project.image} alt={project.name} fill priority fetchPriority="high" placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-cover" sizes="(max-width:1024px) 100vw, 72vw" />
+            <Image src={project.image} alt={project.name} fill priority fetchPriority="high" placeholder="blur" blurDataURL={NAVY_BLUR_DATA_URL} className="object-cover" sizes="(max-width:1024px) 100vw, 72vw" unoptimized={isUploadAssetPath(project.image)} />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-gi-navy/95 via-gi-navy/50 to-gi-navy/28" aria-hidden />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_65%_at_100%_0%,rgba(255,255,255,0.1),transparent_55%)]" aria-hidden />

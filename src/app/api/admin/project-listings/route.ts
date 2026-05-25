@@ -4,11 +4,10 @@ import { NextResponse } from "next/server";
 import { asc, desc, eq } from "drizzle-orm";
 import { projectListings } from "@/db/schema";
 import { getDb } from "@/db/index";
-import { getProjectBySlug } from "@/data/projects";
+import { getProjectRecord, projectSupportsUnitListings } from "@/lib/projects/project-source";
 import { getListingLabelsByLocaleForAdmin } from "@/lib/media/admin-public-content";
 import { clearFeaturedForProject, getNextSortOrder, isValidListingAvailability, isValidListingType, resolveAssetPublicPath, saveListingLabelTranslation } from "@/lib/media/project-listings-repo";
 import type { CmsLocale } from "@/lib/i18n/locales";
-import { isUnitListingAdminProject } from "@/lib/media/unit-listing-projects";
 import { requireAdminApi } from "@/lib/admin/require-admin";
 
 export const runtime = "nodejs";
@@ -48,8 +47,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, message: "Invalid JSON" }, { status: 400 });
   }
   const projectSlug = body.projectSlug ?? "";
-  if (!isUnitListingAdminProject(projectSlug)) return NextResponse.json({ ok: false, message: "Unit listings are not enabled for this project" }, { status: 403 });
-  if (!getProjectBySlug(projectSlug)) return NextResponse.json({ ok: false, message: "Unknown project" }, { status: 400 });
+  if (!projectSupportsUnitListings(projectSlug)) return NextResponse.json({ ok: false, message: "Unit listings are not enabled for this project" }, { status: 403 });
+  if (!getProjectRecord(projectSlug, { includeUnpublished: true })) return NextResponse.json({ ok: false, message: "Unknown project" }, { status: 400 });
   const priceUsd = body.priceUsd;
   const sizeSqm = body.sizeSqm;
   if (typeof priceUsd !== "number" || !Number.isFinite(priceUsd) || priceUsd < 0 || !Number.isInteger(priceUsd)) return NextResponse.json({ ok: false, message: "Invalid priceUsd" }, { status: 400 });

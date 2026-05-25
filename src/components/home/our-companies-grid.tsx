@@ -7,6 +7,7 @@ import { useMessages, useTranslations } from "next-intl";
 import type { Company } from "@/data/companies";
 import { companies as staticCompanies, companyHref } from "@/data/companies";
 import { getLocalizedCompanies, type Messages } from "@/lib/i18n/localized-data";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { cn } from "@/lib/utils";
 
 const ROW_EPS = 3;
@@ -94,7 +95,7 @@ export function OurCompaniesGrid({ companies: companiesList }: { companies?: Com
               className="group relative flex flex-col items-center overflow-visible rounded-2xl border border-gi-navy/[0.08] bg-white/95 px-2 py-3.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background md:py-4 lg:py-3.5 group-hover:border-gi-navy/18 group-hover:bg-card group-hover:shadow-[0_20px_48px_-20px_rgba(13,27,62,0.12),0_0_40px_-12px_rgba(13,27,62,0.2)]"
             >
               <div className="relative mx-auto h-14 w-[9.25rem] shrink-0 transition-[filter,transform,box-shadow] duration-500 ease-out grayscale group-hover:scale-[1.04] group-hover:grayscale-0 group-hover:drop-shadow-[0_0_20px_rgba(13,27,62,0.32)] group-focus-visible:scale-[1.04] group-focus-visible:grayscale-0 md:h-[4.25rem] md:w-[10rem] lg:h-16 lg:w-[10rem]">
-                <Image src={c.logo} alt={t("logoAlt", { name: c.name })} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" />
+                <Image src={c.logo} alt={t("logoAlt", { name: c.name })} fill className="object-contain object-center" sizes="(max-width: 768px) 46vw, 160px" unoptimized={isUploadAssetPath(c.logo)} />
               </div>
               <div
                 className={cn(

@@ -8,6 +8,7 @@ import type { Project } from "@/data/projects";
 import { formatProjectStatusLabel } from "@/lib/project-status";
 import { Card } from "@/components/ui/card";
 import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { cn } from "@/lib/utils";
 
 type ProjectCardProps = { project: Project; priority?: boolean; className?: string };
@@ -20,7 +21,7 @@ export function ProjectCard({ project, priority, className }: ProjectCardProps) 
   return (
     <Link href={`/projects/${project.slug}`} className={cn("group block h-full min-h-[26rem] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-[30rem]", className)}>
       <Card className="relative h-full min-h-[inherit] overflow-hidden border border-border bg-primary py-0 shadow-xl ring-0 transition-all duration-500 ease-out hover:scale-100 hover:shadow-2xl">
-        <Image src={project.image} alt={project.name} fill className="object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-110" sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw" priority={priority} />
+        <Image src={project.image} alt={project.name} fill className="object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-110" sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw" priority={priority} unoptimized={isUploadAssetPath(project.image)} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1f4e79]/78 from-35% via-[#1f4e79]/44 via-55% to-[#1f4e79]/12 to-100% transition-opacity duration-500 group-hover:from-[#1f4e79]/86 group-hover:via-[#1f4e79]/52 group-hover:to-[#1f4e79]/16" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(47,110,165,0.12),transparent_55%)] opacity-70 transition-opacity duration-500 group-hover:opacity-90" aria-hidden />
         <div className="absolute start-5 top-5 flex flex-wrap gap-2 sm:start-6 sm:top-6">

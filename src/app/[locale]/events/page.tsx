@@ -9,6 +9,7 @@ import { buildEventsJsonLd } from "@/lib/seo/structured-data";
 import { fetchPublishedEventsForLocale } from "@/lib/cms/events-repo";
 import { getSiteSettingsPayload } from "@/lib/cms/site-settings-repo";
 import type { CmsLocale } from "@/lib/cms/apply-content-overlay";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { getResolvedPageHero } from "@/lib/media/merge";
 
 const eventsHeroFallback = "https://images.unsplash.com/photo-1511578314322-379afb476865?w=2400&q=90";
@@ -35,7 +36,7 @@ export default async function EventsPage({ params }: { params: Promise<{ locale:
       {eventsJsonLd ? <JsonLd data={eventsJsonLd} /> : null}
       <div className="border-b border-border/60">
         <div className="relative min-h-[22rem] overflow-hidden border-b border-border bg-primary text-primary-foreground sm:min-h-[26rem] lg:min-h-[30rem]">
-          <Image src={eventsHeroImage} alt={eventsHeroAlt} fill className="object-cover object-[center_40%]" sizes="100vw" priority />
+          <Image src={eventsHeroImage} alt={eventsHeroAlt} fill className="object-cover object-[center_40%]" sizes="100vw" priority unoptimized={isUploadAssetPath(eventsHeroImage)} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1f4e79]/92 via-[#1f4e79]/78 to-[#1f4e79]/65" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.28),transparent_52%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.06)_50%,transparent_65%)]" aria-hidden />

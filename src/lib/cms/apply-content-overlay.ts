@@ -3,6 +3,8 @@ import { mergeTeamCmsPayload } from "@/lib/cms/merge-team-payload";
 import type { TeamMember } from "@/data/team";
 import type { ContentDocumentRow } from "@/db/schema";
 import type { CmsLocale } from "@/lib/i18n/locales";
+import { fetchRegistryProject } from "@/lib/projects/project-registry-repo";
+import { isStaticProjectSlug } from "@/lib/projects/project-source";
 
 export function applyContentOverlays(messages: Record<string, unknown>, rows: ContentDocumentRow[]) {
   for (const row of rows) {
@@ -33,6 +35,10 @@ export function applyContentOverlays(messages: Record<string, unknown>, rows: Co
     }
     if (row.entityType === "project") {
       if (!payload || typeof payload !== "object" || Array.isArray(payload)) continue;
+      if (!isStaticProjectSlug(row.entityKey)) {
+        const reg = fetchRegistryProject(row.entityKey);
+        if (!reg?.published) continue;
+      }
       const patch = payload as Record<string, unknown>;
       const pd = (messages.projectsData ?? { projects: {} }) as { projects: Record<string, Record<string, unknown>>; projectTypeLabels?: Record<string, string> };
       const cur = pd.projects[row.entityKey] ?? {};
