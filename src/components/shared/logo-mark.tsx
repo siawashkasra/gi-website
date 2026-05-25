@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { cn } from "@/lib/utils";
 
 type LogoMarkProps = { className?: string; variant?: "light" | "dark"; siteLogoUrl?: string | null; siteLogoAlt?: string };
@@ -19,7 +20,7 @@ export function LogoMark({ className, variant = "dark", siteLogoUrl, siteLogoAlt
           {siteLogoUrl.endsWith(".svg") ? (
             <img src={siteLogoUrl} alt={alt} className={cn("h-10 w-auto max-w-[10.5rem] object-contain object-left", variant === "light" ? "brightness-0 invert" : "")} />
           ) : (
-            <Image src={siteLogoUrl} alt={alt} width={160} height={40} className={cn("h-10 w-auto max-w-[10.5rem] object-contain object-left", variant === "light" ? "brightness-0 invert" : "")} priority unoptimized={siteLogoUrl.startsWith("/uploads/")} />
+            <Image src={siteLogoUrl} alt={alt} width={160} height={40} className={cn("h-10 w-auto max-w-[10.5rem] object-contain object-left", variant === "light" ? "brightness-0 invert" : "")} priority unoptimized={isUploadAssetPath(siteLogoUrl)} />
           )}
         </span>
       ) : (

@@ -20,6 +20,8 @@ type CmsDocCtx = {
   feedback: ReturnType<typeof useCmsDocument>["feedback"];
   save: (transform?: (p: Record<string, unknown> | unknown[]) => Record<string, unknown> | unknown[]) => Promise<void>;
   copyFromEnglish: () => void;
+  reload: () => Promise<void>;
+  setFeedback: ReturnType<typeof useCmsDocument>["setFeedback"];
   completeness: Partial<Record<CmsLocaleId, boolean>>;
 };
 
@@ -65,6 +67,6 @@ export function CmsDocumentProvider({ entityType, entityKey, merge, onSaveTransf
     await doc.save(fn(doc.payload));
     await refreshCompleteness();
   }, [doc, onSaveTransform, refreshCompleteness]);
-  const value = useMemo<CmsDocCtx>(() => ({ locale: doc.locale, setLocale: doc.setLocale, payload: doc.payload, setPayload: doc.setPayload, patch, data, loading: doc.loading, busy: doc.busy, dirty: doc.dirty, source: doc.source, error: doc.error, feedback: doc.feedback, save, copyFromEnglish: doc.copyFromEnglish, completeness }), [doc, patch, save, completeness]);
+  const value = useMemo<CmsDocCtx>(() => ({ locale: doc.locale, setLocale: doc.setLocale, payload: doc.payload, setPayload: doc.setPayload, patch, data, loading: doc.loading, busy: doc.busy, dirty: doc.dirty, source: doc.source, error: doc.error, feedback: doc.feedback, save, copyFromEnglish: doc.copyFromEnglish, reload: doc.load, setFeedback: doc.setFeedback, completeness }), [doc, patch, save, completeness]);
   return <CmsDocumentContext.Provider value={value}>{children}</CmsDocumentContext.Provider>;
 }

@@ -1,5 +1,6 @@
 import "server-only";
 import { normalizePseudoArrayObject } from "@/lib/admin/object-path";
+import { normalizeTeamMembers } from "@/lib/team/member-utils";
 
 export const CMS_ENTITY_TYPES = ["homePremium", "companyProfile", "team", "company", "project", "projectsData", "jobs"] as const;
 export type CmsEntityType = (typeof CMS_ENTITY_TYPES)[number];
@@ -17,8 +18,9 @@ export function validateAndNormalizeContentPayload(entityType: CmsEntityType, pa
       const m = item as Record<string, unknown>;
       if (typeof m.name !== "string" || typeof m.title !== "string" || typeof m.bio !== "string") return { ok: false, message: "team members require name, title, bio", code: "INVALID_PAYLOAD" };
       if (m.photo != null && typeof m.photo !== "string") return { ok: false, message: "team member photo must be a string", code: "INVALID_PAYLOAD" };
+      if (m.id != null && typeof m.id !== "string") return { ok: false, message: "team member id must be a string", code: "INVALID_PAYLOAD" };
     }
-    return { ok: true, payload };
+    return { ok: true, payload: normalizeTeamMembers(payload as { id?: string; name: string; title: string; photo?: string; bio: string }[]) };
   }
   if (entityType === "company") {
     if (!payload || typeof payload !== "object" || Array.isArray(payload)) return { ok: false, message: "company payload must be an object", code: "INVALID_PAYLOAD" };

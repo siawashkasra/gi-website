@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { getLocalizedMilestones, type Messages } from "@/lib/i18n/localized-data";
 import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 
@@ -46,7 +47,7 @@ export function MilestonesSection({ imageSrc = defaultMilestonesImageSrc, imageA
             </div>
             <div className="relative order-1 min-h-[13rem] border-b border-border/50 sm:min-h-[16rem] lg:order-2 lg:min-h-0 lg:self-stretch lg:border-b-0">
               <div className="group/image relative h-full min-h-[13rem] sm:min-h-[16rem] lg:sticky lg:top-28 lg:min-h-[min(36rem,78vh)]">
-                <Image src={imageSrc} alt={alt} fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 40vw" />
+                <Image src={imageSrc} alt={alt} fill className="object-cover object-center transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 40vw" unoptimized={isUploadAssetPath(imageSrc)} />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(13,27,62,0.65)_0%,rgba(13,27,62,0.12)_42%,transparent_68%)]" aria-hidden />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(13,27,62,0.28)_0%,transparent_45%)]" aria-hidden />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_tr,rgba(255,255,255,0.07)_0%,transparent_38%)]" aria-hidden />

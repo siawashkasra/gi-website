@@ -15,6 +15,7 @@ import type { CmsLocale } from "@/lib/i18n/locales";
 import { getLocalizedCompanies, getLocalizedTeam, type Messages } from "@/lib/i18n/localized-data";
 import { fetchPlacementMap, type ResolvedPlacement } from "@/lib/media/queries";
 import { companyLogoKey, heroMobilePlacementKey, heroPlacementKey, listingImageKey, parseGalleryPlacementKey, projectGalleryKey, projectHeroKey, sectionHomeAboutKey, sectionHomeCeoKey, sectionHomeMilestonesKey, teamPhotoKey, type HeroRoute } from "@/lib/media/placement-keys";
+import { normalizeTeamMembers, resolveTeamMemberId, teamMembersById } from "@/lib/team/member-utils";
 
 export const getPlacementEntriesCached = unstable_cache(async () => [...fetchPlacementMap()] as [string, ResolvedPlacement][], ["placements-map-v1"], { tags: ["media"] });
 
@@ -55,10 +56,14 @@ export function mergeCompanyFromMap(base: Company, map: Map<string, ResolvedPlac
 }
 
 export function mergeTeamMemberFromMap(base: TeamMember, map: Map<string, ResolvedPlacement>): TeamMember {
-  const key = photoKeyFromPath(base.photo);
-  if (!key) return base;
-  const o = map.get(teamPhotoKey(key));
-  return o ? { ...base, photo: o.publicPath } : base;
+  const idKey = typeof base.id === "string" && base.id.trim() ? base.id.trim() : "";
+  const byId = idKey ? map.get(teamPhotoKey(idKey)) : undefined;
+  if (byId) return { ...base, photo: byId.publicPath };
+  if (typeof base.photo === "string" && base.photo.startsWith("/uploads/")) return base;
+  const legacyKey = photoKeyFromPath(base.photo);
+  if (!legacyKey) return base;
+  const legacy = map.get(teamPhotoKey(legacyKey));
+  return legacy ? { ...base, photo: legacy.publicPath } : base;
 }
 
 export const getMergedProject = cache(async (slug: string, locale: CmsLocale = "en"): Promise<Project | undefined> => {
@@ -101,10 +106,12 @@ export const getMergedLeadershipTeam = cache(async (locale: CmsLocale): Promise<
   const bundled = getBundledCmsPayload("team", "all", locale);
   const bundledTeam = Array.isArray(bundled) ? (bundled as TeamMember[]) : [];
   const list = cmsTeam.length > 0 ? cmsTeam : bundledTeam.length > 0 ? bundledTeam : locale === "en" ? leadershipTeam : bundledTeam;
-  return list.map((m, i) => {
-    const fallback = leadershipTeam[i];
-    const photo = typeof m.photo === "string" && m.photo ? m.photo : fallback?.photo ?? "";
-    return mergeTeamMemberFromMap({ name: m.name, title: m.title, bio: m.bio, photo }, map);
+  const staticById = teamMembersById(leadershipTeam) as Map<string, TeamMember>;
+  return normalizeTeamMembers(list).map((m, i) => {
+    const id = resolveTeamMemberId(m, i);
+    const fallback = staticById.get(id);
+    const photo = typeof m.photo === "string" && m.photo.trim() ? m.photo.trim() : (fallback?.photo ?? "");
+    return mergeTeamMemberFromMap({ id, name: m.name, title: m.title, bio: m.bio, photo }, map);
   });
 });
 

@@ -8,6 +8,7 @@ import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildJobPostingsJsonLd } from "@/lib/seo/structured-data";
 import type { CmsLocale } from "@/lib/i18n/locales";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { getResolvedPageHero } from "@/lib/media/merge";
 const jobsHeroFallback = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=2400&q=90";
 
@@ -33,7 +34,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
       {jobPostingsJsonLd ? <JsonLd data={jobPostingsJsonLd} /> : null}
       <div className="border-b border-border/60">
         <div className="relative min-h-[22rem] overflow-hidden border-b border-border bg-primary text-primary-foreground sm:min-h-[26rem] lg:min-h-[30rem]">
-          <Image src={jobsHeroImage} alt={jobsHeroAlt} fill className="object-cover object-[center_20%] sm:object-center" sizes="100vw" priority />
+          <Image src={jobsHeroImage} alt={jobsHeroAlt} fill className="object-cover object-[center_20%] sm:object-center" sizes="100vw" priority unoptimized={isUploadAssetPath(jobsHeroImage)} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1f4e79]/92 via-[#1f4e79]/78 to-[#1f4e79]/65" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_70%_-20%,rgba(47,110,165,0.28),transparent_52%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.06)_50%,transparent_65%)]" aria-hidden />

@@ -3,10 +3,22 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import type { TeamMember } from "@/data/team";
 import { leadershipTeam as staticLeadershipTeam } from "@/data/team";
+import { isUploadAssetPath } from "@/lib/media/is-upload-path";
+import { resolveTeamMemberId } from "@/lib/team/member-utils";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
+
+function TeamPortrait({ member }: { member: TeamMember }) {
+  const [failed, setFailed] = useState(false);
+  const alt = `${member.name}, ${member.title}`;
+  if (!member.photo || failed) {
+    return <div className="flex size-full items-center justify-center bg-muted font-heading text-sm font-semibold text-muted-foreground">{member.name.trim().slice(0, 1) || "?"}</div>;
+  }
+  return <Image src={member.photo} alt={alt} fill className="object-cover object-top transition-transform duration-[1s] ease-out group-hover:scale-[1.04]" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw" unoptimized={isUploadAssetPath(member.photo)} onError={() => setFailed(true)} />;
+}
 
 export function TeamSection({ members }: { members?: TeamMember[] }) {
   const t = useTranslations("home.team");
@@ -28,11 +40,11 @@ export function TeamSection({ members }: { members?: TeamMember[] }) {
           <div className="relative bg-white px-7 py-9 sm:px-9 sm:py-10 lg:px-10 lg:py-11 xl:px-12 xl:py-12">
             <motion.ul className="mx-auto grid max-w-6xl list-none grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-28px" }}>
               {leadershipTeam.map((m, i) => (
-                <motion.li key={`${i}-${m.name}`} variants={item}>
+                <motion.li key={resolveTeamMemberId(m, i)} variants={item}>
                   <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gi-navy/[0.08] bg-white p-0 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] transition-[border-color,box-shadow] duration-500 hover:border-gi-navy/18 hover:shadow-[0_20px_56px_-36px_rgba(13,27,62,0.14)]">
                     <div className="pointer-events-none absolute -end-4 -top-4 z-0 size-20 rounded-full bg-primary/[0.06] transition-transform duration-500 group-hover:scale-110" aria-hidden />
                     <div className="relative z-[1] aspect-[4/5] w-full shrink-0 bg-muted">
-                      <Image src={m.photo} alt={`${m.name}, ${m.title}`} fill className="object-cover object-top transition-transform duration-[1s] ease-out group-hover:scale-[1.04]" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw" />
+                      <TeamPortrait member={m} />
                     </div>
                     <div className="relative border-t border-border/40 px-5 pb-6 pt-5 text-start sm:px-6 sm:pb-7 sm:pt-6">
                       <h3 className="font-heading text-lg font-semibold tracking-tight text-gi-navy">{m.name}</h3>

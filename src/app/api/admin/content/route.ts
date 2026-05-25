@@ -42,7 +42,7 @@ export async function PUT(request: Request) {
   const validated = validateAndNormalizeContentPayload(body.entityType, body.payload);
   if (!validated.ok) return NextResponse.json({ ok: false, message: validated.message, code: validated.code }, { status: 400 });
   let payloadToStore = validated.payload;
-  if (body.entityType === "team" && Array.isArray(payloadToStore)) payloadToStore = sanitizeTeamRowsForLocale(body.locale as CmsLocale, payloadToStore as TeamMember[]);
+  if (body.entityType === "team" && Array.isArray(payloadToStore) && body.merge !== false) payloadToStore = sanitizeTeamRowsForLocale(body.locale as CmsLocale, payloadToStore as TeamMember[]);
   if (body.merge === false) replaceContentDocument(body.entityType, body.entityKey, body.locale as CmsLocale, payloadToStore);
   else if (Array.isArray(validated.payload)) return NextResponse.json({ ok: false, message: "Array payloads require merge: false", code: "INVALID_PAYLOAD" }, { status: 400 });
   else upsertContentDocument(body.entityType, body.entityKey, body.locale as CmsLocale, validated.payload);
