@@ -19,11 +19,8 @@ export const companyEditorSections: AdminEditorSection[] = [
 ];
 
 export const homeEditorSections: AdminEditorSection[] = [
-  { slug: "testimonials", label: "Testimonials", href: "/admin/home/testimonials", previewPath: "/", previewHash: "#testimonials", description: "Partner quotes on the homepage." },
   { slug: "milestones", label: "Milestones", href: "/admin/home/milestones", previewPath: "/", previewHash: "#milestones", description: "Timeline on the homepage." },
-  { slug: "standards", label: "Standards pillars", href: "/admin/home/standards", previewPath: "/", previewHash: "#standards", description: "Three standards cards." },
-  { slug: "images", label: "Section images", href: "/admin/home/images", previewPath: "/", previewHash: "#about", description: "About, milestones, and CEO images." },
-  { slug: "featured", label: "Featured projects", href: "/admin/home/featured", previewPath: "/", previewHash: "#featured-projects", description: "Projects highlighted on the home page." },
+  { slug: "images", label: "Section images", href: "/admin/home/images", previewPath: "/", previewHash: "#about", description: "About and milestones images on the homepage." },
 ];
 
 export const jobsEditorSections: AdminEditorSection[] = [

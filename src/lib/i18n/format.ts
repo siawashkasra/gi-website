@@ -44,7 +44,8 @@ export function localizeNumeralsInText(text: string, locale: Locale): string {
 export function formatPhoneDisplay(phone: string, locale: Locale): string {
   const raw = phone.trim();
   if (locale === "en") return raw;
-  return wrapLtrIsolate(raw);
+  const localized = raw.replace(/[0-9]/g, (d) => ARABIC_EXT_DIGITS[Number(d)] ?? d);
+  return wrapLtrIsolate(localized);
 }
 
 export function formatEmailDisplay(email: string, locale: Locale): string {

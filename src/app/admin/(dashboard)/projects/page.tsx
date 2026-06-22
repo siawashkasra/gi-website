@@ -37,7 +37,6 @@ export default function AdminProjectsListPage() {
     <div>
       <AdminPageHeader title="Projects" description="Create projects, edit copy and media, and publish when ready." breadcrumbs={[{ label: "Dashboard", href: "/admin" }, { label: "Projects" }]} />
       <p className="mb-6 flex flex-wrap gap-4 text-sm">
-        <Link href="/admin/home/featured" className="text-primary underline-offset-2 hover:underline">Featured on home</Link>
         <Link href="/admin/projects/labels" className="text-primary underline-offset-2 hover:underline">Project type labels</Link>
       </p>
       <div className="mb-10">

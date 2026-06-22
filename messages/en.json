@@ -783,13 +783,15 @@
       "phonePlaceholder": "+93 …",
       "messagePlaceholder": "How can we help?",
       "sending": "Sending…",
-      "send": "Send message"
+      "send": "Send message",
+      "sent": "Thank you for your message",
+      "sendAnother": "Send a new message"
     },
     "validation": {
       "nameRequired": "Please enter your name.",
       "emailInvalid": "Please enter a valid email.",
       "messageRequired": "Please enter a message.",
-      "success": "Thank you. Our team will respond shortly."
+      "success": "Your message has been received. A member of our team will respond shortly."
     }
   },
   "jobs": {

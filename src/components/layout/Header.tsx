@@ -63,7 +63,7 @@ export function Header({ menuProjects, siteLogoUrl, siteLogoAlt }: { menuProject
             </nav>
             <div className="flex shrink-0 items-center gap-2">
               <LanguageSwitcher />
-              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="sm" className="hidden h-10 rounded-xl border-white/45 bg-white/10 px-5 font-semibold text-white shadow-none hover:border-white/65 hover:bg-white/18 hover:text-white md:inline-flex">
+              <Button render={<Link href="/contact" />} nativeButton={false} variant="outline" size="sm" className="hidden h-9 rounded-lg border-white/45 bg-white/10 px-5 font-semibold text-white shadow-none hover:border-white/65 hover:bg-white/18 hover:text-white md:inline-flex">
                 {t("inquire")}
               </Button>
               <button type="button" className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/35 bg-white/10 text-white transition-colors hover:bg-white/16 md:hidden" aria-expanded={mobileOpen} aria-controls="mobile-nav" aria-label={t("openMenu")} onClick={() => setMobileOpen(true)}>
