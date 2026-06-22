@@ -5,14 +5,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
 import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { getLocalizedCeoProfile, type Messages } from "@/lib/i18n/localized-data";
+import { cn } from "@/lib/utils";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
 
 const defaultCeoPortrait = "/images/ghulam-rabani-rabani.png";
 
-type CeoMessageSectionProps = { sectionId?: string; headingId?: string; portraitSrc?: string; portraitAlt?: string };
+type CeoMessageSectionProps = { sectionId?: string; headingId?: string; portraitSrc?: string; portraitAlt?: string; showPortrait?: boolean };
 
-export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-message-heading", portraitSrc = defaultCeoPortrait, portraitAlt }: CeoMessageSectionProps) {
+export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-message-heading", portraitSrc = defaultCeoPortrait, portraitAlt, showPortrait = true }: CeoMessageSectionProps) {
   const t = useTranslations("home.ceo");
   const messages = useMessages() as Messages;
   const ceoProfile = getLocalizedCeoProfile(messages);
@@ -23,7 +24,8 @@ export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-
   return (
     <section id={sectionId} className="ds-section border-b border-border/60 bg-white" aria-labelledby={headingId}>
       <div className="ds-container">
-        <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)] lg:grid lg:min-h-[min(26rem,70vh)] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
+        <motion.div className={cn("overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)]", showPortrait && "lg:grid lg:min-h-[min(26rem,70vh)] lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]")} initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.78, ease: easeLuxury }}>
+          {showPortrait && (
           <div className="relative order-2 min-h-[15rem] border-b border-border/50 sm:min-h-[18rem] lg:order-1 lg:min-h-0 lg:border-b-0 lg:border-e lg:border-border/50">
             <div className="group/image relative h-full min-h-[15rem] sm:min-h-[18rem] lg:min-h-[min(32rem,72vh)]">
               <Image src={portraitSrc} alt={alt} fill className="object-cover object-[center_12%] transition-transform duration-[1.05s] ease-out group-hover/image:scale-[1.03]" sizes="(max-width:1024px) 100vw, 42vw" unoptimized={isUploadAssetPath(portraitSrc)} />
@@ -33,6 +35,7 @@ export function CeoMessageSection({ sectionId = "ceo-message", headingId = "ceo-
               <p className="absolute bottom-5 start-5 max-w-[14rem] font-sans text-[0.6875rem] font-medium uppercase leading-relaxed tracking-[0.18em] text-white/88 sm:bottom-6 sm:start-6 sm:max-w-xs sm:text-xs">{t("imageCaption")}</p>
             </div>
           </div>
+          )}
           <div className="relative order-1 bg-gradient-to-b from-white to-gi-navy/[0.02] px-7 py-9 sm:px-9 sm:py-10 lg:order-2 lg:flex lg:flex-col lg:justify-center lg:px-10 lg:py-11 xl:px-12 xl:py-12">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" aria-hidden />
             <motion.div variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-28px" }}>

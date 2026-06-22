@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { CompanyAboutFull } from "@/components/company/company-about-full";
 import { CompanyCeoBlock } from "@/components/company/company-ceo-block";
@@ -14,9 +14,12 @@ import { CompanyPortfolioTable } from "@/components/company/company-portfolio-ta
 import { CompanySnapshotFull } from "@/components/company/company-snapshot-full";
 import { CompanyStrengthsFull } from "@/components/company/company-strengths-full";
 import { CompanyTechSustainability } from "@/components/company/company-tech-sustainability";
+import { StatsSection } from "@/components/home/stats-section";
+import { TeamSection } from "@/components/home/team-section";
 import { ValuesSection } from "@/components/home/values-section";
 import { Button } from "@/components/ui/button";
-import { getResolvedPageHero } from "@/lib/media/merge";
+import type { Locale } from "@/lib/i18n/locales";
+import { getMergedLeadershipTeam, getResolvedPageHero } from "@/lib/media/merge";
 import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { siteConfig } from "@/lib/site";
@@ -36,6 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function CompanyPage() {
   const t = await getTranslations("company");
+  const locale = (await getLocale()) as Locale;
+  const team = await getMergedLeadershipTeam(locale);
   const hero = await getResolvedPageHero("company");
   const companyHeroImage = hero?.desktop ?? companyHeroFallback;
   const companyHeroAlt = hero?.alt ?? "";
@@ -63,11 +68,13 @@ export default async function CompanyPage() {
         </div>
       </div>
       <CompanySnapshotFull />
+      <StatsSection />
       <CompanyAboutFull />
       <CompanyMissionVisionBlock />
       <ValuesSection sectionId="values-company" headingId="values-company-heading" />
       <CompanyGovernanceSection />
       <OrganizationChartSection />
+      <TeamSection members={team} />
       <CompanyCoreAreasFull />
       <CompanyPortfolioTable />
       <CompanyStrengthsFull />
