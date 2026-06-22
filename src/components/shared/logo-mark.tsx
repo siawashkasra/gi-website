@@ -24,9 +24,7 @@ export function LogoMark({ className, variant = "dark", siteLogoUrl, siteLogoAlt
           )}
         </span>
       ) : (
-        <span className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border text-sm font-semibold tracking-tight transition-colors", variant === "dark" ? "border-primary/30 bg-primary text-primary-foreground" : "border-white/25 bg-white/10 text-white")} aria-hidden>
-          GI
-        </span>
+        <img src={variant === "dark" ? "/logos/gi-emblem-navy.png" : "/logos/gi-emblem-white.png"} alt="" aria-hidden className="size-10 shrink-0 object-contain" />
       )}
       {!siteLogoUrl ? (
         <span className={cn("flex flex-col leading-tight", variant === "dark" ? "text-primary" : "text-white")}>

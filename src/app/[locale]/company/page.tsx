@@ -14,12 +14,13 @@ import { CompanyPortfolioTable } from "@/components/company/company-portfolio-ta
 import { CompanySnapshotFull } from "@/components/company/company-snapshot-full";
 import { CompanyStrengthsFull } from "@/components/company/company-strengths-full";
 import { CompanyTechSustainability } from "@/components/company/company-tech-sustainability";
+import { OurCompaniesSection } from "@/components/home/our-companies-section";
 import { StatsSection } from "@/components/home/stats-section";
 import { TeamSection } from "@/components/home/team-section";
 import { ValuesSection } from "@/components/home/values-section";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/lib/i18n/locales";
-import { getMergedLeadershipTeam, getResolvedPageHero } from "@/lib/media/merge";
+import { getMergedCompanies, getMergedLeadershipTeam, getResolvedPageHero } from "@/lib/media/merge";
 import { mergePageMetadata } from "@/lib/seo/page-metadata";
 import { isUploadAssetPath } from "@/lib/media/is-upload-path";
 import { siteConfig } from "@/lib/site";
@@ -41,6 +42,7 @@ export default async function CompanyPage() {
   const t = await getTranslations("company");
   const locale = (await getLocale()) as Locale;
   const team = await getMergedLeadershipTeam(locale);
+  const companies = await getMergedCompanies(locale);
   const hero = await getResolvedPageHero("company");
   const companyHeroImage = hero?.desktop ?? companyHeroFallback;
   const companyHeroAlt = hero?.alt ?? "";
@@ -67,9 +69,9 @@ export default async function CompanyPage() {
           </div>
         </div>
       </div>
+      <CompanyAboutFull />
       <CompanySnapshotFull />
       <StatsSection />
-      <CompanyAboutFull />
       <CompanyMissionVisionBlock />
       <ValuesSection sectionId="values-company" headingId="values-company-heading" />
       <CompanyGovernanceSection />
@@ -77,6 +79,7 @@ export default async function CompanyPage() {
       <TeamSection members={team} />
       <CompanyCoreAreasFull />
       <CompanyPortfolioTable />
+      <OurCompaniesSection companies={companies} />
       <CompanyStrengthsFull />
       <CompanyTechSustainability />
       <CompanyMarketGrowth />
