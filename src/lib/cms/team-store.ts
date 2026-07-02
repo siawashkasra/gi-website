@@ -9,7 +9,8 @@ export function readStoredTeamLocale(locale: CmsLocale): TeamMember[] {
   const row = fetchContentDocument("team", "all", locale);
   if (row) {
     const parsed = JSON.parse(row.payloadJson) as unknown;
-    if (Array.isArray(parsed) && parsed.length > 0) return normalizeTeamMembers(parsed as TeamMemberRecord[]) as TeamMember[];
+    // A present row is authoritative even when empty (admin removed all members).
+    if (Array.isArray(parsed)) return normalizeTeamMembers(parsed as TeamMemberRecord[]) as TeamMember[];
   }
   const bundled = getBundledCmsPayload("team", "all", locale);
   if (Array.isArray(bundled) && bundled.length > 0) return normalizeTeamMembers(bundled as TeamMemberRecord[]) as TeamMember[];
@@ -38,7 +39,6 @@ export function removeStoredTeamMemberAllLocales(memberId: string) {
   for (const locale of ["en", "fa-AF", "ps"] as const) {
     const current = readStoredTeamLocale(locale);
     const next = current.filter((m, i) => resolveTeamMemberId(m, i) !== memberId);
-    if (next.length === 0) throw new Error("Team must include at least one member");
     writeStoredTeamLocale(locale, next);
   }
 }

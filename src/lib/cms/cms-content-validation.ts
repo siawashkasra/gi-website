@@ -12,7 +12,6 @@ export function isCmsEntityType(v: string): v is CmsEntityType {
 export function validateAndNormalizeContentPayload(entityType: CmsEntityType, payload: unknown): { ok: true; payload: Record<string, unknown> | unknown[] } | { ok: false; message: string; code: string } {
   if (entityType === "team") {
     if (!Array.isArray(payload)) return { ok: false, message: "team payload must be an array", code: "INVALID_PAYLOAD" };
-    if (payload.length === 0) return { ok: false, message: "team must include at least one member", code: "INVALID_PAYLOAD" };
     for (const item of payload) {
       if (!item || typeof item !== "object") return { ok: false, message: "team members must be objects", code: "INVALID_PAYLOAD" };
       const m = item as Record<string, unknown>;

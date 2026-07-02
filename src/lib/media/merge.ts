@@ -105,7 +105,9 @@ export const getMergedLeadershipTeam = cache(async (locale: CmsLocale): Promise<
   const cmsTeam = getLocalizedTeam(messages);
   const bundled = getBundledCmsPayload("team", "all", locale);
   const bundledTeam = Array.isArray(bundled) ? (bundled as TeamMember[]) : [];
-  const list = cmsTeam.length > 0 ? cmsTeam : bundledTeam.length > 0 ? bundledTeam : locale === "en" ? leadershipTeam : bundledTeam;
+  // Trust messages.team when present (an empty array means the team was intentionally cleared);
+  // fall back to bundled/static defaults only when the field is entirely absent.
+  const list = Array.isArray(cmsTeam) ? cmsTeam : bundledTeam.length > 0 ? bundledTeam : locale === "en" ? leadershipTeam : bundledTeam;
   const staticById = teamMembersById(leadershipTeam) as Map<string, TeamMember>;
   return normalizeTeamMembers(list).map((m, i) => {
     const id = resolveTeamMemberId(m, i);

@@ -24,6 +24,7 @@ export function TeamSection({ members }: { members?: TeamMember[] }) {
   const t = useTranslations("home.team");
   const leadershipTeam = members ?? staticLeadershipTeam;
   const reduce = useReducedMotion();
+  if (leadershipTeam.length === 0) return null;
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.06 } } };
   const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.48, ease: easeLuxury } } };
   return (

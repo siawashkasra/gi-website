@@ -33,7 +33,9 @@ function mergeMember(locale: CmsLocale, patch: Record<string, unknown>, index: n
 
 export function mergeTeamCmsPayload(locale: CmsLocale, bundledTeam: TeamMember[], stored: unknown): TeamMember[] {
   const normalizedBundled = normalizeTeamMembers(bundledTeam) as TeamMember[];
-  if (!Array.isArray(stored) || stored.length === 0) return normalizedBundled;
+  // An empty (but present) stored array means the team was intentionally cleared — honor it.
+  if (!Array.isArray(stored)) return normalizedBundled;
+  if (stored.length === 0) return [];
   const enRef = getBundledCmsPayload("team", "all", "en");
   const enTeam = normalizeTeamMembers(Array.isArray(enRef) ? (enRef as TeamMember[]) : []) as TeamMember[];
   const bundledById = teamMembersById(normalizedBundled) as Map<string, TeamMember>;

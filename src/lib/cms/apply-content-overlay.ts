@@ -19,7 +19,7 @@ export function applyContentOverlays(messages: Record<string, unknown>, rows: Co
       continue;
     }
     if (row.entityType === "team") {
-      if (!Array.isArray(payload) || payload.length === 0) continue;
+      if (!Array.isArray(payload)) continue;
       const bundled = (Array.isArray(messages.team) ? messages.team : []) as TeamMember[];
       messages.team = mergeTeamCmsPayload(row.locale as CmsLocale, bundled, payload);
       continue;

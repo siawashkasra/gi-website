@@ -76,7 +76,7 @@ export default async function CompanyPage() {
       <ValuesSection sectionId="values-company" headingId="values-company-heading" />
       <CompanyGovernanceSection />
       <OrganizationChartSection />
-      <TeamSection members={team} />
+      {team.length > 0 ? <TeamSection members={team} /> : null}
       <CompanyCoreAreasFull />
       <CompanyPortfolioTable />
       <OurCompaniesSection companies={companies} />
