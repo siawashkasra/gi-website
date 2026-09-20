@@ -1,11 +1,17 @@
-import Link from "next/link";
+import { getMessages, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
+import { localizeMergedProjects, type Messages } from "@/lib/i18n/localized-data";
+import { fetchFeaturedProjectSlugs } from "@/lib/cms/project-featured-repo";
 import { getMergedProjects } from "@/lib/media/merge";
 
 export async function FeaturedProjects() {
-  const merged = await getMergedProjects();
+  const t = await getTranslations("home.featured");
+  const messages = await getMessages();
+  const featuredSlugs = fetchFeaturedProjectSlugs();
+  const merged = localizeMergedProjects(messages as Messages, await getMergedProjects()).map((p) => ({ ...p, featured: featuredSlugs.has(p.slug) }));
   const marked = merged.filter((p) => p.featured);
   const featured = marked.length > 0 ? marked : merged.slice(0, 3);
   return (
@@ -13,9 +19,9 @@ export async function FeaturedProjects() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" aria-hidden />
       <div className="ds-container">
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <SectionHeading eyebrow="Featured" title="Portfolio of developments" description="Mixed-use, residential, commercial, industrial, and energy projects in strategic urban and infrastructure locations — from Gulbahar Center and Towers to Plaza, Cement, and Power." className="max-w-xl" />
+          <SectionHeading eyebrow={t("eyebrow")} title={t("title")} description={t("description")} className="max-w-xl" />
           <Button render={<Link href="/projects" />} nativeButton={false} variant="outline" size="sm" className="h-9 shrink-0 self-start border-primary/20 px-5 text-xs font-semibold uppercase tracking-[0.18em] hover:border-primary/40 hover:bg-primary/5 md:self-auto">
-            View all
+            {t("viewAll")}
           </Button>
         </div>
         <div className="mt-16 grid gap-8 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10">

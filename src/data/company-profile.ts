@@ -168,7 +168,8 @@ export const portfolioTableRows = [
 
 export const homeHighlights = { aboutParagraphCount: 2, competitiveStrengthIndices: [0, 1, 2] as const, governanceTeaser: governanceIntro[0]!, companyCtaPath: "/company" as const, snapshotHomeCount: 6 };
 
-export function leadFromBody(body: string, maxLen = 220) {
+export function leadFromBody(body: string | undefined, maxLen = 220) {
+  if (!body) return "";
   const t = body.trim();
   if (t.length <= maxLen) return t;
   const cut = t.slice(0, maxLen);

@@ -21,6 +21,8 @@ export default {
         },
       },
       fontFamily: {
+        sans: ['var(--font-manrope), ui-sans-serif, system-ui, sans-serif'],
+        vazirmatn: ["var(--font-vazirmatn)", "Tahoma", "Arial", "sans-serif"],
         heading: ['var(--font-manrope), ui-sans-serif, system-ui, sans-serif'],
         body: ['var(--font-manrope), ui-sans-serif, system-ui, sans-serif'],
       },

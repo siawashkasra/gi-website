@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocalizedFormat } from "@/lib/i18n/use-localized-format";
 
 type AnimatedCounterProps = {
   start?: number;
@@ -9,6 +10,7 @@ type AnimatedCounterProps = {
   suffix?: string;
   prefix?: string;
   className?: string;
+  groupThousands?: boolean;
 };
 
 function prefersReducedMotion() {
@@ -16,7 +18,8 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, suffix = "", prefix = "", className }: AnimatedCounterProps) {
+export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, suffix = "", prefix = "", className, groupThousands = true }: AnimatedCounterProps) {
+  const { formatNumber, formatInteger, localizeText } = useLocalizedFormat();
   const [value, setValue] = useState(startVal);
   const ref = useRef<HTMLSpanElement>(null);
   const done = useRef(false);
@@ -51,11 +54,12 @@ export function AnimatedCounter({ start: startVal = 0, end, durationMs = 2200, s
     return () => ob.disconnect();
   }, [end, durationMs, startVal]);
 
+  const formatValue = groupThousands ? formatNumber : formatInteger;
   return (
     <span ref={ref} className={className}>
-      {prefix}
-      {value.toLocaleString()}
-      {suffix}
+      {localizeText(prefix)}
+      {formatValue(value)}
+      {localizeText(suffix)}
     </span>
   );
 }

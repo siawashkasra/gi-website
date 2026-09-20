@@ -1,13 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useMessages, useTranslations } from "next-intl";
 import type { CompanyValueItem } from "@/data/company-profile";
-import { companyValues } from "@/data/company-profile";
+import { getLocalizedCompanyValues, type Messages } from "@/lib/i18n/localized-data";
 import { cn } from "@/lib/utils";
 
 const easeLuxury = [0.16, 1, 0.3, 1] as const;
-
-const FEATURED_VALUE_TITLE = "Integrity";
 
 function ValueCard({ title, body, featured = false }: Pick<CompanyValueItem, "title" | "body"> & { featured?: boolean }) {
   return (
@@ -26,7 +25,7 @@ function ValueCard({ title, body, featured = false }: Pick<CompanyValueItem, "ti
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(195deg,rgba(255,255,255,0.04)_0%,transparent_45%)]" aria-hidden />
         </>
       ) : (
-        <div className="pointer-events-none absolute -right-6 -top-6 size-24 rounded-full bg-primary/[0.05] transition-transform duration-500 group-hover:scale-110" aria-hidden />
+        <div className="pointer-events-none absolute -end-6 -top-6 size-24 rounded-full bg-primary/[0.05] transition-transform duration-500 group-hover:scale-110" aria-hidden />
       )}
       <h3 className={cn("relative z-[1] font-heading font-semibold tracking-tight", featured ? "text-2xl text-white sm:text-[1.65rem] lg:text-[1.75rem]" : "text-xl text-gi-navy")}>{title}</h3>
       <p className={cn("relative z-[1] mt-3 flex-1 font-sans font-normal leading-relaxed", featured ? "text-base text-white/88 sm:text-[1.0625rem] sm:leading-[1.75]" : "text-sm text-muted-foreground")}>{body}</p>
@@ -37,10 +36,13 @@ function ValueCard({ title, body, featured = false }: Pick<CompanyValueItem, "ti
 type ValuesSectionProps = { sectionId?: string; headingId?: string };
 
 export function ValuesSection({ sectionId = "values", headingId = "values-heading" }: ValuesSectionProps) {
+  const t = useTranslations("home.values");
+  const messages = useMessages() as Messages;
+  const companyValues = getLocalizedCompanyValues(messages);
   const reduce = useReducedMotion();
-  const featuredIndex = companyValues.findIndex((v) => v.title === FEATURED_VALUE_TITLE);
+  const featuredIndex = companyValues.findIndex((v) => v.icon === "shield");
   const featured = companyValues[featuredIndex >= 0 ? featuredIndex : 0]!;
-  const others = companyValues.filter((v) => v.title !== featured.title);
+  const others = companyValues.filter((v) => v.icon !== featured.icon);
   const list = { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: reduce ? 0 : 0.06 } } };
   const item = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.46, ease: easeLuxury } } };
   return (
@@ -48,9 +50,9 @@ export function ValuesSection({ sectionId = "values", headingId = "values-headin
       <div className="ds-container">
         <motion.div className="overflow-hidden rounded-3xl border border-border/60 shadow-[0_28px_90px_-42px_rgba(13,27,62,0.18)]" initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-72px" }} transition={reduce ? { duration: 0 } : { duration: 0.75, ease: easeLuxury }}>
           <div className="relative border-b border-border/50 bg-gradient-to-b from-white to-gi-navy/[0.02] px-7 py-9 text-center sm:px-9 sm:py-10 lg:px-11 lg:py-11 xl:px-12">
-            <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">Principles</p>
-            <h2 id={headingId} className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">Core values</h2>
-            <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">The standards that guide governance, delivery, and relationships across the group.</p>
+            <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary/85">{t("eyebrow")}</p>
+            <h2 id={headingId} className="mx-auto mt-3 max-w-2xl font-heading text-[clamp(1.65rem,3.2vw,2.65rem)] font-semibold leading-[1.08] tracking-tight text-gi-navy">{t("title")}</h2>
+            <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">{t("description")}</p>
           </div>
           <div className="relative bg-white px-7 py-9 sm:px-9 sm:py-10 lg:px-10 lg:py-11 xl:px-12 xl:py-12">
             <motion.div className="mx-auto flex max-w-6xl flex-col gap-6 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-8" variants={list} initial={reduce ? "visible" : "hidden"} whileInView="visible" viewport={{ once: true, margin: "-28px" }}>
@@ -65,7 +67,7 @@ export function ValuesSection({ sectionId = "values", headingId = "values-headin
                 ))}
               </div>
             </motion.div>
-            <p className="mx-auto mt-10 max-w-3xl border-t border-border/50 pt-6 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:text-xs">Values express institutional expectations; policies, procedures, and governance detail how they are applied in practice.</p>
+            <p className="mx-auto mt-10 max-w-3xl border-t border-border/50 pt-6 text-center font-sans text-[0.6875rem] leading-relaxed text-muted-foreground sm:text-xs">{t("footnote")}</p>
           </div>
         </motion.div>
       </div>

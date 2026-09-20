@@ -21,3 +21,17 @@ export function fetchRecentAssets(limit: number) {
   const db = getDb();
   return db.select().from(assets).orderBy(desc(assets.createdAt)).limit(limit).all();
 }
+
+export function fetchAssetsForAdmin(limit: number) {
+  const db = getDb();
+  const rows = db.select().from(assets).orderBy(desc(assets.createdAt)).limit(limit).all();
+  const placementRows = db.select({ assetId: placements.assetId, key: placements.placementKey }).from(placements).all();
+  const byAsset = new Map<string, string[]>();
+  for (const p of placementRows) {
+    if (!p.assetId) continue;
+    const list = byAsset.get(p.assetId) ?? [];
+    list.push(p.key);
+    byAsset.set(p.assetId, list);
+  }
+  return rows.map((a) => ({ ...a, placementKeys: byAsset.get(a.id) ?? [] }));
+}
